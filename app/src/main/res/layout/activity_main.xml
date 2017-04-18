@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutDrawer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/layoutTopBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:padding="@dimen/topBarPadding"
+            android:background="@color/colorPrimary"
+            android:elevation="@dimen/topBarElevation">
+
+            <TextView
+                android:id="@+id/textViewCompanyName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffffff"
+                android:fontFamily="monospace"
+                android:textStyle="bold"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:text="Company Name Goes Here Inc."/>
+
+            <TextView
+                android:id="@+id/textViewDateTime"
+                android:layout_below="@id/textViewCompanyName"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffffff"
+                android:fontFamily="monospace"
+                android:textStyle="bold"
+                android:text="Y12 M5 D18 H9"/>
+
+            <TextView
+                android:id="@+id/textViewMoney"
+                android:layout_below="@id/textViewDateTime"
+                android:layout_alignParentLeft="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffffff"
+                android:fontFamily="monospace"
+                android:textStyle="bold"
+                android:layout_centerHorizontal="true"
+                android:text="$ 143.82k"/>
+
+            <TextView
+                android:id="@+id/textViewEfficiency"
+                android:layout_alignTop="@id/textViewMoney"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffffff"
+                android:fontFamily="monospace"
+                android:textStyle="bold"
+                android:text="E 0.824 (+0.041)"/>
+
+
+        </RelativeLayout>
+
+
+        <FrameLayout
+            android:id="@+id/layoutFragmentContainer"
+            android:layout_below="@id/layoutTopBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </FrameLayout>
+
+    </RelativeLayout>
+
+    <!-- ListView for the navigation drawer -->
+    <RelativeLayout
+        android:layout_width="@dimen/navigationDrawerWidth"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/colorPrimaryDark">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerVertical="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffffff"
+                android:fontFamily="monospace"
+                android:textStyle="bold"
+                android:layout_margin="@dimen/navigationDrawerItemMargin"
+                android:text="[0] Dashboard"
+                />
+
+            <TextView
+                android:id="@+id/textViewNavProjects"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffffff"
+                android:fontFamily="monospace"
+                android:textStyle="bold"
+                android:layout_margin="@dimen/navigationDrawerItemMargin"
+                android:text="[1] Projects"
+                />
+
+            <TextView
+                android:id="@+id/textViewNavEmployees"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffffff"
+                android:fontFamily="monospace"
+                android:textStyle="bold"
+                android:layout_margin="@dimen/navigationDrawerItemMargin"
+                android:text="[2] Human Resources"
+                />
+
+            <TextView
+                android:id="@+id/textViewNavFinances"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffffff"
+                android:fontFamily="monospace"
+                android:textStyle="bold"
+                android:layout_margin="@dimen/navigationDrawerItemMargin"
+                android:text="[3] Finances"
+                />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <!--ListView
+        android:id="@+id/listViewNavDrawer"
+        android:layout_width="@dimen/navigationDrawerWidth"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:choiceMode="singleChoice"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0dp"
+        android:background="@color/colorPrimaryDark"/-->
+
+</android.support.v4.widget.DrawerLayout>

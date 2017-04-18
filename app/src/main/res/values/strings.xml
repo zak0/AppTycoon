@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Software Tycoon</string>
+    <string-array name="navigation_drawer_items">
+        <item>Projects</item>
+        <item>Human Resources</item>
+        <item>Premises</item>
+        <item>IT</item>
+        <item>Upgrades</item>
+    </string-array>
+</resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="topBarPadding">6dp</dimen>
+    <dimen name="topBarElevation">4dp</dimen>
+
+    <dimen name="navigationDrawerWidth">240dp</dimen>
+    <dimen name="navigationDrawerItemMargin">10dp</dimen>
+    <dimen name="navigationDrawerItemElevation">4dp</dimen>
+
+    <dimen name="fragmentTopPadding">6dp</dimen>
+    <dimen name="fragmentPadding">6dp</dimen>
+</resources>
