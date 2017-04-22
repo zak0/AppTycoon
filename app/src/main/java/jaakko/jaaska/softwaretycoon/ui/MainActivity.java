@@ -1,11 +1,7 @@
 package jaakko.jaaska.softwaretycoon.ui;
 
-import android.app.Activity;
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -15,17 +11,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.FrameLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import jaakko.jaaska.softwaretycoon.R;
 import jaakko.jaaska.softwaretycoon.engine.core.GameEngine;
-import jaakko.jaaska.softwaretycoon.utils.Utils;
+import jaakko.jaaska.softwaretycoon.ui.fragment.EmployeesFragment;
 
 /**
  * Created by jaakko on 7.3.2017.
@@ -42,9 +33,6 @@ public class MainActivity extends FragmentActivity {
     private int mCurrentFragment = Integer.MIN_VALUE;
 
     private DrawerLayout mDrawerLayout;
-
-
-    //private GameEngine engine;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

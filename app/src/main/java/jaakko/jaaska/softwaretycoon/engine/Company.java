@@ -46,6 +46,8 @@ public class Company {
         mEmployees = new ArrayList<>();
         mCumulativeLanguageTechSkills = new HashMap<>();
 
+
+
         // Prepopulate the cumulative language specific tech skill map.
         for (Language lang : Language.getAllLanguages()) {
             mCumulativeLanguageTechSkills.put(lang.getId(), 0l);

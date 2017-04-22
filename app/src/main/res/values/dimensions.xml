@@ -7,6 +7,8 @@
     <dimen name="navigationDrawerItemMargin">10dp</dimen>
     <dimen name="navigationDrawerItemElevation">4dp</dimen>
 
+    <dimen name="fragmentTitleBarElevation">4dp</dimen>
     <dimen name="fragmentTopPadding">6dp</dimen>
-    <dimen name="fragmentPadding">6dp</dimen>
+    <dimen name="fragmentPadding">10dp</dimen>
+    <dimen name="fragmentSectionPadding">10dp</dimen>
 </resources>

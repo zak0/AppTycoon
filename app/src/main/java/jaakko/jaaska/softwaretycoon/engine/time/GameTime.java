@@ -183,4 +183,12 @@ public class GameTime {
 
         return new GameTime(fraction, hour, day, month, year);
     }
+
+    /**
+     * Duplicates the current GameTime
+     * @return Exact duplicate of a current GameTime
+     */
+    public GameTime duplicate() {
+        return new GameTime(mFraction, mHour, mDay, mMonth, mYear);
+    }
 }
