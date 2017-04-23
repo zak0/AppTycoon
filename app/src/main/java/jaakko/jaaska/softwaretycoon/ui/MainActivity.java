@@ -2,6 +2,7 @@ package jaakko.jaaska.softwaretycoon.ui;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -17,17 +18,18 @@ import android.widget.TextView;
 import jaakko.jaaska.softwaretycoon.R;
 import jaakko.jaaska.softwaretycoon.engine.core.GameEngine;
 import jaakko.jaaska.softwaretycoon.ui.fragment.EmployeesFragment;
+import jaakko.jaaska.softwaretycoon.ui.fragment.ProjectsFragment;
 
 /**
  * Created by jaakko on 7.3.2017.
  */
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends FragmentActivity implements UiUpdater {
 
     private static final String TAG = "MainActivity";
 
-    private static final int PROJECTS_FRAGMENT = 0;
-    private static final int EMPLOYEES_FRAGMENT = 1;
+    public static final int FRAGMENT_PROJECTS = 0;
+    public static final int FRAGMENT_HUMAN_RESOURCES = 1;
 
     /** Currently visible fragment. */
     private int mCurrentFragment = Integer.MIN_VALUE;
@@ -55,7 +57,7 @@ public class MainActivity extends FragmentActivity {
                     .add(R.id.layoutFragmentContainer, projectsFragment)
                     .commit();
 
-            mCurrentFragment = PROJECTS_FRAGMENT;
+            mCurrentFragment = FRAGMENT_PROJECTS;
         }
 
         RelativeLayout topBar = (RelativeLayout) findViewById(R.id.layoutTopBar);
@@ -63,7 +65,12 @@ public class MainActivity extends FragmentActivity {
             @Override
             public void onClick(View v) {
                 mDrawerLayout.openDrawer(GravityCompat.START);
-                //switchFragment(mCurrentFragment == EMPLOYEES_FRAGMENT ? PROJECTS_FRAGMENT : EMPLOYEES_FRAGMENT);
+
+                Message msg = UiUpdateHandler.getInstance().obtainMessage(UiUpdateHandler.ACTION_REPLACE_FRAGMENT);
+                Bundle data = new Bundle();
+                data.putInt("FRAGMENT", FRAGMENT_HUMAN_RESOURCES);
+                msg.setData(data);
+                msg.sendToTarget();
             }
         });
 
@@ -71,9 +78,23 @@ public class MainActivity extends FragmentActivity {
         //
         // Navigation drawer item handling
         mDrawerLayout = (DrawerLayout) findViewById(R.id.layoutDrawer);
-        setNavItemListeners((TextView) findViewById(R.id.textViewNavProjects), PROJECTS_FRAGMENT);
-        setNavItemListeners((TextView) findViewById(R.id.textViewNavEmployees), EMPLOYEES_FRAGMENT);
+        setNavItemListeners((TextView) findViewById(R.id.textViewNavProjects), FRAGMENT_PROJECTS);
+        setNavItemListeners((TextView) findViewById(R.id.textViewNavEmployees), FRAGMENT_HUMAN_RESOURCES);
 
+    }
+
+    @Override
+    protected void onResume() {
+        Log.d(TAG, "onResume()");
+        super.onResume();
+        UiUpdateHandler.getInstance().registerUpdater(this, UiUpdateHandler.ACTION_REPLACE_FRAGMENT);
+    }
+
+    @Override
+    protected void onPause() {
+        Log.d(TAG, "onPause()");
+        super.onPause();
+        UiUpdateHandler.getInstance().unRegisterUpdater(this);
     }
 
     /**
@@ -81,13 +102,15 @@ public class MainActivity extends FragmentActivity {
      * @param fragment Const of the fragment to switch to.
      */
     private void switchFragment(int fragment) {
+        Log.d(TAG, "switchFragment() - fragment = " + fragment);
+
         Fragment newFragment = null;
 
         switch(fragment) {
-            case PROJECTS_FRAGMENT:
+            case FRAGMENT_PROJECTS:
                 newFragment = new ProjectsFragment();
                 break;
-            case EMPLOYEES_FRAGMENT:
+            case FRAGMENT_HUMAN_RESOURCES:
                 newFragment = new EmployeesFragment();
                 break;
             default:
@@ -154,4 +177,8 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
+    @Override
+    public void updateUi(Bundle args) {
+        switchFragment(args.getInt(UiUpdateHandler.ARG_TARGET_FRAGMENT));
+    }
 }

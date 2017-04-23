@@ -1,4 +1,4 @@
-package jaakko.jaaska.softwaretycoon.ui;
+package jaakko.jaaska.softwaretycoon.ui.fragment;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
