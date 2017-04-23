@@ -22,7 +22,7 @@ public class GameEngine {
 
     private static GameEngine sInstance;
 
-    public static GameEngine getInstance() {
+    public static synchronized GameEngine getInstance() {
         if (sInstance == null) {
             sInstance = new GameEngine();
         }

@@ -44,7 +44,7 @@ public class UiUpdateHandler extends Handler {
         mUpdaters = new HashMap<>();
     }
 
-    public static UiUpdateHandler getInstance() {
+    public static synchronized UiUpdateHandler getInstance() {
         if (sInstance == null) {
             sInstance = new UiUpdateHandler();
         }
