@@ -103,6 +103,8 @@ public class Job {
 
         sAllJobs = new ArrayList<>();
 
+        sAllJobs.add(new Job("Founder", JobType.MANAGEMENT, 0, 0, 0, 0, 0));
+
         sAllJobs.add(new Job("Application Developer", JobType.DEVELOPMENT, 2300, 5, 0, 0, 0));
         sAllJobs.add(new Job("Application Support Analyst", JobType.CUSTOMER_SUPPORT, 2400, 5, 0, 1, 2));
         sAllJobs.add(new Job("Applications Engineer", JobType.DEVELOPMENT, 2700, 6, 2, 0, 0));

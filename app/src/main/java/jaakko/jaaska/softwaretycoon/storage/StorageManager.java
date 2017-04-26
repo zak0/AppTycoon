@@ -22,6 +22,9 @@ public class StorageManager {
     /**
      * Saves GameState into the local database.
      *
+     * All game activity needs to be stopped to ensure an intact
+     * and a 100% valid save.
+     *
      * @param gs GameState to save.
      */
     public static void saveToDb(GameState gs) {

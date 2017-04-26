@@ -144,6 +144,18 @@ public class GameTime {
                 + (mDay - 1)) % 7;
     }
 
+    /**
+     * Returns the time in milliseconds from Y1 D1 M1 D1 H0
+     * @return
+     */
+    public long getTimInMillis() {
+        return mFraction +
+                mHour * 3600000 +
+                mDay * 24 * 3600000 +
+                mMonth * 30 * 24 * 3600000 +
+                mYear * 12 * 30 * 24 * 3600000;
+    }
+
     @Override
     public String toString() {
         return "Y" + mYear + " M" + mMonth + " D" + mDay + " H" + mHour;
