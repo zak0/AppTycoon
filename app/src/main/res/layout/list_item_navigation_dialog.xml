@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/navigationDrawerItemMargin"
-        android:textColor="@color/colorPrimaryText"
+        android:textColor="@color/primary_text"
         android:fontFamily="monospace"
         android:textStyle="bold"
         android:text="TextView" />

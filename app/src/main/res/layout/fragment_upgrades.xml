@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/fragmentPadding"
-        android:textColor="@color/colorPrimaryText"
+        android:textColor="@color/primary_text"
         android:fontFamily="monospace"
         android:textStyle="bold"
         android:text="Upgrades"
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/fragmentPadding"
         android:layout_alignParentRight="true"
-        android:textColor="@color/colorPrimaryText"
+        android:textColor="@color/primary_text"
         android:fontFamily="monospace"
         android:textStyle="bold"
         android:text="3/108 unlocked"/>

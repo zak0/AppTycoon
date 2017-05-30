@@ -6,7 +6,7 @@
 
     <RelativeLayout
         android:id="@+id/layoutFragmentTitle"
-        android:background="@color/colorAccent"
+        android:background="@color/accent"
         android:padding="@dimen/fragmentPadding"
         android:elevation="@dimen/fragmentTitleBarElevation"
         android:layout_width="match_parent"
@@ -36,7 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="monospace"
-            android:textColor="@color/colorPrimaryText"
+            android:textColor="@color/primary_text"
             android:textStyle="bold"
             android:text="Open applications"/>
 
@@ -45,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="monospace"
-            android:textColor="@color/colorPrimaryText"
+            android:textColor="@color/primary_text"
             android:layout_alignTop="@id/textViewOpenApplicationsCountTitle"
             android:layout_alignParentRight="true"
             android:text="12"/>
@@ -55,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="monospace"
-            android:textColor="@color/colorPrimaryText"
+            android:textColor="@color/primary_text"
             android:layout_below="@id/textViewOpenApplicationsCountTitle"
             android:textStyle="bold"
             android:text="Job applications"/>
@@ -65,7 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="monospace"
-            android:textColor="@color/colorPrimaryText"
+            android:textColor="@color/primary_text"
             android:layout_alignTop="@id/textViewRegularApplicationsCountTitle"
             android:layout_alignParentRight="true"
             android:text="0"/>
@@ -77,7 +77,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="monospace"
-            android:textColor="@color/colorPrimaryText"
+            android:textColor="@color/primary_text"
             android:layout_below="@id/textViewRegularApplicationsCountTitle"
             android:layout_marginTop="@dimen/fragmentSectionPadding"
             android:textStyle="bold"
@@ -88,7 +88,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="monospace"
-            android:textColor="@color/colorPrimaryText"
+            android:textColor="@color/primary_text"
             android:layout_alignTop="@id/textViewEmployeesCountTitle"
             android:layout_alignParentRight="true"
             android:text="0"/>
@@ -98,7 +98,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="monospace"
-            android:textColor="@color/colorPrimaryText"
+            android:textColor="@color/primary_text"
             android:layout_below="@id/textViewEmployeesCountTitle"
             android:textStyle="bold"
             android:text="Free desks"/>
@@ -108,7 +108,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="monospace"
-            android:textColor="@color/colorPrimaryText"
+            android:textColor="@color/primary_text"
             android:layout_alignTop="@id/textViewEmployeeSlotsCountTitle"
             android:layout_alignParentRight="true"
             android:text="3"/>

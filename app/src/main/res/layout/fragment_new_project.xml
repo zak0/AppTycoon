@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/layoutFragmentTitle"
+        android:background="@color/accent"
+        android:padding="@dimen/fragmentPadding"
+        android:elevation="@dimen/fragmentTitleBarElevation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textViewBack"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:fontFamily="monospace"
+            android:text="&lt; Back"/>
+
+        <TextView
+            android:id="@+id/textViewTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:fontFamily="monospace"
+            android:textStyle="bold"
+            android:layout_centerInParent="true"
+            android:text="New Project"
+            />
+
+        <TextView
+            android:id="@+id/textViewAction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:fontFamily="monospace"
+            android:layout_alignParentRight="true"
+            android:text="Kickoff"
+            />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <!-- Container for a header. This is inflated
+        at runtime with one of these layouts depending
+        on the type of the new project. -->
+        <LinearLayout
+            android:id="@+id/layoutHeaderContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/fragmentPadding"
+            android:orientation="vertical"/>
+
+        <RelativeLayout
+            android:layout_below="@id/layoutHeaderContainer"
+            android:layout_marginTop="@dimen/fragmentSectionPadding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerViewProjectTasks"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </RelativeLayout>
+
+        </RelativeLayout>
+    </LinearLayout>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/textViewProjectName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="monospace"
+        android:textStyle="bold"
+        android:textColor="@color/primary_text"
+        android:layout_marginBottom="@dimen/marginBelowCardTitle"
+        android:text="Project name"/>
+
+    <!--
+
+
+        TITLES
+
+    -->
+    <TextView
+        android:id="@+id/textViewCustomerTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewProjectName"
+        android:fontFamily="monospace"
+        android:textStyle="bold"
+        android:textColor="@color/primary_text"
+        android:text="Customer"/>
+
+    <TextView
+        android:id="@+id/textViewRewardTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewCustomerTitle"
+        android:fontFamily="monospace"
+        android:textStyle="bold"
+        android:textColor="@color/primary_text"
+        android:text="Reward"/>
+
+    <TextView
+        android:id="@+id/textViewComplexityTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewRewardTitle"
+        android:fontFamily="monospace"
+        android:textStyle="bold"
+        android:textColor="@color/primary_text"
+        android:text="Complexity"/>
+
+    <TextView
+        android:id="@+id/textViewQualityReqTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewComplexityTitle"
+        android:fontFamily="monospace"
+        android:textStyle="bold"
+        android:textColor="@color/primary_text"
+        android:text="Quality req."/>
+
+    <TextView
+        android:id="@+id/textViewTimeTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewQualityReqTitle"
+        android:fontFamily="monospace"
+        android:textStyle="bold"
+        android:textColor="@color/primary_text"
+        android:text="Deadline"/>
+
+
+    <!--
+
+    DATA
+
+    -->
+    <TextView
+        android:id="@+id/textViewCustomer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewProjectName"
+        android:layout_alignParentRight="true"
+        android:fontFamily="monospace"
+        android:textColor="@color/secondary_text"
+        android:text="Customer Name Inc."/>
+
+    <TextView
+        android:id="@+id/textViewReward"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewCustomerTitle"
+        android:layout_alignParentRight="true"
+        android:fontFamily="monospace"
+        android:textColor="@color/secondary_text"
+        android:text="Reward"/>
+
+    <TextView
+        android:id="@+id/textViewComplexity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewRewardTitle"
+        android:layout_alignParentRight="true"
+        android:fontFamily="monospace"
+        android:textColor="@color/secondary_text"
+        android:text="Complexity"/>
+
+    <TextView
+        android:id="@+id/textViewQualityReq"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewComplexityTitle"
+        android:layout_alignParentRight="true"
+        android:fontFamily="monospace"
+        android:textColor="@color/secondary_text"
+        android:text="Quality req."/>
+
+    <TextView
+        android:id="@+id/textViewTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewQualityReqTitle"
+        android:layout_alignParentRight="true"
+        android:fontFamily="monospace"
+        android:textColor="@color/secondary_text"
+        android:text="Deadline"/>
+
+
+
+</RelativeLayout>

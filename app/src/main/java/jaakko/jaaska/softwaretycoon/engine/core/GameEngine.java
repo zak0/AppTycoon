@@ -5,6 +5,7 @@ import android.util.Log;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import jaakko.jaaska.softwaretycoon.engine.Company;
+import jaakko.jaaska.softwaretycoon.engine.people.EmployeeType;
 
 /**
  * Created by jaakko on 7.3.2017.
@@ -40,7 +41,21 @@ public class GameEngine {
      */
     public void loadTestData() {
         mGameState = new GameState();
-        Company company = new Company("Gr8 Software Inc.", 10, 10000, 10000);
+        Company company = new Company("Jamitec Softworks Inc.", 10, 10000, 10000);
+
+        // Add project slots
+        for (int i = 0; i < 3; i++) {
+            company.addProjectSlot();
+        }
+
+        // Add employees
+        company.addEmployee(EmployeeType.TYPE_DEVELOPER, 3);
+        company.addEmployee(EmployeeType.TYPE_SENIOR_DEVELOPER, 1);
+        company.addEmployee(EmployeeType.TYPE_TEST_ENGINEER, 2);
+
+
+
+        mGameState.setCompany(company);
     }
 
 

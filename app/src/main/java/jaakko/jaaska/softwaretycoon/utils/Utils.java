@@ -34,6 +34,19 @@ public class Utils {
         return list.get(r.nextInt(list.size()));
     }
 
+
+    public static String millisecondsToTimeString(long milliseconds) {
+        // TODO: Custom formatting
+        double minutes = Math.floor(milliseconds / 60000);
+
+        double seconds = (double) (milliseconds - minutes * 60000) / 1000;
+        seconds = Math.floor(seconds);
+
+        String ret = String.format("%.0fm %.0fs", minutes, seconds);
+
+        return ret;
+    }
+
     public static String largeNumberToNiceString(long numberToConvert, int decimals) {
         String[] suffixes = {"k", "M", "G", "T", "P"};
         String suffix = "";
@@ -46,6 +59,15 @@ public class Utils {
                 suffix = suffixes[i];
                 break;
             }
+        }
+
+        //Log.d(TAG, "largeNumberToNiceString() - numberToConvert = " + numberToConvert);
+        //Log.d(TAG, "largeNumberToNiceString() - number = " + number);
+
+        // If no "power of 1000" was not found, just use the numberToConvert directly.
+        // This happens if the number is less than 1000.
+        if (number <= 0.0f) {
+            return Long.toString(numberToConvert);
         }
 
         double residue = number - Math.floor(number);
@@ -109,6 +131,12 @@ public class Utils {
         String ret = getRandomFromList(sFirstNames) + " " + getRandomFromList(sLastNames);
         Log.d(TAG, "new random name: " + ret);
         return ret;
+    }
+
+    public static String getRandomCustomer() {
+
+
+        return "Random Customer Inc.";
     }
 
 

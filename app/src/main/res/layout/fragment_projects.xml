@@ -1,29 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    android:paddingTop="@dimen/fragmentTopPadding">
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textViewTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/fragmentPadding"
-        android:textColor="@color/colorPrimaryText"
-        android:fontFamily="monospace"
-        android:textStyle="bold"
-        android:text="Projects"
-        />
+    <RelativeLayout
+        android:id="@+id/layoutFragmentTitle"
+        android:background="@color/accent"
+        android:padding="@dimen/fragmentPadding"
+        android:elevation="@dimen/fragmentTitleBarElevation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/textViewProjectSlots"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/fragmentPadding"
-        android:layout_alignParentRight="true"
-        android:textColor="@color/colorPrimaryText"
-        android:fontFamily="monospace"
-        android:textStyle="bold"
-        android:text="1/3 slots free"/>
+        <TextView
+            android:id="@+id/textViewTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:fontFamily="monospace"
+            android:textStyle="bold"
+            android:layout_centerInParent="true"
+            android:text="Projects"
+            />
+
+    </RelativeLayout>
+
+    <!-- content area begins -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerViewProjects"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
 
-</RelativeLayout>
+
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

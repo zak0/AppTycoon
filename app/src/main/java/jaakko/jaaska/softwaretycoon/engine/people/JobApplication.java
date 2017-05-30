@@ -1,8 +1,7 @@
 package jaakko.jaaska.softwaretycoon.engine.people;
 
-import jaakko.jaaska.softwaretycoon.engine.Job;
 import jaakko.jaaska.softwaretycoon.engine.core.GameEngine;
-import jaakko.jaaska.softwaretycoon.engine.time.GameTime;
+import jaakko.jaaska.softwaretycoon.utils.Utils;
 
 /**
  * Created by jaakko on 17.4.2017.
@@ -10,10 +9,9 @@ import jaakko.jaaska.softwaretycoon.engine.time.GameTime;
 
 public class JobApplication {
 
-    private Employee mEmployee; // The person who is applying.
-    private Job mJob; // The job that is being applied. Null for open applications.
-    private long mSalaryRequest; // -1 for open applications.
-    private GameTime mExpireTime; // When the application expires (and disappears from the system).
+    private String mName; // The person who is applying.
+    private EmployeeType mJob; // The type of the job that is being applied.
+    private long mExpiresIn; // How long until the application expires (and disappears from the system).
 
     /**
      * Instances are accessed through static getters.
@@ -22,24 +20,17 @@ public class JobApplication {
 
     }
 
-    public boolean isOpenApplication() {
-        return mJob == null;
-    }
-
     /**
      * Generates a random open application.
      * @return
      */
     public static JobApplication getRandomOpenApplication() {
         JobApplication ret = new JobApplication();
-        ret.mEmployee = Employee.generateRandomPerson(20);
-        ret.mJob = null;
-        ret.mSalaryRequest = -1;
+        ret.mName = Utils.getRandomName();
+        ret.mJob = null;;
 
-        // TODO: New applications now expire in two months.
-        ret.mExpireTime = GameEngine.getInstance().getGameState().getGameTime().duplicate();
-        GameTime twoMonths = new GameTime(0, 0, 2, 0);
-        ret.mExpireTime.add(twoMonths);
+        // TODO: New applications now expire in two hours.
+        ret.mExpiresIn = 2 * 60 * 60 * 1000;
 
         return ret;
     }

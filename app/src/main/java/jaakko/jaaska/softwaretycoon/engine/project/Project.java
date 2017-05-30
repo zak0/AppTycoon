@@ -1,106 +1,137 @@
 package jaakko.jaaska.softwaretycoon.engine.project;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import jaakko.jaaska.softwaretycoon.engine.Language;
+import jaakko.jaaska.softwaretycoon.engine.product.Product;
 
 /**
+ * Different types of actual projects need to extend this class and provide
+ * project type specific functionality into the abstract methods.
+ *
  * Created by jaakko on 26.3.2017.
  */
 
-public class Project {
+public abstract class Project {
 
-    private ProjectType mType;
-    private List<ProjectType> mSubTypes;
+    private static final String TAG = "Project";
+
     private String mName;
     private String mDescription;
 
-    /** Customer is null for in-house projects. */
-    private String mCustomer;
+    /** Amount of work needed to implement all features */
+    private long mWorkAmount;
 
-    /** Languages the project will be implemented with. */
-    private List<Language> mLanguages;
+    /** Amount of work done for the project. */
+    private long mWorkProgress;
 
-    /** Project milestones. Project has always atleas one milestone (the 100% completion one). */
-    private List<ProjectMilestone> mMilestones;
+    /** Time spent working on the project. In milliseconds */
+    private long mTimeSpent;
 
-    private int mRequiredFunctionality;
-    private int mRequiredQuality;
-    private int mFunctionality;
-    private int mQuality;
+    /** Work is applied to the project in somewhat random intervals
+     * which means that the work done within an interval is not always
+     * integral. Fractional progress is used to track this portion of the work
+     * that exceeds the integer part of work done. It should be more than one
+     * only momentarily.
+      */
+    private double mFractionalProgress;
 
     /**
-     * Every public constructor should call this constructor first.
-     * This constructor initializes lists and other variables that need initializing.
+     * List of project tasks.
      */
-    private Project() {
-        mSubTypes = new ArrayList<>();
-        mLanguages = new ArrayList<>();
-        mMilestones = new ArrayList<>();
-
-        mFunctionality = 0;
-        mQuality = 0;
-    }
+    private List<ProjectTask> mTasks;
 
     /**
-     * Constructor for in-house projects.
+     * Default constructor
      * @param name
      * @param description
-     * @param type
      */
-    public Project(String name, String description, ProjectType type) {
-        this();
+    public Project(String name, String description) {
         mName = name;
         mDescription = description;
-        mType = type;
-        mCustomer = null;
+        mWorkAmount = -1;
+        mWorkProgress = 0;
+        mFractionalProgress = 0.0f;
+        mTimeSpent = 0;
+        mTasks = new ArrayList<>();
+    }
+
+    public String getName() {
+        return mName;
+    }
+
+    public String getDescription() {
+        return mDescription;
+    }
+
+    public boolean isFinished() {
+        return mWorkProgress >= mWorkAmount;
+    }
+
+    public List<ProjectTask> getTasks() {
+        return mTasks;
+    }
+
+    public void addTask(ProjectTask task) {
+        mTasks.add(task);
     }
 
     /**
-     * Constructor for customer projects.
-     * @param name
-     * @param description
-     * @param type
+     * Progresses the project by the given amount.
+     * @param amount Amount of work done for the project.
+     * @param time Time passed in milliseconds.
      */
-    public Project(String name, String description, ProjectType type, String customer) {
-        this();
-        mName = name;
-        mDescription = description;
-        mType = type;
-        mCustomer = customer;
+    public void progress(double amount, long time) {
+        mFractionalProgress += amount;
+        int intPart = (int) mFractionalProgress;
+        mFractionalProgress -= intPart;
+        mWorkProgress += intPart;
+        mTimeSpent += time;
+
+        /*
+        Log.d(TAG, "progress() amount=" + amount
+                + ", fractProg=" + mFractionalProgress
+                + ", intPart=" + intPart
+                + ", mWorkProgress=" + mWorkProgress);
+                */
+    }
+
+    public long getWorkAmount() {
+        // Calculate the needed work amount first time the work amount is requested.
+        if (mWorkAmount < 0) {
+            updateWorkAmount();
+        }
+
+        return mWorkAmount;
+    }
+
+    public long getTimeSpent() {
+        return mTimeSpent;
+    }
+
+    public long getWorkProgress() {
+        return mWorkProgress;
+    }
+
+    /** Updates the total work amount requirement. Call this when conditions affecting the work
+     * amount change.
+     */
+    public void updateWorkAmount() {
+        mWorkAmount = calculateWorkAmount();
     }
 
     /**
-     * Set project requirements.
-     *
-     * @param functionality
-     * @param quality
-     * @return This
+     * Calculates the total amount of work required in order to finish the project.
+     * @return Calculated work amount
      */
-    public Project setRequirements(int functionality, int quality) {
-        mRequiredFunctionality = functionality;
-        mRequiredQuality = quality;
-        return this;
-    }
+    protected abstract long calculateWorkAmount();
 
-    public enum ProjectType {
-        INTERNAL_DEVELOPMENT,
-        WEB_APP,
-        SERVER_BACKEND,
-        MOBILE_APP,
-        BROWSER_GAME,
-        MOBILE_GAME,
-        PC_APPLICATION,
-        PC_GAME,
-        CONSOLE_GAME,
-        IT_SYSTEM,
-        CLOUD_SOLUTION,
-        ARTIFICIAL_INTELLIGENCE
-    }
-
-    public static String getRandomCustomer() {
-        return "Random Customer Inc.";
-    }
+    /**
+     * Tells if the project is ready to be acknowledge as being finished.
+     * @return True when project is ready to be acknowledge as being finished.
+     */
+    public abstract boolean isReady();
 
 }

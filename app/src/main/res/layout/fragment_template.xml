@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/layoutFragmentTitle"
+        android:background="@color/accent"
+        android:padding="@dimen/fragmentPadding"
+        android:elevation="@dimen/fragmentTitleBarElevation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Back button for sub fragments.
+         Remove it for main fragments. -->
+        <TextView
+            android:id="@+id/textViewBack"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:fontFamily="monospace"
+            android:text="&lt; Back"/>
+
+        <TextView
+            android:id="@+id/textViewTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:fontFamily="monospace"
+            android:textStyle="bold"
+            android:layout_centerInParent="true"
+            android:text="Fragment Title"
+            />
+
+        <!-- Action button for performing or confirming
+        an action specific to the fragment. Remove this
+        if not needed -->
+        <TextView
+            android:id="@+id/textViewAction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:fontFamily="monospace"
+            android:layout_alignParentRight="true"
+            android:text="Action"
+            />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/fragmentPadding">
+
+        <!-- CONTENT GOES HERE -->
+
+    </RelativeLayout>
+</LinearLayout>

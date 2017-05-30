@@ -1,10 +1,8 @@
 <resources>
     <string name="app_name">Software Tycoon</string>
-    <string-array name="navigation_drawer_items">
-        <item>Projects</item>
-        <item>Human Resources</item>
-        <item>Premises</item>
-        <item>IT</item>
-        <item>Upgrades</item>
-    </string-array>
+
+    <string name="project_slot_progress">c %1$s / %2$s</string>
+    <string name="project_slot_bugs">b +%1$d</string>
+    <string name="project_slot_contracting_project_info">Contracting work for %1$s</string>
+    <string name="project_slot_contracting_project_quality">q %1$s / %2$s</string>
 </resources>

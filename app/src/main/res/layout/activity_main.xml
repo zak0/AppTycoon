@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:padding="@dimen/topBarPadding"
-            android:background="@color/colorPrimary"
+            android:background="@color/primary"
             android:elevation="@dimen/topBarElevation">
 
             <TextView
@@ -28,31 +28,32 @@
                 android:layout_centerHorizontal="true"
                 android:text="Company Name Goes Here Inc."/>
 
-            <TextView
-                android:id="@+id/textViewDateTime"
-                android:layout_below="@id/textViewCompanyName"
-                android:layout_centerHorizontal="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#ffffff"
-                android:fontFamily="monospace"
-                android:textStyle="bold"
-                android:text="Y12 M5 D18 H9"/>
 
             <TextView
                 android:id="@+id/textViewMoney"
-                android:layout_below="@id/textViewDateTime"
+                android:layout_below="@id/textViewCompanyName"
                 android:layout_alignParentLeft="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#ffffff"
                 android:fontFamily="monospace"
                 android:textStyle="bold"
-                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/topBarVerticalPadding"
                 android:text="$ 143.82k"/>
 
             <TextView
-                android:id="@+id/textViewEfficiency"
+                android:id="@+id/textViewCps"
+                android:layout_alignTop="@id/textViewMoney"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffffff"
+                android:fontFamily="monospace"
+                android:textStyle="bold"
+                android:layout_centerHorizontal="true"
+                android:text="C/s 12"/>
+
+            <TextView
+                android:id="@+id/textViewQuality"
                 android:layout_alignTop="@id/textViewMoney"
                 android:layout_alignParentRight="true"
                 android:layout_width="wrap_content"
@@ -60,7 +61,7 @@
                 android:textColor="#ffffff"
                 android:fontFamily="monospace"
                 android:textStyle="bold"
-                android:text="E 0.824 (+0.041)"/>
+                android:text="Q 0.42"/>
 
 
         </RelativeLayout>
@@ -75,28 +76,28 @@
 
     </RelativeLayout>
 
-    <!-- ListView for the navigation drawer -->
+    <!-- View for the navigation drawer -->
     <RelativeLayout
         android:layout_width="@dimen/navigationDrawerWidth"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/colorPrimaryDark">
+        android:background="@color/primary_dark">
+
+        <TextView
+            android:id="@+id/textViewNavTestHook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:fontFamily="monospace"
+            android:textStyle="bold"
+            android:layout_margin="@dimen/navigationDrawerItemMargin"
+            android:text="[T] TEST HOOK" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_centerVertical="true">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#ffffff"
-                android:fontFamily="monospace"
-                android:textStyle="bold"
-                android:layout_margin="@dimen/navigationDrawerItemMargin"
-                android:text="[0] Dashboard"
-                />
 
             <TextView
                 android:id="@+id/textViewNavProjects"
@@ -130,6 +131,44 @@
                 android:layout_margin="@dimen/navigationDrawerItemMargin"
                 android:text="[3] Finances"
                 />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewNavStats"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffffff"
+                android:fontFamily="monospace"
+                android:textStyle="bold"
+                android:layout_margin="@dimen/navigationDrawerItemMargin"
+                android:text="[S] Stats" />
+
+            <TextView
+                android:id="@+id/textViewNavAchievements"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffffff"
+                android:fontFamily="monospace"
+                android:textStyle="bold"
+                android:layout_margin="@dimen/navigationDrawerItemMargin"
+                android:text="[A] Achievements" />
+
+            <TextView
+                android:id="@+id/textViewNavSettings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffffff"
+                android:fontFamily="monospace"
+                android:textStyle="bold"
+                android:layout_margin="@dimen/navigationDrawerItemMargin"
+                android:text="[O] Settings" />
 
         </LinearLayout>
 

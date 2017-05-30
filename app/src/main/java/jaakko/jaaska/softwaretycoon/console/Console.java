@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
 
-import jaakko.jaaska.softwaretycoon.engine.time.GameTime;
-import jaakko.jaaska.softwaretycoon.engine.people.Employee;
 
 /**
  * Purpose of the console is to provide an interface for manual testing of the engine through
@@ -40,16 +38,10 @@ public class Console {
         //
         // Random Generators
         final MenuPage randomGens = new MenuPage("Random Generators");
-        randomGens.addAction(new Action("gametime", "Generate a random GameTime.") {
-            @Override
-            public void doAction(Object... params) {
-                System.out.println(GameTime.getRandomGameTime(true, true, true, true, true));
-            }
-        });
         randomGens.addAction(new Action("person", "Generate a random Employee.") {
             @Override
             public void doAction(Object... params) {
-                System.out.println(Employee.generateRandomPerson(500));
+                //System.out.println(Employee.generateRandomPerson(500));
             }
         });
 
