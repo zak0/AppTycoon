@@ -4,6 +4,7 @@ import android.support.v4.util.Pair;
 
 import java.util.Random;
 
+import jaakko.jaaska.softwaretycoon.engine.core.GameEngine;
 import jaakko.jaaska.softwaretycoon.engine.product.Product;
 import jaakko.jaaska.softwaretycoon.engine.product.ProductFeature;
 import jaakko.jaaska.softwaretycoon.utils.Utils;
@@ -27,8 +28,10 @@ public class ContractingProject extends Project {
      * tracked on the project level. Product quality is not tracked. */
     private long mQuality;
 
-    /** Amount of time that is left to complete the customer project. */
-    private long mTimeLeft;
+    private double mFractionalQuality;
+
+    /** Amount of time that the player has to complete the customer project. */
+    private long mTimeLimit;
 
     /** Amount this project pays if delivered in time. */
     private long mReward;
@@ -36,6 +39,8 @@ public class ContractingProject extends Project {
 
     public ContractingProject(String name, String description) {
         super(name, description);
+        mQuality = 0;
+        mFractionalQuality = 0.0f;
     }
 
     public long getReward() {
@@ -51,12 +56,28 @@ public class ContractingProject extends Project {
     }
 
     @Override
+    public void progress(double workAmount, double qualityAmount, long time) {
+        super.progress(workAmount, qualityAmount, time);
+
+        // Add quality gain.
+        mFractionalQuality += qualityAmount;
+        int qualityIntPart = (int) mFractionalQuality;
+        mFractionalQuality -= qualityIntPart;
+        mQuality += qualityIntPart;
+    }
+
+    @Override
     protected long calculateWorkAmount() {
         return mProduct.getComplexity();
     }
 
+    /**
+     *
+     * @return Milliseconds of time that is left to complete the project.
+     */
     public long getTimeLeft() {
-        return mTimeLeft - getTimeSpent();
+        long timeLeft = mTimeLimit - getTimeSpent();
+        return timeLeft <= 0 ? 0 : timeLeft;
     }
 
     public Product getProduct() {
@@ -67,9 +88,22 @@ public class ContractingProject extends Project {
         return mQuality;
     }
 
+    /**
+     * Check if the project is successful and deliverable.
+     * @return True when project requirements are met and the product is finished.
+     */
+    public boolean isSuccessful() {
+        return getWorkProgress() >= getWorkAmount() && mQuality >= mRequiredQuality;
+    }
+
     @Override
     public boolean isReady() {
-        return getWorkProgress() >= getWorkAmount() && mQuality >= mRequiredQuality;
+        return getTimeLeft() <= 0;
+    }
+
+    @Override
+    public void deliver() {
+        GameEngine.getInstance().getGameState().getCompany().addFunds(mReward);
     }
 
     //
@@ -94,7 +128,7 @@ public class ContractingProject extends Project {
         project.mRequiredQuality = Math.abs(r.nextLong()) % (project.getWorkAmount() + 1);
         project.mCustomer = customer;
         project.mReward = project.mRequiredQuality + project.getWorkAmount();
-        project.mTimeLeft = 120000 + r.nextInt(900000);
+        project.mTimeLimit = 120000 + r.nextInt(900000);
 
         // Add all the features as tasks.
         for (Pair<ProductFeature, Integer> pair : product.getFeatures()) {

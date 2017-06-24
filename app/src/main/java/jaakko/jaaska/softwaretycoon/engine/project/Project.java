@@ -35,7 +35,7 @@ public abstract class Project {
      * integral. Fractional progress is used to track this portion of the work
      * that exceeds the integer part of work done. It should be more than one
      * only momentarily.
-      */
+     */
     private double mFractionalProgress;
 
     /**
@@ -79,23 +79,21 @@ public abstract class Project {
     }
 
     /**
-     * Progresses the project by the given amount.
-     * @param amount Amount of work done for the project.
+     * Progresses the project by the given amount. Quality amount is discarded at this superclass.
+     * Override this method (but call this one from the super class as well...) if the quality
+     * needs to be handled by the project.
+     *
+     * @param workAmount Amount of work done for the project.
+     * @param qualityAmount Amount of quality added to project quality.
      * @param time Time passed in milliseconds.
      */
-    public void progress(double amount, long time) {
-        mFractionalProgress += amount;
-        int intPart = (int) mFractionalProgress;
-        mFractionalProgress -= intPart;
-        mWorkProgress += intPart;
-        mTimeSpent += time;
+    public void progress(double workAmount, double qualityAmount, long time) {
+        mFractionalProgress += workAmount;
+        int workIntPart = (int) mFractionalProgress;
+        mFractionalProgress -= workIntPart;
+        mWorkProgress += workIntPart;
 
-        /*
-        Log.d(TAG, "progress() amount=" + amount
-                + ", fractProg=" + mFractionalProgress
-                + ", intPart=" + intPart
-                + ", mWorkProgress=" + mWorkProgress);
-                */
+        mTimeSpent += time;
     }
 
     public long getWorkAmount() {
@@ -133,5 +131,10 @@ public abstract class Project {
      * @return True when project is ready to be acknowledge as being finished.
      */
     public abstract boolean isReady();
+
+    /**
+     * Does all the actions that happen after delivering the project.
+     */
+    public abstract void deliver();
 
 }

@@ -1,10 +1,12 @@
 package jaakko.jaaska.softwaretycoon.ui.fragment;
 
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.util.Pair;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -103,7 +105,6 @@ public class ProjectsFragment extends Fragment implements UiUpdater {
             viewHolder.textViewProjectBugs = (TextView) view.findViewById(R.id.textViewProjectNewBugs);
             viewHolder.textViewProjectQuality = (TextView) view.findViewById(R.id.textViewProjectQuality);
 
-
             return viewHolder;
         }
 
@@ -156,12 +157,27 @@ public class ProjectsFragment extends Fragment implements UiUpdater {
                 String strProjectQuality = res.getString(R.string.project_slot_contracting_project_quality,
                                                     Utils.largeNumberToNiceString(project.getQuality(), 2),
                                                     Utils.largeNumberToNiceString(project.getRequiredQuality(), 2));
+                String strReadyToDeliver = res.getString(R.string.project_slot_ready_to_deliver);
+                String strFailedToDeliver = res.getString(R.string.project_slot_failed_to_deliver);
 
                 holder.textViewProjectTitle.setText(project.getName());
                 holder.textViewProjectInfo.setText(strProjectInfo);
                 holder.textViewProjectTime.setText(Utils.millisecondsToTimeString(project.getTimeLeft()));
                 holder.textViewProjectProgress.setText(strProjectProgress);
                 holder.textViewProjectQuality.setText(strProjectQuality);
+
+                // Color text views red/green when the project is finished according whether the requirements
+                // were met or not.
+                if (project.isReady() || project.isSuccessful()) {
+                    int colorRed = ContextCompat.getColor(SoftwareTycoonApp.getContext(), R.color.red);
+                    int colorGreen = ContextCompat.getColor(SoftwareTycoonApp.getContext(), R.color.green);
+
+                    //holder.textViewProjectTime.setText(project.isFinished() ? strReadyToDeliver : strFailedToDeliver);
+                    //holder.textViewProjectTime.setTextColor(project.isSuccessful() ? colorGreen : colorRed);
+                    //holder.textViewProjectTitle.setTextColor(project.isSuccessful() ? colorGreen : colorRed);
+                    holder.textViewProjectProgress.setTextColor(project.isSuccessful() ? colorGreen : colorRed);
+                    holder.textViewProjectQuality.setTextColor(project.isSuccessful() ? colorGreen : colorRed);
+                }
             }
         }
 
@@ -185,6 +201,8 @@ public class ProjectsFragment extends Fragment implements UiUpdater {
 
             /** Project deadline or elapsed time */
             TextView textViewProjectTime;
+
+            TextView textViewProjectStatus;
 
             TextView textViewProjectTitle;
             TextView textViewProjectInfo;

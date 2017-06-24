@@ -50,10 +50,8 @@ public class GameEngine {
 
         // Add employees
         company.addEmployee(EmployeeType.TYPE_DEVELOPER, 3);
-        company.addEmployee(EmployeeType.TYPE_SENIOR_DEVELOPER, 1);
-        company.addEmployee(EmployeeType.TYPE_TEST_ENGINEER, 2);
-
-
+        company.addEmployee(EmployeeType.TYPE_SENIOR_DEVELOPER, 2);
+        company.addEmployee(EmployeeType.TYPE_TEST_ENGINEER, 0);
 
         mGameState.setCompany(company);
     }

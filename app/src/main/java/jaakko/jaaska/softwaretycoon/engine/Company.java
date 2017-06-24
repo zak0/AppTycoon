@@ -10,6 +10,8 @@ import java.util.Map;
 import jaakko.jaaska.softwaretycoon.engine.core.GameEngine;
 import jaakko.jaaska.softwaretycoon.engine.people.EmployeeType;
 import jaakko.jaaska.softwaretycoon.engine.product.Product;
+import jaakko.jaaska.softwaretycoon.engine.project.ContractingProject;
+import jaakko.jaaska.softwaretycoon.engine.project.Project;
 import jaakko.jaaska.softwaretycoon.engine.project.ProjectSlot;
 
 /**
@@ -60,6 +62,10 @@ public class Company {
         return mValue;
     }
 
+    public void addFunds(long amount) {
+        mFunds += amount;
+    }
+
     public long getFunds() {
         return mFunds;
     }
@@ -86,7 +92,16 @@ public class Company {
                 continue;
             }
 
-            slot.getProject().progress(amount * slot.getWorkFraction(), time);
+            Project project = slot.getProject();
+
+            // Progress contracting projects only if they have time left.
+            // I.e. they are marked ready to be finished.
+            if (project instanceof ContractingProject && !project.isReady()) {
+                project.progress(amount * slot.getWorkFraction(), // workAmount
+                        amount * slot.getWorkFraction() * getQualityRatio(), // qualityAmount
+                        time); // time
+            }
+
         }
     }
 

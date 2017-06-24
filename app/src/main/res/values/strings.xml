@@ -5,4 +5,6 @@
     <string name="project_slot_bugs">b +%1$d</string>
     <string name="project_slot_contracting_project_info">Contracting work for %1$s</string>
     <string name="project_slot_contracting_project_quality">q %1$s / %2$s</string>
+    <string name="project_slot_ready_to_deliver">Ready to deliver! :)</string>
+    <string name="project_slot_failed_to_deliver">Failed to deliver... :(</string>
 </resources>
