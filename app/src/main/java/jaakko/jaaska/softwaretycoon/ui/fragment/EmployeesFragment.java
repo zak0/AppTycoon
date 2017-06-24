@@ -6,12 +6,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import jaakko.jaaska.softwaretycoon.R;
 import jaakko.jaaska.softwaretycoon.ui.MainActivity;
-import jaakko.jaaska.softwaretycoon.ui.dialog.NavigationDialogBuilder;
+import jaakko.jaaska.softwaretycoon.ui.dialog.ActionSelectDialogBuilder;
 
 /**
  * Created by jaakko on 16.4.2017.
@@ -28,9 +27,9 @@ public class EmployeesFragment extends Fragment {
         titleLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NavigationDialogBuilder builder = new NavigationDialogBuilder(getActivity());
-                builder.addEntry("Browse open applications", MainActivity.FRAGMENT_PROJECTS);
-                builder.addEntry("Browse employees", -1);
+                ActionSelectDialogBuilder builder = new ActionSelectDialogBuilder(getActivity());
+                builder.addNavigationEntry("Browse open applications", MainActivity.FRAGMENT_PROJECTS);
+                builder.addNavigationEntry("Browse employees", -1);
                 builder.getDialog().show();
             }
         });

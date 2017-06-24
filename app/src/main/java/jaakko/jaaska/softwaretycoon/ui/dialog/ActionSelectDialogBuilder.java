@@ -26,44 +26,68 @@ import jaakko.jaaska.softwaretycoon.SoftwareTycoonApp;
 import jaakko.jaaska.softwaretycoon.ui.UiUpdateHandler;
 
 /**
- * Builds a Dialog for navigating to sub-fragments.
+ * Builds a Dialog that shows a textual list of custom actions.
  *
- * First add all the menu items with addEntry(..), then get
+ * First add all the menu items with addNavigationEntry(..), then get
  * the dialog by calling getDialog().
  *
  * Created by jaakko on 22.4.2017.
  */
 
-public class NavigationDialogBuilder {
+public class ActionSelectDialogBuilder {
 
-    private static final String TAG = "NavigationDialogBuilder";
+    private static final String TAG = "ASDlgBuilder";
 
     private Context mContext;
 
-    /** Maps sub-fragment (and menu item) titles to sub-fragments.
-     * Value is the ID of the fragment as defined in MainActivity constants. */
-    private Map<String, Integer> mEntriesToFragments;
+    /** Maps action (and menu item) titles to actual actions.
+     */
+    private Map<String, Action> mEntriesToActions;
 
     /** The list of menu items in the dialog. The order in this list is the order
-     * that the items appears on the NavigationDialog.
+     * that the items appears on the dialog.
      */
     private List<String> mMenuEntries;
 
-    public NavigationDialogBuilder(Context context) {
-        mEntriesToFragments = new HashMap<>();
+    public ActionSelectDialogBuilder(Context context) {
+        mEntriesToActions = new HashMap<>();
         mMenuEntries = new ArrayList<>();
 
         mContext = context;
     }
 
     /**
-     * Adds an entry into the navigation dialog.
+     * Adds an entry into the dialog that performs a custom action
+     * @param entry
+     * @param action
+     */
+    public void addCustomActionEntry(String entry, Action action) {
+        mEntriesToActions.put(entry, action);
+        mMenuEntries.add(entry);
+    }
+
+    public void show() {
+        getDialog().show();
+    }
+
+    /**
+     * Adds an entry into the dialog that simply navigates to a new fragment.
      * Add the items in the order you want them to appear in the dialog.
      * @param entry Title of the entry.
      * @param targetFragment ID of the fragment to navigate to. See MainActivity FRAGMENT_* constants.
      */
-    public void addEntry(String entry, int targetFragment) {
-        mEntriesToFragments.put(entry, targetFragment);
+    public void addNavigationEntry(String entry, final int targetFragment) {
+        Action action = new Action() {
+            @Override
+            public void doAction() {
+
+                Message msg = UiUpdateHandler.obtainReplaceFragmentMessage(targetFragment);
+                msg.sendToTarget();
+
+            }
+        };
+
+        mEntriesToActions.put(entry, action);
         mMenuEntries.add(entry);
     }
 
@@ -94,17 +118,19 @@ public class NavigationDialogBuilder {
         builder.setAdapter(listAdapter, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Message msg = UiUpdateHandler.getInstance().obtainMessage(UiUpdateHandler.ACTION_REPLACE_FRAGMENT);
-                Bundle data = new Bundle();
-                data.putInt(UiUpdateHandler.ARG_TARGET_FRAGMENT, mEntriesToFragments.get(mMenuEntries.get(which)));
-                msg.setData(data);
-                msg.sendToTarget();
+
+                mEntriesToActions.get(mMenuEntries.get(which)).doAction();
 
                 dialog.dismiss();
             }
         });
 
         return builder.create();
+    }
+
+
+    public static abstract class Action {
+        public abstract void doAction();
     }
 
 }
