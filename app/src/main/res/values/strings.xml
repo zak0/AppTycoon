@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">Software Tycoon</string>
 
+    <string name="message_project_delivered">Project delivered.</string>
+    <string name="message_project_not_ready_for_delivery">Project is not ready for delivery.</string>
+
+    <string name="dialog_confirm_cancel_project">Really cancel the project?</string>
+
+    <string name="project_slot_empty_slot">Empty slot</string>
+    <string name="project_slot_tap_to_start">Tap to start a new project.</string>
     <string name="project_slot_progress">c %1$s / %2$s</string>
     <string name="project_slot_bugs">b +%1$d</string>
     <string name="project_slot_contracting_project_info">Contracting work for %1$s</string>

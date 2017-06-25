@@ -23,7 +23,7 @@
                 android:fontFamily="monospace"
                 android:textStyle="bold"
                 android:textColor="@color/primary_text"
-                android:text="Empty slot"/>
+                android:text="@string/project_slot_empty_slot" />
 
             <TextView
                 android:id="@+id/textViewProjectTime"
@@ -41,7 +41,7 @@
                 android:layout_below="@id/textViewProjectTitle"
                 android:fontFamily="monospace"
                 android:textColor="@color/secondary_text"
-                android:text="Tap to start a new project."/>
+                android:text="@string/project_slot_tap_to_start"/>
 
             <RelativeLayout
                 android:id="@+id/layoutProjectProgress"

@@ -2,6 +2,7 @@ package jaakko.jaaska.softwaretycoon.ui.fragment;
 
 import android.content.DialogInterface;
 import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -150,13 +152,20 @@ public class ProjectsFragment extends Fragment {
                     @Override
                     public void doAction() {
                         Project project = projectSlot.getProject();
-                        if (project.isReady()) {
+
+                        boolean projectIsDeliverable = false;
+
+                        if (project instanceof ContractingProject) {
+                            projectIsDeliverable = ((ContractingProject) project).isSuccessful();
+                        }
+
+                        if (projectIsDeliverable) {
                             projectSlot.getProject().deliver();
                             projectSlot.setProject(null);
-                            Toast.makeText(getContext(), "Project delivered.", Toast.LENGTH_LONG).show();
-                            notifyDataSetChanged();
+                            Toast.makeText(getContext(), R.string.message_project_delivered, Toast.LENGTH_LONG).show();
+                            mRecyclerViewAdapter.notifyDataSetChanged();
                         } else {
-                            Toast.makeText(getContext(), "Project is not ready for delivery.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), R.string.message_project_not_ready_for_delivery, Toast.LENGTH_LONG).show();
                         }
                     }
                 });
@@ -165,16 +174,23 @@ public class ProjectsFragment extends Fragment {
                     @Override
                     public void doAction() {
                         AlertDialog.Builder alertDlgBuilder =  new AlertDialog.Builder(getContext());
-                        alertDlgBuilder.setMessage("Really cancel the project?");
-                        alertDlgBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        alertDlgBuilder.setMessage(R.string.dialog_confirm_cancel_project);
+                        alertDlgBuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 projectSlot.setProject(null);
-                                notifyDataSetChanged();
+                                mRecyclerViewAdapter.notifyDataSetChanged();
                             }
                         });
-                        alertDlgBuilder.setNegativeButton("No", null);
-                        alertDlgBuilder.show();
+                        alertDlgBuilder.setNegativeButton(android.R.string.no, null);
+                        AlertDialog dlg = alertDlgBuilder.show();
+
+                        // Set font family to monospace to make the dialog appear similar to rest of the UI.
+                        ((TextView) dlg.findViewById(android.R.id.message)).setTypeface(Typeface.MONOSPACE);
+                        ((Button) dlg.findViewById(android.R.id.button1)).setTypeface(Typeface.MONOSPACE);
+                        ((Button) dlg.findViewById(android.R.id.button2)).setTypeface(Typeface.MONOSPACE);
+
+
                     }
                 });
 
@@ -189,8 +205,11 @@ public class ProjectsFragment extends Fragment {
 
         private void setupViews(ViewHolder holder, ProjectSlot slot) {
             if (slot.isFree()) {
+                // Reset the views to "defaults"
                 holder.layoutProgress.setVisibility(View.INVISIBLE);
                 holder.textViewProjectTime.setVisibility(View.INVISIBLE);
+                holder.textViewProjectTitle.setText(R.string.project_slot_empty_slot);
+                holder.textViewProjectInfo.setText(R.string.project_slot_tap_to_start);
             }
 
             else if (slot.getProject() instanceof ContractingProject) {
