@@ -138,6 +138,36 @@ public class Company {
     }
 
     /**
+     * Removes an employee from the company. Takes care of handling changes in periodic expenses
+     * as well as changes in company productivity. So this is what to call when removing an
+     * employee from the company.
+     *
+     * @param type
+     * @param count
+     */
+    public void removeEmployee(int type, int count) {
+        EmployeeType employeeType = null;
+
+        for (EmployeeType existingType : mEmployees) {
+            if (existingType.getType() == type) {
+                employeeType = existingType;
+            }
+        }
+
+        if (employeeType == null) {
+            Log.d(TAG, "removeEmployee() - trying to remove non-existing employee.");
+            return;
+        }
+
+        // Do not let the employee count get negative.
+        int actualRemovedCount = count > employeeType.getCount() ? employeeType.getCount() : count;
+        mCps -= employeeType.getCpsGain() * actualRemovedCount;
+        mQuality -= employeeType.getQualityGain() * actualRemovedCount;
+        mSalaryCosts -= employeeType.getSalary() * actualRemovedCount;
+        employeeType.fire(actualRemovedCount);
+    }
+
+    /**
      * Calculates the headcount of all employees.
      * @return Number of employees.
      */

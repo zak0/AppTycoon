@@ -29,6 +29,7 @@ import jaakko.jaaska.softwaretycoon.ui.dialog.ActionSelectDialogBuilder;
 public class EmployeesFragment extends Fragment {
 
     RecyclerView mRecyclerView;
+    EmployeeRecyclerViewAdapter mRecyclerViewAdapter;
 
     @Nullable
     @Override
@@ -49,11 +50,11 @@ public class EmployeesFragment extends Fragment {
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewEmployees);
         GameState gameState = GameEngine.getInstance().getGameState();
-        EmployeeRecyclerViewAdapter adapter = new EmployeeRecyclerViewAdapter(gameState.getCompany().getEmployees());
+        mRecyclerViewAdapter = new EmployeeRecyclerViewAdapter(gameState.getCompany().getEmployees());
 
         mRecyclerView.setHasFixedSize(true); // performance boost when content does not change the size of RecyclerView
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRecyclerView.setAdapter(adapter);
+        mRecyclerView.setAdapter(mRecyclerViewAdapter);
 
         return view;
     }
@@ -108,7 +109,17 @@ public class EmployeesFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     mGameState.getCompany().addEmployee(employeeType.getType(), 1);
-                    mRecyclerView.invalidate();
+                    mRecyclerViewAdapter.notifyDataSetChanged();
+                }
+            });
+
+            // Long-clicking fires an employee.
+            holder.containerView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    mGameState.getCompany().removeEmployee(employeeType.getType(), 1);
+                    mRecyclerViewAdapter.notifyDataSetChanged();
+                    return true; // do not pass to OnClickListener after this
                 }
             });
         }

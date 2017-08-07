@@ -29,7 +29,7 @@ public class EmployeeType {
     private String mDescription = ""; // A short textual description of the employee type.
     private int mType = Integer.MIN_VALUE; // ID of the type
     private double mSalary = 0; // Salary for one employee of this type (money per second).
-    private long mCount = 0; // Number of employees of this type
+    private int mCount = 0; // Number of employees of this type
     private boolean mIsUnique = false; // True if there can only be one employee of this type
     private int mCpsGain = 0; // Cps gain one employee of this type brings
     private int mQualityGain = 0; // Quality score gain one employee of this type brings
@@ -86,7 +86,7 @@ public class EmployeeType {
         return mDescription;
     }
 
-    public long getCount() {
+    public int getCount() {
         return mCount;
     }
 
@@ -114,7 +114,7 @@ public class EmployeeType {
     }
 
     public void fire(int count) {
-        mCount += count;
+        mCount -= count;
         mCount = mCount < 0 ? 0 : mCount;
     }
 
