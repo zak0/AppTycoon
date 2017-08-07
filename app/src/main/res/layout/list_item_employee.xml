@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="@dimen/cardview_default_elevation"
+        app:cardUseCompatPadding="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/cardMargin"
+            android:padding="@dimen/cardPadding">
+
+            <TextView
+                android:id="@+id/textViewEmployeeType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:fontFamily="monospace"
+                android:textColor="@color/primary_text"
+                android:layout_marginBottom="@dimen/marginBelowCardTitle"
+                android:text="Employee Type"/>
+
+            <TextView
+                android:id="@+id/textViewEmployeeCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:fontFamily="monospace"
+                android:textColor="@color/primary_text"
+                android:text="14 on payroll"/>
+
+            <TextView
+                android:id="@+id/textViewEmployeeDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewEmployeeType"
+                android:fontFamily="monospace"
+                android:layout_marginBottom="@dimen/marginBelowCardTitle"
+                android:textColor="@color/secondary_text"
+                android:text="A short description of the employee type."/>
+
+            <TextView
+                android:id="@+id/textViewEmployeeCodeGain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewEmployeeDescription"
+                android:fontFamily="monospace"
+                android:textColor="@color/primary_text"
+                android:text="+3 code / sec"/>
+
+            <TextView
+                android:id="@+id/textViewEmployeeQualityGain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewEmployeeCodeGain"
+                android:fontFamily="monospace"
+                android:textColor="@color/primary_text"
+                android:text="+1 quality"/>
+
+            <TextView
+                android:id="@+id/textViewEmployeeSalary"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:fontFamily="monospace"
+                android:textColor="@color/primary_text"
+                android:text="$1.20 / sec"/>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+</LinearLayout>

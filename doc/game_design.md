@@ -39,7 +39,7 @@ Each project is divided into tasks. For product development projects, the tasks 
 ## Human Resources
 Company needs people to do the work. Size of the company premises limit the maximum nmber of employees. Employees are managed in groups by employee types (not by individuals). Different employee types benefit the company in different ways.
 
-New employees are hired by opening a a job position (or a number of job positions) and starting a hiring campaign. Then, applications start to come in for the position and new employees can then be hired. Number of received applications depends on company reputation, current salary for the position and the type of the hiring campaign.
+New employees are hired by opening a a job position (or a number of job positions) and starting a hiring campaign. Then, after a random time the positions are filled. The rate at which the open positions are filled depends on company reputation, current salary for the position and the type of the hiring campaign. When multiple positions (for the same role or different roles) are open, each position is filled individually. After a suitable candidate has been found, the player needs to "sign the contrtact" before the new hire starts working for the company.
 
 ### Employee Types
 Different employee types benefit the company in different ways. Some types unlock new features, some enhance _code speed_, some enhance _code quality_. Employee types go with unique titles. Some employee types have a limit for how many employees of that type can exist.

@@ -25,93 +25,19 @@
 
     </RelativeLayout>
 
+    <!-- content area begins -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/fragmentPadding">
+        android:layout_height="match_parent">
 
-        <!-- Applications -->
-        <TextView
-            android:id="@+id/textViewOpenApplicationsCountTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="monospace"
-            android:textColor="@color/primary_text"
-            android:textStyle="bold"
-            android:text="Open applications"/>
-
-        <TextView
-            android:id="@+id/textViewOpenApplicationsCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="monospace"
-            android:textColor="@color/primary_text"
-            android:layout_alignTop="@id/textViewOpenApplicationsCountTitle"
-            android:layout_alignParentRight="true"
-            android:text="12"/>
-
-        <TextView
-            android:id="@+id/textViewRegularApplicationsCountTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="monospace"
-            android:textColor="@color/primary_text"
-            android:layout_below="@id/textViewOpenApplicationsCountTitle"
-            android:textStyle="bold"
-            android:text="Job applications"/>
-
-        <TextView
-            android:id="@+id/textViewRegularApplicationsCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="monospace"
-            android:textColor="@color/primary_text"
-            android:layout_alignTop="@id/textViewRegularApplicationsCountTitle"
-            android:layout_alignParentRight="true"
-            android:text="0"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerViewEmployees"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
 
-        <!-- Current employees -->
-        <TextView
-            android:id="@+id/textViewEmployeesCountTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="monospace"
-            android:textColor="@color/primary_text"
-            android:layout_below="@id/textViewRegularApplicationsCountTitle"
-            android:layout_marginTop="@dimen/fragmentSectionPadding"
-            android:textStyle="bold"
-            android:text="People on payroll"/>
 
-        <TextView
-            android:id="@+id/textViewEmployeesCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="monospace"
-            android:textColor="@color/primary_text"
-            android:layout_alignTop="@id/textViewEmployeesCountTitle"
-            android:layout_alignParentRight="true"
-            android:text="0"/>
 
-        <TextView
-            android:id="@+id/textViewEmployeeSlotsCountTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="monospace"
-            android:textColor="@color/primary_text"
-            android:layout_below="@id/textViewEmployeesCountTitle"
-            android:textStyle="bold"
-            android:text="Free desks"/>
-
-        <TextView
-            android:id="@+id/textViewEmployeeSlotsCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="monospace"
-            android:textColor="@color/primary_text"
-            android:layout_alignTop="@id/textViewEmployeeSlotsCountTitle"
-            android:layout_alignParentRight="true"
-            android:text="3"/>
 
     </RelativeLayout>
 </LinearLayout>

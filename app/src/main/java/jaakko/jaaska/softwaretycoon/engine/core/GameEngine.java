@@ -41,7 +41,7 @@ public class GameEngine {
      */
     public void loadTestData() {
         mGameState = new GameState();
-        Company company = new Company("Jamitec Softworks Inc.", 10, 10000, 10000);
+        Company company = new Company("Company Name Inc.", 10, 10000, 10000);
 
         // Add project slots
         for (int i = 0; i < 3; i++) {

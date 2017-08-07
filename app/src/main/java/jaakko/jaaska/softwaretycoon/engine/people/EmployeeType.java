@@ -25,15 +25,16 @@ public class EmployeeType {
 
     public static final int TYPE_CEO = 1234;
 
-
-
     private String mTitle = ""; // Title of the job position that this type represents
+    private String mDescription = ""; // A short textual description of the employee type.
     private int mType = Integer.MIN_VALUE; // ID of the type
     private double mSalary = 0; // Salary for one employee of this type (money per second).
     private long mCount = 0; // Number of employees of this type
     private boolean mIsUnique = false; // True if there can only be one employee of this type
     private int mCpsGain = 0; // Cps gain one employee of this type brings
     private int mQualityGain = 0; // Quality score gain one employee of this type brings
+    private double mMorale = 1.0; // TODO: Possible future development
+    private long mHireCost = 0; // TODO: Possible future development
     private List<String> mNames = new ArrayList<>(); // Names of the employees of this type
 
     /**
@@ -44,13 +45,14 @@ public class EmployeeType {
      * @param cpsGain
      * @param qualityGain
      */
-    private EmployeeType(int typeId, String title, double salary, boolean isUnique, int cpsGain, int qualityGain) {
+    private EmployeeType(int typeId, String title, double salary, boolean isUnique, int cpsGain, int qualityGain, String description) {
         mTitle = title;
         mType = typeId;
         mSalary = salary;
         mIsUnique = isUnique;
         mCpsGain = cpsGain;
         mQualityGain = qualityGain;
+        mDescription = description;
     }
 
     /**
@@ -63,8 +65,8 @@ public class EmployeeType {
      * @param cpsGain
      * @param qualityGain
      */
-    private EmployeeType(int typeId, String title, int yearlySalary, boolean isUnique, int cpsGain, int qualityGain) {
-        this(typeId, title, 0.0f, isUnique, cpsGain, qualityGain);
+    private EmployeeType(int typeId, String title, int yearlySalary, boolean isUnique, int cpsGain, int qualityGain, String description) {
+        this(typeId, title, 0.0f, isUnique, cpsGain, qualityGain, description);
         mSalary = ((double) yearlySalary) / 12.0f / 158.0f / 3600.0f;
     }
 
@@ -80,6 +82,9 @@ public class EmployeeType {
         return mSalary;
     }
 
+    public String getDescription() {
+        return mDescription;
+    }
 
     public long getCount() {
         return mCount;
@@ -125,9 +130,9 @@ public class EmployeeType {
 
         sStaticTypes = new SparseArray<>();
 
-        sStaticTypes.append(TYPE_DEVELOPER, new EmployeeType(TYPE_DEVELOPER, "Software Developer", 44000, false, 2, 1));
-        sStaticTypes.append(TYPE_SENIOR_DEVELOPER, new EmployeeType(TYPE_SENIOR_DEVELOPER, "Senior Software Developer", 55000, false, 3, 2));
-        sStaticTypes.append(TYPE_TEST_ENGINEER, new EmployeeType(TYPE_TEST_ENGINEER, "Software Test Engineer", 39000, false, 0, 2));
+        sStaticTypes.append(TYPE_DEVELOPER, new EmployeeType(TYPE_DEVELOPER, "Software Developer", 44000, false, 2, 1, "An all-round developer grunt."));
+        sStaticTypes.append(TYPE_SENIOR_DEVELOPER, new EmployeeType(TYPE_SENIOR_DEVELOPER, "Senior Software Developer", 55000, false, 3, 2, "A developer with excellent skills and years of experience."));
+        sStaticTypes.append(TYPE_TEST_ENGINEER, new EmployeeType(TYPE_TEST_ENGINEER, "Software Test Engineer", 39000, false, 0, 2, "Purpose of a test engineer is to break everything."));
     }
 
     public static EmployeeType getTypeForId(int employeeTypeId) {

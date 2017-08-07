@@ -149,6 +149,10 @@ public class Company {
         return count;
     }
 
+    public List<EmployeeType> getEmployees() {
+        return mEmployees;
+    }
+
     public void addProjectSlot() {
         ProjectSlot newSlot = new ProjectSlot(null, 1);
 

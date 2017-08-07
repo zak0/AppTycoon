@@ -14,4 +14,9 @@
     <string name="project_slot_contracting_project_quality">q %1$s / %2$s</string>
     <string name="project_slot_ready_to_deliver">Ready to deliver! :)</string>
     <string name="project_slot_failed_to_deliver">Failed to deliver... :(</string>
+
+    <string name="employee_list_item_n_on_payroll">%1$d on payroll</string>
+    <string name="employee_list_item_code_gain">+%1$d code</string>
+    <string name="employee_list_item_quality_gain">+%1$d quality</string>
+    <string name="employee_list_item_salary">$%1$.2f / hour</string>
 </resources>
