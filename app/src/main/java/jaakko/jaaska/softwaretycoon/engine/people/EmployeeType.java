@@ -9,7 +9,11 @@ import java.util.List;
 import jaakko.jaaska.softwaretycoon.utils.Utils;
 
 /**
- * Created by jaakko on 30.4.2017.
+ * Class that defines the employees.
+ *
+ * The class also acts as a container for static employee data (different types, base salaries, ...)
+ * and thus no new instances are created outside of this class. Instead, an instance of a wanted
+ * employee type is acquired through the static getTypeForId() method.
  */
 
 public class EmployeeType {
@@ -38,12 +42,14 @@ public class EmployeeType {
     private List<String> mNames = new ArrayList<>(); // Names of the employees of this type
 
     /**
-     * @param typeId
-     * @param title
-     * @param salary Salary per second
-     * @param isUnique
-     * @param cpsGain
-     * @param qualityGain
+     * Use this constructor when initializing the static data.
+     *
+     * @param typeId A numeric constant ID of the employee type.
+     * @param title A textual human-readable title for this job.
+     * @param salary Salary per second.
+     * @param isUnique Flag for telling if there can be only one employee of this type.
+     * @param cpsGain Amount of code per second one employee of this type produces.
+     * @param qualityGain Amount of quality one employee of this type produces.
      */
     private EmployeeType(int typeId, String title, double salary, boolean isUnique, int cpsGain, int qualityGain, String description) {
         mTitle = title;
@@ -58,12 +64,13 @@ public class EmployeeType {
     /**
      * This calls the other constructor first but then converts the given yearly salary to salary per second
      * as defined in in the mSalary field. This is just to help inputting the static game data.
-     * @param typeId
-     * @param title
-     * @param yearlySalary Salary per year (in real life).
-     * @param isUnique
-     * @param cpsGain
-     * @param qualityGain
+     *
+     * @param typeId A numeric constant ID of the employee type.
+     * @param title A textual human-readable title for this job.
+     * @param yearlySalary Salary per year (in real life, not in game time).
+     * @param isUnique Flag for telling if there can be only one employee of this type.
+     * @param cpsGain Amount of code per second one employee of this type produces.
+     * @param qualityGain Amount of quality one employee of this type produces.
      */
     private EmployeeType(int typeId, String title, int yearlySalary, boolean isUnique, int cpsGain, int qualityGain, String description) {
         this(typeId, title, 0.0f, isUnique, cpsGain, qualityGain, description);
@@ -88,6 +95,17 @@ public class EmployeeType {
 
     public int getCount() {
         return mCount;
+    }
+
+    /**
+     * Sets the count of employees of this type.
+     * Do not use this when adding or removing employees via a game activity (i.e. hiring/firing).
+     * Use only when restoring data from storage.
+     *
+     * @param count Count of employees of this type.
+     */
+    public void setCount(int count) {
+        mCount = count;
     }
 
     public boolean isUnique() {

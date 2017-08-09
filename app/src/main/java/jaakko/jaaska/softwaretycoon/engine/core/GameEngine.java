@@ -88,4 +88,14 @@ public class GameEngine {
     public GameState getGameState() {
         return mGameState;
     }
+
+    /**
+     * Use this only when setting current GameState to one that is loaded
+     * from storage of cloud.
+     *
+     * @param gameState
+     */
+    public void setGameState(GameState gameState) {
+        mGameState = gameState;
+    }
 }

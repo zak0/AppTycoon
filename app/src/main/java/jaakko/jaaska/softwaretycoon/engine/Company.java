@@ -3,11 +3,8 @@ package jaakko.jaaska.softwaretycoon.engine;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import jaakko.jaaska.softwaretycoon.engine.core.GameEngine;
 import jaakko.jaaska.softwaretycoon.engine.people.EmployeeType;
 import jaakko.jaaska.softwaretycoon.engine.product.Product;
 import jaakko.jaaska.softwaretycoon.engine.project.ContractingProject;
@@ -30,8 +27,8 @@ public class Company {
     private double mSalaryCosts; // Cumulative salary costs (per second)
 
     private List<EmployeeType> mEmployees;
-    private long mCps = 0; // Cumulative cps of all employees and company assets
-    private long mQuality = 0; // Cumulative quality score of all employees and assets
+    private long mCodePerSec = 0; // Cumulative cps of all employees and company assets
+    private long mQualityPerSec = 0; // Cumulative quality score of all employees and assets
 
     /** All products of the company. */
     private List<Product> mProducts;
@@ -39,6 +36,15 @@ public class Company {
     /** Project slots */
     private List<ProjectSlot> mProjectSlots;
 
+    /**
+     * Use this constructor when creating a new Company object for an entirely
+     * new game.
+     *
+     * @param name Name of the company.
+     * @param reputation Initial company reputation.
+     * @param value Initial company value.
+     * @param funds Initial company funds.
+     */
     public Company(String name, int reputation, long value, long funds) {
         mName = name;
         mReputation = reputation;
@@ -49,6 +55,30 @@ public class Company {
         mProducts = new ArrayList<>();
         mProjectSlots = new ArrayList<>();
     }
+
+    /**
+     * Use this constructor when loading and existing Company object from storage.
+     *
+     * Be sure to set Employee, Product and ProjectSlot data after this as this
+     * only initializes these lists.
+     *
+     * @param name Name of the company.
+     * @param reputation Reputation value of the company.
+     * @param value Monetary value of the company.
+     * @param funds Funds
+     * @param codePerSec Amount of code per second.
+     * @param qualityPerSec Amount of quality per second.
+     * @param salaryCosts Salary costs.
+     */
+    public Company(String name, int reputation, long value, long funds,
+                   long codePerSec, long qualityPerSec, double salaryCosts) {
+        this(name, reputation, value, funds);
+
+        mCodePerSec = codePerSec;
+        mQualityPerSec = qualityPerSec;
+        mSalaryCosts = salaryCosts;
+    }
+
 
     public String getName() {
         return mName;
@@ -71,11 +101,11 @@ public class Company {
     }
 
     public long getCps() {
-        return mCps;
+        return mCodePerSec;
     }
 
     public double getQualityRatio() {
-        return (double) mQuality / (double) mCps;
+        return (double) mQualityPerSec / (double) mCodePerSec;
     }
 
     /**
@@ -131,8 +161,8 @@ public class Company {
             mEmployees.add(employeeType);
         }
 
-        mCps += employeeType.getCpsGain() * count;
-        mQuality += employeeType.getQualityGain() * count;
+        mCodePerSec += employeeType.getCpsGain() * count;
+        mQualityPerSec += employeeType.getQualityGain() * count;
         mSalaryCosts += employeeType.getSalary() * count;
         employeeType.hire(count);
     }
@@ -142,8 +172,8 @@ public class Company {
      * as well as changes in company productivity. So this is what to call when removing an
      * employee from the company.
      *
-     * @param type
-     * @param count
+     * @param type Type of the employee to add.
+     * @param count Number of employees of this type to add.
      */
     public void removeEmployee(int type, int count) {
         EmployeeType employeeType = null;
@@ -161,8 +191,8 @@ public class Company {
 
         // Do not let the employee count get negative.
         int actualRemovedCount = count > employeeType.getCount() ? employeeType.getCount() : count;
-        mCps -= employeeType.getCpsGain() * actualRemovedCount;
-        mQuality -= employeeType.getQualityGain() * actualRemovedCount;
+        mCodePerSec -= employeeType.getCpsGain() * actualRemovedCount;
+        mQualityPerSec -= employeeType.getQualityGain() * actualRemovedCount;
         mSalaryCosts -= employeeType.getSalary() * actualRemovedCount;
         employeeType.fire(actualRemovedCount);
     }
@@ -181,6 +211,10 @@ public class Company {
 
     public List<EmployeeType> getEmployees() {
         return mEmployees;
+    }
+
+    public void setEmployees(List<EmployeeType> employees) {
+        mEmployees = employees;
     }
 
     public void addProjectSlot() {
@@ -204,14 +238,21 @@ public class Company {
     }
 
     /**
+     * Sums together all the running costs per second.
      *
      * @return Running costs per second.
      */
     public double getRunningCosts() {
         return  mSalaryCosts;
     }
+    public double getSalaryCosts() { return mSalaryCosts; }
+
+    public double getQuality() {
+        return mQualityPerSec;
+    }
 
     public List<ProjectSlot> getProjectSlots() {
         return mProjectSlots;
     }
+
 }

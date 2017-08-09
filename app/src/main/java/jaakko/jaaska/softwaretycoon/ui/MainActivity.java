@@ -18,13 +18,14 @@ import android.widget.Toast;
 import jaakko.jaaska.softwaretycoon.R;
 import jaakko.jaaska.softwaretycoon.engine.Company;
 import jaakko.jaaska.softwaretycoon.engine.core.GameEngine;
+import jaakko.jaaska.softwaretycoon.storage.StorageManager;
 import jaakko.jaaska.softwaretycoon.ui.fragment.EmployeesFragment;
 import jaakko.jaaska.softwaretycoon.ui.fragment.NewProjectFragment;
 import jaakko.jaaska.softwaretycoon.ui.fragment.ProjectsFragment;
 import jaakko.jaaska.softwaretycoon.utils.Utils;
 
 /**
- * Created by jaakko on 7.3.2017.
+ * Main activity and a container for changing content fragments.
  */
 
 public class MainActivity extends FragmentActivity implements UiUpdater {
@@ -47,7 +48,7 @@ public class MainActivity extends FragmentActivity implements UiUpdater {
 
         //
         // Start the game engine
-        GameEngine engine = GameEngine.getInstance();
+        final GameEngine engine = GameEngine.getInstance();
         engine.loadTestData();
         engine.startEngine();
 
@@ -88,8 +89,22 @@ public class MainActivity extends FragmentActivity implements UiUpdater {
         viewTestHook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /*
                 long employeeCount = GameEngine.getInstance().getGameState().getCompany().getEmployeeCount();
                 Toast.makeText(MainActivity.this, "employee count = " + employeeCount, Toast.LENGTH_LONG).show();
+                */
+
+                engine.setGameState(StorageManager.getInstance().loadFromDb());
+                Toast.makeText(MainActivity.this, "Loaded game state from storage.", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        viewTestHook.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                StorageManager.getInstance().saveToDb(engine.getGameState());
+                Toast.makeText(MainActivity.this, "Saved game state to storage.", Toast.LENGTH_LONG).show();
+                return true; // Do not pass on to OnClickListener.
             }
         });
     }
