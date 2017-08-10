@@ -94,8 +94,18 @@ public class MainActivity extends FragmentActivity implements UiUpdater {
                 Toast.makeText(MainActivity.this, "employee count = " + employeeCount, Toast.LENGTH_LONG).show();
                 */
 
-                engine.setGameState(StorageManager.getInstance().loadFromDb());
-                Toast.makeText(MainActivity.this, "Loaded game state from storage.", Toast.LENGTH_LONG).show();
+                StorageManager storage = StorageManager.getInstance();
+
+                if (storage.localSaveGameExists()) {
+                    engine.setGameState(StorageManager.getInstance().loadFromDb());
+                    Toast.makeText(MainActivity.this,
+                            "Loaded game state from storage.",
+                            Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(MainActivity.this,
+                            "No saved game state exists. Did nothing.",
+                            Toast.LENGTH_LONG).show();
+                }
             }
         });
 

@@ -31,6 +31,19 @@ public class StorageManager {
         return mInstance;
     }
 
+    /**
+     * Checks if a saved game exists in local storage.
+     *
+     * @return True if there is an existing game progress in local storage.
+     */
+    public boolean localSaveGameExists() {
+        mDbHelper.openReadable();
+        boolean ret = mDbHelper.storedGameStateExists();
+        mDbHelper.close();
+        Log.d(TAG, "localSaveGameExists() - " + ret);
+        return ret;
+    }
+
 
     /**
      * Load the GameState from local database.

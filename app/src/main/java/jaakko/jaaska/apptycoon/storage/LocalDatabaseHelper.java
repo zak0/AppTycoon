@@ -83,6 +83,17 @@ class LocalDatabaseHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * Checks if a saved game exists in the database.
+     *
+     * @return True when a saved game exists.
+     */
+    boolean storedGameStateExists() {
+        String[] columns = { DatabaseSchema.CompanyEntry._ID };
+        Cursor cursor = doPlainQuery(DatabaseSchema.CompanyEntry.TABLE_NAME, columns);
+        return cursor.getCount() > 0;
+    }
+
+    /**
      * Selects (i.e. "reads") the data for the Company object from the database.
      * @return Company object built from data in the database.
      */
@@ -97,10 +108,14 @@ class LocalDatabaseHelper extends SQLiteOpenHelper {
                 DatabaseSchema.CompanyEntry.COLUMN_COMPANY_SALARY_COSTS
         };
 
-        Cursor cur = mDb.query(DatabaseSchema.CompanyEntry.TABLE_NAME,
-                columns, null, null, null, null, null);
+        Cursor cur = doPlainQuery(DatabaseSchema.CompanyEntry.TABLE_NAME, columns);
         CursorHelper curHelper = new CursorHelper(cur);
         cur.moveToFirst();
+
+        // Return null in case the table is empty.
+        if (cur.getCount() < 1) {
+            return null;
+        }
 
         // There should be only one row. So, no need to iterate throughout the entire Cursor.
         String name = (String) curHelper.get(DatabaseSchema.CompanyEntry.COLUMN_COMPANY_NAME);
@@ -147,8 +162,7 @@ class LocalDatabaseHelper extends SQLiteOpenHelper {
                 DatabaseSchema.EmployeeEntry.COLUMN_EMPLOYEE_COUNT
         };
 
-        Cursor cur = mDb.query(DatabaseSchema.EmployeeEntry.TABLE_NAME, columns,
-                null, null, null, null, null);
+        Cursor cur = doPlainQuery(DatabaseSchema.EmployeeEntry.TABLE_NAME, columns);
         CursorHelper curHelper = new CursorHelper(cur);
         ArrayList<EmployeeType> employees = new ArrayList<>();
 
@@ -221,6 +235,20 @@ class LocalDatabaseHelper extends SQLiteOpenHelper {
      */
     void openReadable() {
         mDb = getReadableDatabase();
+    }
+
+    /**
+     * Executes a simple SELECT into the database without a conditions or sort ordering.
+     * This is to reduce the need to write the "null,null,null,null" at every query
+     * where the entire table is read.
+     *
+     * @param tableName Name of the table to query.
+     * @param columns Columns to SELECT.
+     * @return Cursor object with the
+     */
+    private Cursor doPlainQuery(String tableName, String[] columns) {
+        Cursor cursor = mDb.query(tableName, columns, null, null, null, null, null);
+        return cursor;
     }
 
     /**
