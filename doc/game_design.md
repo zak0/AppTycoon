@@ -1,7 +1,7 @@
-# Software Tycoon - Game Design
+# App Tycoon - Game Design
 
 ## Intro
-Software tycoon is a software company management game with elements from idle, management and strategy games.
+App Tycoon is a software company management game with elements from idle, management and strategy games.
 
 ## Concept
 Player manages one software company. The company develops a set of products. Only a certain number of products can be under development at any given time. Product slots are unlocked later into the game. Product slots can be freed by ending the support for a product. Player selects the type and features for the product. Features can be added or removed in the subsequent versions of the product. Bugs in the product are discovered both during the development and after the release. Player selects whether to focus on fixing bugs or on bringing new features in the next release. In addition to products, contracting projects can be made as well. Player controls how the company's assets are allocated to each ongoing project.

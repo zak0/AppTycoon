@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Software Tycoon</string>
+    <string name="app_name">App Tycoon</string>
 
     <string name="message_project_delivered">Project delivered.</string>
     <string name="message_project_not_ready_for_delivery">Project is not ready for delivery.</string>
