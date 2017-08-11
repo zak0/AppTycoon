@@ -1,4 +1,5 @@
 # App Tycoon - Game Design
+This document is supposed to work as a feature list as well as a roadmap of what the game will have in the future. Contents of this document change as the game and ideas about the future development of the game change. This is not supposed to be a technical document describing everything in huge detail, but instead a guideline and a memo for the implementation of the game.
 
 ## Intro
 App Tycoon is a software company management game with elements from idle, management and strategy games.
@@ -6,7 +7,7 @@ App Tycoon is a software company management game with elements from idle, manage
 ## Concept
 Player manages one software company. The company develops a set of products. Only a certain number of products can be under development at any given time. Product slots are unlocked later into the game. Product slots can be freed by ending the support for a product. Player selects the type and features for the product. Features can be added or removed in the subsequent versions of the product. Bugs in the product are discovered both during the development and after the release. Player selects whether to focus on fixing bugs or on bringing new features in the next release. In addition to products, contracting projects can be made as well. Player controls how the company's assets are allocated to each ongoing project.
 
-The game (or the company...) has three main properties:
+The game (or the company...) has these main properties:
 *   __Money__: Money is spent on running costs of the company as well as upgrading the company. Money is gained from selling products or delivering contracting projects in time.
 *   __Code Speed__: Unit is c/s (code per second). This is the amount of code the company is producing. This equals to how fast projects progress.
 *   __Code Quality__: This is a factor or a relative value for how good the resulting code is. This determines the quality score of the products. For example, a value of 0.5 means that every 2 _code_ increase the quality score by 1. _Quality_ impact of assets (incl. employees) is tracked by a quality score. The _code quality_ shown to the player is
@@ -20,15 +21,17 @@ At first only one slot for a project is available. More slots can be unlocked fr
 Projects can be either developing own in-house products or contracting projects. Product development projects result in products which the company will then sell directly. Contracting jobs have a one-time payment that is made upon delivering the project.
 
 ### Products
-Products are result of in-house projects. All products have a __type__ (types include _web application_, _mobile application_, _desktop application_). Some products can have _subproducts_. This means that a larger product types (like _enterprise information system_) can consist of other smaller products, which in can then be developed in their own projects. In case of a hierarchical product (i.e. a product structure) only the main product is the one that is sold. Only a few product types are available at the beginning. More can then be unlocked from the upgrades tree. In the beginning, the player selects the first type of products for the company. Further types can later be unlocked from the upgrades tree. Each type has a base complexity value.
+Products are result of in-house projects. All products have a __type__ (types include _web application_, _mobile application_, _desktop application_). Some products can have _subproducts_. This means that a larger product types can consist of other smaller products, which in can then be developed in their own projects. In case of a hierarchical product (i.e. a product structure) only the main product is the one that is sold. Only a few product types are available at the beginning. More can then be unlocked from the upgrades tree. In the beginning, the player selects the first type of products for the company. Further types can later be unlocked from the upgrades tree. Each type has a base complexity value.
 
 Products also have __features__. Features together with the base complexity of the product determine the total __complexity__ of the product and thus also the time required to develop it, the price tag for the product and how well the product sells. Features are tied to the product type and not all types of products can have all the features. Features can be added and removed from a product. Features also have a level, which the player selects. Higher level features mean more complexity but in turn a more desirable product. Some features add more complexity than others when the feature level is increased. One feature that is common to all product types, and every product will automatically have, is _Core functionality_.
 
 Products have a __quality__ score. Products have bugs. Bugs reduce the quality score until they are fixed. Bugs are detected during development and after the product has been released and deployed.
 
-Each product project results in a __release__ of a newly released product or an update to an already released product. After a release, sales of the product in question gets a boost. Only the latest release is sold.
+Each product project results in a __release__ of a newly released product or an update to an already released product. After a release, sales of the product in question gets a boost. Only the latest release is available to the customers.
 
-The sales quantity and the sales price depends on the product complexity. More complex products sell fewer numbers but cost more than less complex ones. Some products can be released as freemium, meaning that the income comes from ads. Products can also be released for free or the they can be made open source.
+The sales quantity and the sales price depends on the product complexity. More complex products sell fewer numbers but cost more than less complex ones. Some products can be released as freemium, meaning that the income comes from ads and in-app-purchases. Some can be released as a service, so that customers pay a continuous fee for a license to use the product
+
+Products can also be released for free or the they can be made open source. This has an effect on company's reputation.
 
 ### Contracting Projects
 Contracting projects have type and features like the in-house products, so the amount of _code_ needed to complete the project is calculated the same way as for the in-house product projects. Additionally these projects have a _quality_ requirement which also needs to be met in order to succesfully deliver the project. Contracting projects also have a _deadline_ which must be met or a possible monetary penalty will be inflicted.
@@ -37,7 +40,7 @@ Contracting projects have type and features like the in-house products, so the a
 Each project is divided into tasks. For product development projects, the tasks are improvements to features or completely new features, or bug fixes. For contracting projects, this is simply the list of features that need to be developed.
 
 ## Human Resources
-Company needs people to do the work. Size of the company premises limit the maximum nmber of employees. Employees are managed in groups by employee types (not by individuals). Different employee types benefit the company in different ways.
+Company needs people to do the work. Size of the company premises limit the maximum number of employees. Employees are managed in groups by employee types (not by individuals). Different employee types benefit the company in different ways.
 
 New employees are hired by opening a a job position (or a number of job positions) and starting a hiring campaign. Then, after a random time the positions are filled. The rate at which the open positions are filled depends on company reputation, current salary for the position and the type of the hiring campaign. When multiple positions (for the same role or different roles) are open, each position is filled individually. After a suitable candidate has been found, the player needs to "sign the contrtact" before the new hire starts working for the company.
 
@@ -74,4 +77,4 @@ The company has running costs that need to be paid. Company premises have a runn
 ## Prestige System
 Game has a prestige system typical to idle genre. Resetting the game earns Guru Points which can be used to unlock special upgrades.
 
-## The UI
+## Achievements

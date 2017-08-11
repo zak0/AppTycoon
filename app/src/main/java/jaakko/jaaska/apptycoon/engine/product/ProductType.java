@@ -47,8 +47,20 @@ public class ProductType {
         mPossibleFeatures = new ArrayList<>();
         mMustHaveParent = false;
         mBaseComplexity = baseComplexity;
+        mType = type;
+
+        addTypeToArrays(type, this);
     }
 
+    /**
+     * This is the constructor called for subtypes as this includes
+     * the mustHaveParent parameter.
+     *
+     * @param type Type ID of the type
+     * @param name Human readable name of the type
+     * @param mustHaveParent True when this type cannot be the parent type on its own
+     * @param baseComplexity Minimum amount of complexity a product of this type has
+     */
     private ProductType(int type, String name, boolean mustHaveParent, long baseComplexity) {
         this(type, name, baseComplexity);
         mMustHaveParent = mustHaveParent;
@@ -100,6 +112,7 @@ public class ProductType {
     // Static content.
     public static final int PRODUCT_TYPE_WEB_APP = 10;
     public static final int PRODUCT_TYPE_MOBILE_APP = 20;
+    public static final int PRODUCT_TYPE_MOBILE_GAME = 25;
     public static final int PRODUCT_TYPE_DESKTOP_APP = 30;
     public static final int PRODUCT_TYPE_SERVER_BACKEND = 40;
 
@@ -107,6 +120,7 @@ public class ProductType {
     private static ArrayList<Integer> sProductTypeIds;
 
     public static ProductType getProductType(int type) {
+        initStaticContent();
         return sProductTypes.get(type);
     }
 
@@ -121,6 +135,7 @@ public class ProductType {
 
         ProductType webApp = new ProductType(PRODUCT_TYPE_WEB_APP, "Web App", 300);
         ProductType mobileApp = new ProductType(PRODUCT_TYPE_MOBILE_APP, "Mobile App", 400);
+        ProductType mobileGame = new ProductType(PRODUCT_TYPE_MOBILE_GAME, "Mobile Game", 450);
         ProductType desktopApp = new ProductType(PRODUCT_TYPE_DESKTOP_APP, "Desktop App", 500);
         ProductType serverBackend = new ProductType(PRODUCT_TYPE_SERVER_BACKEND, "Server Backend", true, 200);
 
@@ -139,10 +154,15 @@ public class ProductType {
             .addPossibleFeature(ProductFeature.PRODUCT_FEATURE_SOCIAL_MEDIA_INTEGRATION)
             .addPossibleFeature(ProductFeature.PRODUCT_FEATURE_UI_ANIMATIONS);
 
+        mobileGame.addPossibleSubType(serverBackend);
+
+        /*
         addTypeToArrays(PRODUCT_TYPE_WEB_APP, webApp);
         addTypeToArrays(PRODUCT_TYPE_MOBILE_APP, mobileApp);
+        addTypeToArrays(PRODUCT_TYPE_MOBILE_GAME, mobileGame);
         addTypeToArrays(PRODUCT_TYPE_DESKTOP_APP, desktopApp);
         addTypeToArrays(PRODUCT_TYPE_SERVER_BACKEND, serverBackend);
+        */
 
     }
 
@@ -165,6 +185,20 @@ public class ProductType {
         initStaticContent();
         int typeId = (Integer) Utils.getRandomFromList(sProductTypeIds);
         return sProductTypes.get(typeId);
+    }
+
+    /**
+     * Builds a list of all the product types.
+     * @return The list with all the product types.
+     */
+    public static List<ProductType> getAllTypes() {
+        ArrayList<ProductType> types = new ArrayList<>();
+
+        for (int typeId : sProductTypeIds) {
+            types.add(sProductTypes.get(typeId));
+        }
+
+        return types;
     }
 
 

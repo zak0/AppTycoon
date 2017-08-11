@@ -41,6 +41,7 @@ public class UiUpdateHandler extends Handler {
     // Constants for argument Bundle keys.
     public static final String ARG_TARGET_FRAGMENT = "target_fragment";
     public static final String ARG_PROJECT_SLOT_INDEX = "project_slot_index";
+    public static final String ARG_NEW_PRODUCT_TYPE = "product_type";
 
     // List of currently registered UiUpdaters and their actions.
     private Map<Integer, List<UiUpdater>> mUpdaters;

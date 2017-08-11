@@ -91,7 +91,7 @@
             android:fontFamily="monospace"
             android:textStyle="bold"
             android:layout_margin="@dimen/navigationDrawerItemMargin"
-            android:text="[T] TEST HOOK" />
+            android:text="[ ] TEST HOOK" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -107,7 +107,18 @@
                 android:fontFamily="monospace"
                 android:textStyle="bold"
                 android:layout_margin="@dimen/navigationDrawerItemMargin"
-                android:text="[1] Projects"
+                android:text="[ ] Projects"
+                />
+
+            <TextView
+                android:id="@+id/textViewNavProducts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffffff"
+                android:fontFamily="monospace"
+                android:textStyle="bold"
+                android:layout_margin="@dimen/navigationDrawerItemMargin"
+                android:text="[ ] Product Development"
                 />
 
             <TextView
@@ -118,7 +129,7 @@
                 android:fontFamily="monospace"
                 android:textStyle="bold"
                 android:layout_margin="@dimen/navigationDrawerItemMargin"
-                android:text="[2] Human Resources"
+                android:text="[ ] Human Resources"
                 />
 
             <TextView
@@ -129,7 +140,7 @@
                 android:fontFamily="monospace"
                 android:textStyle="bold"
                 android:layout_margin="@dimen/navigationDrawerItemMargin"
-                android:text="[3] Finances"
+                android:text="[ ] Finances"
                 />
 
         </LinearLayout>
@@ -148,7 +159,7 @@
                 android:fontFamily="monospace"
                 android:textStyle="bold"
                 android:layout_margin="@dimen/navigationDrawerItemMargin"
-                android:text="[S] Stats" />
+                android:text="[ ] Stats" />
 
             <TextView
                 android:id="@+id/textViewNavAchievements"
@@ -158,7 +169,7 @@
                 android:fontFamily="monospace"
                 android:textStyle="bold"
                 android:layout_margin="@dimen/navigationDrawerItemMargin"
-                android:text="[A] Achievements" />
+                android:text="[ ] Achievements" />
 
             <TextView
                 android:id="@+id/textViewNavSettings"
@@ -168,7 +179,7 @@
                 android:fontFamily="monospace"
                 android:textStyle="bold"
                 android:layout_margin="@dimen/navigationDrawerItemMargin"
-                android:text="[O] Settings" />
+                android:text="[ ] Settings" />
 
         </LinearLayout>
 

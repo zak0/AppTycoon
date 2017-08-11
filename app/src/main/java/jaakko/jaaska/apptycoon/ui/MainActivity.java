@@ -20,7 +20,9 @@ import jaakko.jaaska.apptycoon.engine.Company;
 import jaakko.jaaska.apptycoon.engine.core.GameEngine;
 import jaakko.jaaska.apptycoon.storage.StorageManager;
 import jaakko.jaaska.apptycoon.ui.fragment.EmployeesFragment;
+import jaakko.jaaska.apptycoon.ui.fragment.NewProductFragment;
 import jaakko.jaaska.apptycoon.ui.fragment.NewProjectFragment;
+import jaakko.jaaska.apptycoon.ui.fragment.ProductsFragment;
 import jaakko.jaaska.apptycoon.ui.fragment.ProjectsFragment;
 import jaakko.jaaska.apptycoon.utils.Utils;
 
@@ -36,6 +38,9 @@ public class MainActivity extends FragmentActivity implements UiUpdater {
     public static final int FRAGMENT_NEW_PROJECT = 1;
 
     public static final int FRAGMENT_HUMAN_RESOURCES = 10;
+
+    public static final int FRAGMENT_PRODUCTS = 20;
+    public static final int FRAGMENT_NEW_PRODUCT = 21;
 
     /** Currently visible fragment. */
     private int mCurrentFragment = Integer.MIN_VALUE;
@@ -79,6 +84,7 @@ public class MainActivity extends FragmentActivity implements UiUpdater {
         // Navigation drawer item handling
         mDrawerLayout = (DrawerLayout) findViewById(R.id.layoutDrawer);
         setNavItemListeners((TextView) findViewById(R.id.textViewNavProjects), FRAGMENT_PROJECTS);
+        setNavItemListeners((TextView) findViewById(R.id.textViewNavProducts), FRAGMENT_PRODUCTS);
         setNavItemListeners((TextView) findViewById(R.id.textViewNavEmployees), FRAGMENT_HUMAN_RESOURCES);
 
         updateUi(Integer.MIN_VALUE, null);
@@ -155,13 +161,22 @@ public class MainActivity extends FragmentActivity implements UiUpdater {
                 break;
             case FRAGMENT_NEW_PROJECT:
                 newFragment = new NewProjectFragment();
-                newFragment.setArguments(args);
+                break;
+            case FRAGMENT_PRODUCTS:
+                newFragment = new ProductsFragment();
+                break;
+            case FRAGMENT_NEW_PRODUCT:
+                newFragment = new NewProductFragment();
                 break;
             default:
                 break;
         }
 
         if (newFragment != null) {
+            if (args != null) {
+                newFragment.setArguments(args);
+            }
+
             getSupportFragmentManager().beginTransaction()
                     .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
                     .replace(R.id.layoutFragmentContainer, newFragment)

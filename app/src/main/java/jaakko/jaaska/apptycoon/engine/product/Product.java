@@ -48,6 +48,7 @@ public class Product {
         mType = type;
         mReleaseCount = 0;
         mComplexity = 0;
+        mQuality = 0;
 
         mUnitPrice = 5;
         mUnitsSold = 0;
@@ -81,6 +82,14 @@ public class Product {
         }
 
         return mComplexity;
+    }
+
+    public String getName() {
+        return mName;
+    }
+
+    public long getQuality() {
+        return mQuality;
     }
 
     public List<Pair<ProductFeature, Integer>> getFeatures() {
@@ -130,7 +139,6 @@ public class Product {
      *
      * @return Generated product
      *
-     * TODO:
      */
     public static Product getRandomProduct() {
         // Get a random type that is suitable to be a parent.

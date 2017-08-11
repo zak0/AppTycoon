@@ -79,6 +79,13 @@ public class Company {
         mSalaryCosts = salaryCosts;
     }
 
+    public List<Product> getProducts() {
+        return mProducts;
+    }
+
+    public void addProduct(Product product) {
+        mProducts.add(product);
+    }
 
     public String getName() {
         return mName;

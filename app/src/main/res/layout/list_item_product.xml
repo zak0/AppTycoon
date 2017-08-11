@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="@dimen/cardview_default_elevation"
+        app:cardUseCompatPadding="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/cardMargin"
+            android:padding="@dimen/cardPadding">
+
+            <TextView
+                android:id="@+id/textViewProductName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:fontFamily="monospace"
+                android:textColor="@color/primary_text"
+                android:layout_marginBottom="@dimen/marginBelowCardTitle"
+                android:text="Product Name"/>
+
+            <TextView
+                android:id="@+id/textViewProductType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:fontFamily="monospace"
+                android:textColor="@color/primary_text"
+                android:text="Product Type"/>
+
+            <TextView
+                android:id="@+id/textViewProductVersion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewProductType"
+                android:fontFamily="monospace"
+                android:layout_marginBottom="@dimen/marginBelowCardTitle"
+                android:textColor="@color/secondary_text"
+                android:text="v46 (released 1d 12h 15m ago)"/>
+
+
+            <!-- Product stat titles -->
+            <TextView
+                android:id="@+id/textViewProductComplexityTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewProductVersion"
+                android:fontFamily="monospace"
+                android:textColor="@color/primary_text"
+                android:text="Complexity"/>
+
+            <TextView
+                android:id="@+id/textViewProductQualityTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewProductComplexityTitle"
+                android:fontFamily="monospace"
+                android:textColor="@color/primary_text"
+                android:text="Quality"/>
+
+            <TextView
+                android:id="@+id/textViewProductBugsTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewProductQualityTitle"
+                android:fontFamily="monospace"
+                android:textColor="@color/primary_text"
+                android:text="Known bugs"/>
+
+            <TextView
+                android:id="@+id/textViewProductIncomeTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewProductBugsTitle"
+                android:paddingTop="@dimen/fragmentSectionPadding"
+                android:fontFamily="monospace"
+                android:textColor="@color/primary_text"
+                android:text="Earnings"/>
+
+
+
+
+            <!-- Product stat values -->
+            <TextView
+                android:id="@+id/textViewProductComplexity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewProductVersion"
+                android:layout_alignParentRight="true"
+                android:fontFamily="monospace"
+                android:textColor="@color/primary_text"
+                android:text="14.82k"/>
+
+            <TextView
+                android:id="@+id/textViewProductQuality"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewProductComplexityTitle"
+                android:layout_alignParentRight="true"
+                android:fontFamily="monospace"
+                android:textColor="@color/primary_text"
+                android:text="10.15k (68%)"/>
+
+            <TextView
+                android:id="@+id/textViewProductBugs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewProductQualityTitle"
+                android:layout_alignParentRight="true"
+                android:fontFamily="monospace"
+                android:textColor="@color/primary_text"
+                android:text="18 (-1.6k quality)"/>
+
+            <TextView
+                android:id="@+id/textViewProductIncome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewProductBugsTitle"
+                android:layout_alignParentRight="true"
+                android:paddingTop="@dimen/fragmentSectionPadding"
+                android:fontFamily="monospace"
+                android:textColor="@color/primary_text"
+                android:text="$0.82 / sec"/>
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+</LinearLayout>

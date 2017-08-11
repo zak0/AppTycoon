@@ -6,6 +6,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import jaakko.jaaska.apptycoon.engine.Company;
 import jaakko.jaaska.apptycoon.engine.people.EmployeeType;
+import jaakko.jaaska.apptycoon.engine.product.Product;
+import jaakko.jaaska.apptycoon.engine.product.ProductType;
 
 /**
  * Created by jaakko on 7.3.2017.
@@ -52,6 +54,10 @@ public class GameEngine {
         company.addEmployee(EmployeeType.TYPE_DEVELOPER, 3);
         company.addEmployee(EmployeeType.TYPE_SENIOR_DEVELOPER, 2);
         company.addEmployee(EmployeeType.TYPE_TEST_ENGINEER, 0);
+
+        // Add products
+        Product mobileApp = new Product("Some Cool App", ProductType.getProductType(ProductType.PRODUCT_TYPE_MOBILE_APP));
+        company.addProduct(mobileApp);
 
         mGameState.setCompany(company);
     }
