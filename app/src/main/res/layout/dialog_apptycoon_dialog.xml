@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- This is the "base" for custom action dialogs for this game.
+
+ This is used so that this layout defines the shared top bar with two action buttons.
+
+ Then, the dialog specific layout is inflated into the content area of this template.
+ -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <!-- The navigation area of the dialog. It is fine to change the texts on the action "buttons" in the code to better match the actions.
+    -->
+    <RelativeLayout
+        android:id="@+id/layoutDialogBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dialogPadding"
+        android:background="@color/primary">
+
+        <TextView
+            android:id="@+id/textViewDialogTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Dialog Title"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="monospace"
+            android:textColor="#ffffff"
+            />
+
+        <TextView
+            android:id="@+id/textViewDialogActionCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:fontFamily="monospace"
+            android:textColor="#ffffff"
+            />
+
+        <TextView
+            android:id="@+id/textViewDialogActionOk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Done"
+            android:layout_alignParentRight="true"
+            android:fontFamily="monospace"
+            android:textColor="#ffffff"
+            />
+
+
+    </RelativeLayout>
+
+
+    <!-- The content area of the dialog. -->
+    <RelativeLayout
+        android:id="@+id/layoutDialogContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dialogPadding"
+        android:layout_below="@id/layoutDialogBar">
+
+        <!-- Dialog function specific content will be inflated here. -->
+
+    </RelativeLayout>
+</RelativeLayout>
