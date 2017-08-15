@@ -23,4 +23,7 @@
     <dimen name="buttonFontSize">14dp</dimen>
 
     <dimen name="marginBelowCardTitle">8dp</dimen>
+
+    <dimen name="editFeatureLevelEditTextWidth">80dp</dimen>
+    <dimen name="editFeaturePaddingBelowFeatureName">26dp</dimen>
 </resources>

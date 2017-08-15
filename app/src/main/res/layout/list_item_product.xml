@@ -44,7 +44,7 @@
                 android:fontFamily="monospace"
                 android:layout_marginBottom="@dimen/marginBelowCardTitle"
                 android:textColor="@color/secondary_text"
-                android:text="v46 (released 1d 12h 15m ago)"/>
+                android:text="v0 (released 00d 00h 00m ago)"/>
 
 
             <!-- Product stat titles -->
@@ -117,7 +117,7 @@
                 android:layout_alignParentRight="true"
                 android:fontFamily="monospace"
                 android:textColor="@color/primary_text"
-                android:text="18 (-1.6k quality)"/>
+                android:text="n/a (n/a quality)"/>
 
             <TextView
                 android:id="@+id/textViewProductIncome"
@@ -128,7 +128,7 @@
                 android:paddingTop="@dimen/fragmentSectionPadding"
                 android:fontFamily="monospace"
                 android:textColor="@color/primary_text"
-                android:text="$0.82 / sec"/>
+                android:text="n/a"/>
 
         </RelativeLayout>
 

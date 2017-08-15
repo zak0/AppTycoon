@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/fragmentPadding">
+
+    <TextView
+        android:id="@+id/textViewFeatureName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="monospace"
+        android:textStyle="bold"
+        android:textColor="@color/primary_text"
+        android:text="Feature name"/>
+
+    <EditText
+        android:id="@+id/editTextFeatureLevel"
+        android:layout_width="@dimen/editFeatureLevelEditTextWidth"
+        android:layout_height="wrap_content"
+        android:fontFamily="monospace"
+        android:layout_below="@id/textViewFeatureName"
+        android:layout_marginTop="@dimen/editFeaturePaddingBelowFeatureName"
+        android:layout_alignParentRight="true"
+        android:inputType="number"
+        android:textSize="@dimen/editTextFontSize"/>
+
+
+    <TextView
+        android:id="@+id/textViewFeatureLevelTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="monospace"
+        android:layout_below="@id/textViewFeatureName"
+        android:layout_alignBaseline="@id/editTextFeatureLevel"
+        android:textColor="@color/primary_text"
+        android:text="Feature Level"/>
+
+</RelativeLayout>

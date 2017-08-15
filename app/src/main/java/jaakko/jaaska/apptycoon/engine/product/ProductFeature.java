@@ -51,6 +51,9 @@ public abstract class ProductFeature {
 
     @Override
     public boolean equals(Object obj) {
+        if (!(obj instanceof ProductFeature)) {
+            return false;
+        }
         int objId = ((ProductFeature) obj).mFeatureId;
         return mFeatureId == objId;
     }
@@ -87,14 +90,14 @@ public abstract class ProductFeature {
         sProductFeatures.append(PRODUCT_FEATURE_CORE_FEATURES, new ProductFeature(PRODUCT_FEATURE_CORE_FEATURES, "Core Functionality") {
             @Override
             public int getComplexityForLevel(int level) {
-                return level * (100 + level);
+                return level * (1000 + level);
             }
         });
 
         sProductFeatures.append(PRODUCT_FEATURE_UI_ANIMATIONS, new ProductFeature(PRODUCT_FEATURE_UI_ANIMATIONS, "UI Animations") {
             @Override
             public int getComplexityForLevel(int level) {
-                return level * (100 + level);
+                return level * (1000 + level);
             }
 
         });
@@ -102,14 +105,14 @@ public abstract class ProductFeature {
         sProductFeatures.append(PRODUCT_FEATURE_RESPONSIVE_DESIGN, new ProductFeature(PRODUCT_FEATURE_RESPONSIVE_DESIGN, "Responsive Design") {
             @Override
             public int getComplexityForLevel(int level) {
-                return level * (80 + level);
+                return level * (800 + level);
             }
         });
 
         sProductFeatures.append(PRODUCT_FEATURE_SOCIAL_MEDIA_INTEGRATION, new ProductFeature(PRODUCT_FEATURE_SOCIAL_MEDIA_INTEGRATION, "Social Media Integration") {
             @Override
             public int getComplexityForLevel(int level) {
-                return level * (200 + level * 2);
+                return level * (2000 + level * 2);
             }
         });
     }

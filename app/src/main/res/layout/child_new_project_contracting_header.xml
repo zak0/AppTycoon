@@ -39,7 +39,7 @@
         android:text="Reward"/>
 
     <TextView
-        android:id="@+id/textViewComplexityTitle"
+        android:id="@+id/textViewProductComplexityTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textViewRewardTitle"
@@ -52,7 +52,7 @@
         android:id="@+id/textViewQualityReqTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textViewComplexityTitle"
+        android:layout_below="@id/textViewProductComplexityTitle"
         android:fontFamily="monospace"
         android:textStyle="bold"
         android:textColor="@color/primary_text"
@@ -95,7 +95,7 @@
         android:text="Reward"/>
 
     <TextView
-        android:id="@+id/textViewComplexity"
+        android:id="@+id/textViewProductComplexity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textViewRewardTitle"
@@ -108,7 +108,7 @@
         android:id="@+id/textViewQualityReq"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/textViewComplexityTitle"
+        android:layout_below="@id/textViewProductComplexityTitle"
         android:layout_alignParentRight="true"
         android:fontFamily="monospace"
         android:textColor="@color/secondary_text"

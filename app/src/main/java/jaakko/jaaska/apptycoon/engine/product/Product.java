@@ -3,13 +3,14 @@ package jaakko.jaaska.apptycoon.engine.product;
 import android.support.v4.util.Pair;
 import android.util.Log;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
 /**
- * Created by jaakko on 30.4.2017.
+ * TODO: Refactor the ProductFeatures to be similar to EmployeeType: instance specific data (like level) into ProductFeature class, Product to have its features as List<ProductFeature>.
  */
 
 public class Product {
@@ -60,6 +61,8 @@ public class Product {
         // Every product has the "Core functionality" feature. So, we add it here.
         ProductFeature coreFeatures = ProductFeature.getFeature(ProductFeature.PRODUCT_FEATURE_CORE_FEATURES);
         mFeatures.add(new Pair<>(coreFeatures, 1));
+
+        calculateComplexity();
     }
 
     /**
@@ -88,12 +91,51 @@ public class Product {
         return mName;
     }
 
+    public void setName(String name) {
+        mName = name;
+    }
+
     public long getQuality() {
         return mQuality;
     }
 
     public List<Pair<ProductFeature, Integer>> getFeatures() {
         return mFeatures;
+    }
+
+    /**
+     * Searches the feature from List<Pair<ProductFeature, Integer>> and
+     * gets its level.
+     *
+     * TODO: Remove this method when ProductFeature is refactored.
+     *
+     * @param feature Feature to look the level for.
+     * @return The level of the feature. -1 in case the feature was not found.
+     */
+    public int getLevelOfAFeature(ProductFeature feature) {
+        for (Pair<ProductFeature, Integer> pair : mFeatures) {
+            if (pair.first.equals(feature)) {
+                return pair.second;
+            }
+        }
+
+        return -1;
+    }
+
+    /**
+     * Builds a single list of all the features.
+     *
+     * TODO: Remove this method when ProductFeature is refactored.
+     * @return The list with all the features.
+     */
+    public List<ProductFeature> getFeaturesAsAList() {
+        ArrayList<ProductFeature> features = new ArrayList<>();
+
+        for (Pair<ProductFeature, Integer> pair : mFeatures) {
+            features.add(pair.first);
+        }
+
+        return features;
     }
 
     public ProductType getType() {
@@ -127,6 +169,35 @@ public class Product {
         mFeatures.add(new Pair<ProductFeature, Integer>(feature, level));
         calculateComplexity();
     }
+
+    /**
+     * Remove a feature from the product.
+     *
+     * @param feature Feature to remove.
+     */
+    public void removeFeature(ProductFeature feature) {
+
+        Pair<ProductFeature, Integer> pairToRemove = null;
+
+        for (Pair<ProductFeature, Integer> pair : mFeatures) {
+            if (pair.first.equals(feature)) {
+                pairToRemove = pair;
+                break;
+            }
+        }
+
+        if (pairToRemove != null) {
+            mFeatures.remove(pairToRemove);
+            Log.d(TAG, "removeFeature() - removed feature '" + pairToRemove.first.getName() + "'");
+        } else {
+            Log.e(TAG, "removeFeature() - tried to remove a non-existing feature");
+        }
+
+        calculateComplexity();
+
+    }
+
+
 
     //
     //

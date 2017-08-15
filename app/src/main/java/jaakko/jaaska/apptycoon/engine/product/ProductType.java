@@ -133,11 +133,11 @@ public class ProductType {
         sProductTypes = new SparseArray<>();
         sProductTypeIds = new ArrayList<>();
 
-        ProductType webApp = new ProductType(PRODUCT_TYPE_WEB_APP, "Web App", 300);
-        ProductType mobileApp = new ProductType(PRODUCT_TYPE_MOBILE_APP, "Mobile App", 400);
-        ProductType mobileGame = new ProductType(PRODUCT_TYPE_MOBILE_GAME, "Mobile Game", 450);
-        ProductType desktopApp = new ProductType(PRODUCT_TYPE_DESKTOP_APP, "Desktop App", 500);
-        ProductType serverBackend = new ProductType(PRODUCT_TYPE_SERVER_BACKEND, "Server Backend", true, 200);
+        ProductType webApp = new ProductType(PRODUCT_TYPE_WEB_APP, "Web App", 3000);
+        ProductType mobileApp = new ProductType(PRODUCT_TYPE_MOBILE_APP, "Mobile App", 4000);
+        ProductType mobileGame = new ProductType(PRODUCT_TYPE_MOBILE_GAME, "Mobile Game", 4500);
+        ProductType desktopApp = new ProductType(PRODUCT_TYPE_DESKTOP_APP, "Desktop App", 5000);
+        ProductType serverBackend = new ProductType(PRODUCT_TYPE_SERVER_BACKEND, "Server Backend", true, 2000);
 
         webApp.addPossibleSubType(serverBackend)
             .addPossibleFeature(ProductFeature.PRODUCT_FEATURE_RESPONSIVE_DESIGN)

@@ -1,5 +1,5 @@
 # App Tycoon - Game Design
-This document is supposed to work as a feature list as well as a roadmap of what the game will have in the future. Contents of this document change as the game and ideas about the future development of the game change. This is not supposed to be a technical document describing everything in huge detail, but instead a guideline and a memo for the implementation of the game.
+This document is supposed to work as a feature list as well as a road map of what the game will have in the future. Contents of this document change as the game and ideas about the future development of the game change. This is not supposed to be a technical document describing everything in huge detail, but instead a guideline and a memo for the implementation of the game.
 
 ## Intro
 App Tycoon is a software company management game with elements from idle, management and strategy games.
@@ -18,12 +18,12 @@ Player manages company's employees and assets and how they are divided between t
 ## Projects and Products
 At first only one slot for a project is available. More slots can be unlocked from the upgrades tree.
 
-Projects can be either developing own in-house products or contracting projects. Product development projects result in products which the company will then sell directly. Contracting jobs have a one-time payment that is made upon delivering the project.
+Projects can be either developing own in-house products or contracting projects. Product development projects result in product releases. Contracting jobs have a one-time payment that is made upon delivering the project.
 
 ### Products
 Products are result of in-house projects. All products have a __type__ (types include _web application_, _mobile application_, _desktop application_). Some products can have _subproducts_. This means that a larger product types can consist of other smaller products, which in can then be developed in their own projects. In case of a hierarchical product (i.e. a product structure) only the main product is the one that is sold. Only a few product types are available at the beginning. More can then be unlocked from the upgrades tree. In the beginning, the player selects the first type of products for the company. Further types can later be unlocked from the upgrades tree. Each type has a base complexity value.
 
-Products also have __features__. Features together with the base complexity of the product determine the total __complexity__ of the product and thus also the time required to develop it, the price tag for the product and how well the product sells. Features are tied to the product type and not all types of products can have all the features. Features can be added and removed from a product. Features also have a level, which the player selects. Higher level features mean more complexity but in turn a more desirable product. Some features add more complexity than others when the feature level is increased. One feature that is common to all product types, and every product will automatically have, is _Core functionality_.
+Products have __features__. Features together with the base complexity of the product determine the total __complexity__ of the product and thus also the time required to develop it, the price tag for the product and how well the product sells. Features are tied to the product type and not all types of products can have all the features. Features can be added and removed from a product. Features also have a level, which the player selects. Higher level features mean more complexity but in turn a more desirable product. Some features add more complexity than others when the feature level is increased. One feature that is common to all product types, and every product will automatically have, is _Core functionality_.
 
 Products have a __quality__ score. Products have bugs. Bugs reduce the quality score until they are fixed. Bugs are detected during development and after the product has been released and deployed.
 
@@ -34,7 +34,12 @@ The sales quantity and the sales price depends on the product complexity. More c
 Products can also be released for free or the they can be made open source. This has an effect on company's reputation.
 
 ### Contracting Projects
-Contracting projects have type and features like the in-house products, so the amount of _code_ needed to complete the project is calculated the same way as for the in-house product projects. Additionally these projects have a _quality_ requirement which also needs to be met in order to succesfully deliver the project. Contracting projects also have a _deadline_ which must be met or a possible monetary penalty will be inflicted.
+Contracting projects have type and features like the in-house products, so the amount of _code_ needed to complete the project is calculated the same way as for the in-house product projects. Additionally these projects have a _quality_ requirement which also needs to be met in order to successfully deliver the project. Contracting projects also have a _deadline_ which must be met or a possible monetary penalty will be inflicted.
+
+### Product Projects
+Product projects are projects that result in a new release of a product. The projects are defined through the Product Development feature by planning the next release. In practice, this means leveling up existing features, adding new features or fixing bugs.
+
+New products are done in a similar way: first the product is defined, then a project is started to actually develop it.
 
 ### Project Tasks
 Each project is divided into tasks. For product development projects, the tasks are improvements to features or completely new features, or bug fixes. For contracting projects, this is simply the list of features that need to be developed.

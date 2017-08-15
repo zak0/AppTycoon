@@ -80,7 +80,7 @@ public class NewProjectFragment extends Fragment {
             TextView twProjectName = (TextView) headerView.findViewById(R.id.textViewProjectName);
             TextView twReward = (TextView) headerView.findViewById(R.id.textViewReward);
             TextView twCustomer = (TextView) headerView.findViewById(R.id.textViewCustomer);
-            TextView twComplexity = (TextView) headerView.findViewById(R.id.textViewComplexity);
+            TextView twComplexity = (TextView) headerView.findViewById(R.id.textViewProductComplexity);
             TextView twQualityReq = (TextView) headerView.findViewById(R.id.textViewQualityReq);
             TextView twTime = (TextView) headerView.findViewById(R.id.textViewTime);
 
