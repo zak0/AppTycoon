@@ -37,12 +37,12 @@ public abstract class Project {
     /**
      * List of project tasks.
      */
-    private List<ProjectTask> mTasks;
+    protected List<ProjectTask> mTasks;
 
     /**
      * Default constructor
-     * @param name
-     * @param description
+     * @param name Name of the project
+     * @param description A human-readable description of the project
      */
     public Project(String name, String description) {
         mName = name;
@@ -60,6 +60,14 @@ public abstract class Project {
 
     public String getDescription() {
         return mDescription;
+    }
+
+    public void setName(String name) {
+        mName = name;
+    }
+
+    public void setDescription(String description) {
+        mDescription = description;
     }
 
     public boolean isFinished() {
@@ -118,6 +126,8 @@ public abstract class Project {
 
     /**
      * Calculates the total amount of work required in order to finish the project.
+     *
+     * TODO: Is there a need for this? Maybe the work amount could just be the sum of task work amounts?
      * @return Calculated work amount
      */
     protected abstract long calculateWorkAmount();

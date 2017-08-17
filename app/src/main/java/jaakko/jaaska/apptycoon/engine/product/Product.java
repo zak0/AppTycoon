@@ -9,6 +9,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import jaakko.jaaska.apptycoon.engine.project.FeatureTask;
+import jaakko.jaaska.apptycoon.engine.project.NewProductTask;
+import jaakko.jaaska.apptycoon.engine.project.ProductDevelopmentProject;
+
 /**
  * TODO: Refactor the ProductFeatures to be similar to EmployeeType: instance specific data (like level) into ProductFeature class, Product to have its features as List<ProductFeature>.
  */
@@ -39,6 +43,11 @@ public class Product {
 
     /** Money made from one sold unit */
     private int mUnitPrice;
+
+    /** The development project for the next release. This will be null until the next version
+     * is defined. Be sure to nullify this after the project is done!
+     */
+    private ProductDevelopmentProject mDevProject;
 
 
     private long mUnitsSold;
@@ -97,6 +106,22 @@ public class Product {
 
     public long getQuality() {
         return mQuality;
+    }
+
+    public int getReleaseCount() {
+        return mReleaseCount;
+    }
+
+    public void setReleaseCount(int releaseCount) {
+        mReleaseCount = releaseCount;
+    }
+
+    public ProductDevelopmentProject getDevelopmentProject() {
+        return mDevProject;
+    }
+
+    public void setDevelopmentProject(ProductDevelopmentProject project) {
+        mDevProject = project;
     }
 
     public List<Pair<ProductFeature, Integer>> getFeatures() {
@@ -197,6 +222,45 @@ public class Product {
 
     }
 
+    /**
+     * Rebuilds the development project for a new product based on the type and
+     * features of this product.
+     *
+     * Call this when the product or its features change during configuration of
+     * a new product.
+     *
+     * If the project is not already created, this creates it.
+     */
+    public void rebuildNewProductDevelopmentProject() {
+        if (mDevProject == null) {
+            Log.e(TAG, "rebuildNewProductDevelopmentProject() - new project created");
+            mDevProject = new ProductDevelopmentProject("no description", this);
+        }
+        Log.d(TAG, "rebuildNewProductDevelopmentProject() - start");
+
+        // Set the project description to include the product name.
+        mDevProject.setDescription(getName());
+
+        mDevProject.removeAllTasks();
+
+        // Add the task for the initial product development.
+        mDevProject.addTask(new NewProductTask(this));
+
+        // Add tasks for features.
+        for (Pair<ProductFeature, Integer> pair : mFeatures) {
+            ProductFeature feature = pair.first;
+            int level = pair.second;
+
+            FeatureTask featureTask = new FeatureTask(feature, 0, level);
+            mDevProject.addTask(featureTask);
+        }
+
+        // Recalculate the work amount for the project.
+        mDevProject.updateWorkAmount();
+
+        Log.d(TAG, "rebuildNewProductDevelopmentProject() - work amount of the project is " +
+                mDevProject.getWorkAmount());
+    }
 
 
     //

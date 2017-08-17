@@ -42,17 +42,25 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/textViewProductType"
                 android:fontFamily="monospace"
-                android:layout_marginBottom="@dimen/marginBelowCardTitle"
                 android:textColor="@color/secondary_text"
                 android:text="v0 (released 00d 00h 00m ago)"/>
 
+            <TextView
+                android:id="@+id/textViewProductNextRelease"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textViewProductVersion"
+                android:fontFamily="monospace"
+                android:layout_marginBottom="@dimen/marginBelowCardTitle"
+                android:textColor="@color/secondary_text"
+                android:text="Next version defined (n/a work)"/>
 
             <!-- Product stat titles -->
             <TextView
                 android:id="@+id/textViewProductComplexityTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/textViewProductVersion"
+                android:layout_below="@id/textViewProductNextRelease"
                 android:fontFamily="monospace"
                 android:textColor="@color/primary_text"
                 android:text="Complexity"/>
@@ -93,7 +101,7 @@
                 android:id="@+id/textViewProductComplexity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/textViewProductVersion"
+                android:layout_alignTop="@id/textViewProductComplexityTitle"
                 android:layout_alignParentRight="true"
                 android:fontFamily="monospace"
                 android:textColor="@color/primary_text"

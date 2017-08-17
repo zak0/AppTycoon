@@ -22,6 +22,7 @@ import jaakko.jaaska.apptycoon.engine.core.GameEngine;
 import jaakko.jaaska.apptycoon.engine.core.GameState;
 import jaakko.jaaska.apptycoon.engine.product.Product;
 import jaakko.jaaska.apptycoon.engine.product.ProductType;
+import jaakko.jaaska.apptycoon.engine.project.Project;
 import jaakko.jaaska.apptycoon.ui.MainActivity;
 import jaakko.jaaska.apptycoon.ui.UiUpdateHandler;
 import jaakko.jaaska.apptycoon.ui.UiUpdater;
@@ -105,6 +106,7 @@ public class ProductsFragment extends Fragment {
             viewHolder.textViewProductQuality = (TextView) view.findViewById(R.id.textViewProductQuality);
             viewHolder.textViewProductVersion = (TextView) view.findViewById(R.id.textViewProductVersion);
             viewHolder.textViewProductBugs = (TextView) view.findViewById(R.id.textViewProductBugs);
+            viewHolder.textViewProductNextVersion = (TextView) view.findViewById(R.id.textViewProductNextRelease);
 
             return viewHolder;
         }
@@ -115,11 +117,33 @@ public class ProductsFragment extends Fragment {
 
             Resources res = AppTycoonApp.getContext().getResources();
 
+            String stringLastVersion = "";
+            if (product.getReleaseCount() > 0) {
+                stringLastVersion = res.getString(R.string.product_list_item_version_released,
+                        product.getReleaseCount(),
+                        "n/a"); // TODO: A string with time passed since release. E.g. "1d 12h 43m".
+            } else {
+                stringLastVersion = res.getString(R.string.product_list_item_version_not_yet_released);
+            }
+
+            // Show the "Next version defined" text if a project for the next version has been
+            // specified.
+            Project project = product.getDevelopmentProject();
+            holder.textViewProductNextVersion.setVisibility(
+                    project == null ? View.INVISIBLE : View.VISIBLE);
+
             // Set contents of dynamic views here
             holder.textViewProductName.setText(product.getName());
             holder.textViewProductType.setText(product.getType().getName());
             holder.textViewProductComplexity.setText(Utils.largeNumberToNiceString(product.getComplexity(), 2));
             holder.textViewProductQuality.setText(Utils.largeNumberToNiceString(product.getQuality(), 2));
+            holder.textViewProductVersion.setText(stringLastVersion);
+
+            if (project != null) {
+                String stringNextVersion = res.getString(R.string.product_list_item_next_version_defined,
+                        Utils.largeNumberToNiceString(project.getWorkAmount(), 2));
+                holder.textViewProductNextVersion.setText(stringNextVersion);
+            }
         }
 
         @Override
@@ -137,6 +161,7 @@ public class ProductsFragment extends Fragment {
             TextView textViewProductQuality;
             TextView textViewProductVersion;
             TextView textViewProductBugs;
+            TextView textViewProductNextVersion;
 
             private ViewHolder(View itemView) {
                 super(itemView);

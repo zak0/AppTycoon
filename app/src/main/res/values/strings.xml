@@ -20,5 +20,9 @@
     <string name="employee_list_item_quality_gain">+%1$d quality</string>
     <string name="employee_list_item_salary">$%1$.2f / hour</string>
 
+    <string name="product_list_item_version_released">v%1$d (released %2$s ago)</string>
+    <string name="product_list_item_version_not_yet_released">Unreleased</string>
+    <string name="product_list_item_next_version_defined">Next version defined (%1$s work)</string>
+
     <string name="product_feature_list_item_level">level %1$d</string>
 </resources>

@@ -1,7 +1,5 @@
 package jaakko.jaaska.apptycoon.ui.fragment;
 
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -9,21 +7,16 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.util.Pair;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -33,6 +26,7 @@ import jaakko.jaaska.apptycoon.engine.core.GameEngine;
 import jaakko.jaaska.apptycoon.engine.product.Product;
 import jaakko.jaaska.apptycoon.engine.product.ProductFeature;
 import jaakko.jaaska.apptycoon.engine.product.ProductType;
+import jaakko.jaaska.apptycoon.engine.project.ProductDevelopmentProject;
 import jaakko.jaaska.apptycoon.ui.MainActivity;
 import jaakko.jaaska.apptycoon.ui.UiUpdateHandler;
 import jaakko.jaaska.apptycoon.ui.dialog.AppTycoonDialog;
@@ -56,6 +50,9 @@ public class NewProductFragment extends Fragment {
     /** The new product being configures. */
     private Product mProduct;
 
+    /** The project for the initial development of this product. */
+    private ProductDevelopmentProject mProject;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -64,8 +61,11 @@ public class NewProductFragment extends Fragment {
         int productTypeId = getArguments().getInt(UiUpdateHandler.ARG_NEW_PRODUCT_TYPE);
         ProductType productType = ProductType.getProductType(productTypeId);
 
+        // Init the new product and the project for its initial development.
         Log.d(TAG, "onCreateView() - type of new product is '" + productType.getName() + "'");
         mProduct = new Product("_unnamed_", productType);
+        mProduct.rebuildNewProductDevelopmentProject();
+        mProduct.setDevelopmentProject(mProject);
 
         // Setup the fragment top bar title and action button actions.
         TextView viewBack = (TextView) mView.findViewById(R.id.textViewBack);
@@ -119,21 +119,26 @@ public class NewProductFragment extends Fragment {
             }
         });
 
-        refreshViews();
+        refreshViewsAndNewProductProject();
 
         return mView;
     }
 
     /**
      * Call this when the data for the new product has changed to update
-     * the changes into the views.
+     * the changes into the views and also refresh the new product development
+     * project.
      */
-    private void refreshViews() {
+    private void refreshViewsAndNewProductProject() {
+        mProduct.rebuildNewProductDevelopmentProject();
+
         TextView textViewName = (TextView) mView.findViewById(R.id.textViewProductName);
         TextView textViewComplexity = (TextView) mView.findViewById(R.id.textViewProductComplexity);
+        TextView textViewWorkAmount = (TextView) mView.findViewById(R.id.textViewProductDevWorkAmount);
 
         textViewName.setText(mProduct.getName());
-        textViewComplexity.setText("" + Utils.largeNumberToNiceString(mProduct.getComplexity(), 2));
+        textViewComplexity.setText(Utils.largeNumberToNiceString(mProduct.getComplexity(), 2));
+        textViewWorkAmount.setText(Utils.largeNumberToNiceString(mProduct.getDevelopmentProject().getWorkAmount(), 2));
     }
 
     /**
@@ -164,7 +169,7 @@ public class NewProductFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 mProduct.setName(editTextName.getText().toString());
-                refreshViews();
+                refreshViewsAndNewProductProject();
                 dialog.dismiss();
             }
         });
@@ -194,7 +199,7 @@ public class NewProductFragment extends Fragment {
             public void onClick(View v) {
                 mProduct.addFeature(feature, Integer.parseInt(editTextLevel.getText().toString()));
                 mRecyclerViewAdapter.notifyDataSetChanged();
-                refreshViews();
+                refreshViewsAndNewProductProject();
                 dialog.dismiss();
             }
         });
@@ -328,7 +333,7 @@ public class NewProductFragment extends Fragment {
                 public void onClick(View v) {
                     mProduct.addFeature(feature, 1);
                     mRecyclerViewAdapter.notifyDataSetChanged();
-                    refreshViews();
+                    refreshViewsAndNewProductProject();
                     mAddFeatureDialog.dismiss();
                 }
             });
