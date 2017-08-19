@@ -56,7 +56,8 @@ public class GameEngine {
         company.addEmployee(EmployeeType.TYPE_TEST_ENGINEER, 0);
 
         // Add products
-        Product mobileApp = new Product("Some Cool App", ProductType.getProductType(ProductType.PRODUCT_TYPE_MOBILE_APP));
+        Product mobileApp = new Product("NameOfTheApp", ProductType.getProductType(ProductType.PRODUCT_TYPE_MOBILE_APP));
+        mobileApp.rebuildNewProductDevelopmentProject();
         company.addProduct(mobileApp);
 
         mGameState.setCompany(company);

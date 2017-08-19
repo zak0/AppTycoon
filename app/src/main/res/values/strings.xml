@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">App Tycoon</string>
 
+    <string name="generic_time_d_h_m">%1$dd %2$dh %3$dmin</string>
+
     <string name="message_project_delivered">Project delivered.</string>
     <string name="message_project_not_ready_for_delivery">Project is not ready for delivery.</string>
 

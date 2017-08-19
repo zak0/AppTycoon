@@ -1,7 +1,10 @@
 package jaakko.jaaska.apptycoon.engine.project;
 
+import android.widget.Toast;
+
 import java.util.ArrayList;
 
+import jaakko.jaaska.apptycoon.AppTycoonApp;
 import jaakko.jaaska.apptycoon.engine.product.Product;
 
 /**
@@ -14,7 +17,7 @@ public class ProductDevelopmentProject extends Project {
 
     public ProductDevelopmentProject(String description, Product product) {
         // Name of the new product dev. project is "New [product type]"
-        super("New " + product.getType().getName(), description);
+        super("R&D - " + product.getType().getName(), description);
         mProduct = product;
     }
 
@@ -33,13 +36,19 @@ public class ProductDevelopmentProject extends Project {
 
     @Override
     public boolean isReady() {
-        return false;
+        return true;
     }
 
     /** Delivering the project releases the new version of the product. */
     @Override
     public void deliver() {
+        int newReleaseCount = mProduct.getReleaseCount() + 1;
+        mProduct.setReleaseCount(newReleaseCount);
+        mProduct.setDevelopmentProject(null);
 
+        Toast.makeText(AppTycoonApp.getContext(),
+                mProduct.getName() + " released",
+                Toast.LENGTH_LONG).show();
     }
 
     public void removeAllTasks() {
