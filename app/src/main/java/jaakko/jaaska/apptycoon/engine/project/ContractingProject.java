@@ -57,6 +57,12 @@ public class ContractingProject extends Project {
 
     @Override
     public void progress(double workAmount, double qualityAmount, long time) {
+        // Progress contracting projects only if they have time left.
+        // I.e. they are marked ready to be finished.
+        if (isReady()) {
+            return;
+        }
+
         super.progress(workAmount, qualityAmount, time);
 
         // Add quality gain.

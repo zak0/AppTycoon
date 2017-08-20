@@ -51,42 +51,44 @@
                 android:layout_below="@id/textViewProjectInfo">
 
                 <TextView
-                    android:id="@+id/textViewProjectProgress"
+                    android:id="@+id/textViewProjectWorkTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="monospace"
-                    android:textColor="@color/secondary_text"
-                    android:text="c 102 / 2.45k"/>
+                    android:textColor="@color/primary_text"
+                    android:text="Work Done" />
 
                 <TextView
-                    android:id="@+id/textViewProjectNewBugs"
+                    android:id="@+id/textViewProjectWork"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
                     android:fontFamily="monospace"
-                    android:textColor="@color/secondary_text"
-                    android:text="b +3"/>
+                    android:textColor="@color/primary_text"
+                    android:layout_alignParentRight="true"
+                    android:text="c 102 / 2.45k"/>
+
+
+                <TextView
+                    android:id="@+id/textViewProjectQualityTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="monospace"
+                    android:textColor="@color/primary_text"
+                    android:layout_below="@id/textViewProjectWorkTitle"
+                    android:text="Quality" />
 
                 <TextView
                     android:id="@+id/textViewProjectQuality"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
+                    android:layout_below="@id/textViewProjectWork"
                     android:fontFamily="monospace"
-                    android:textColor="@color/secondary_text"
+                    android:textColor="@color/primary_text"
                     android:text="q 1.56k / 2.88k"/>
 
-                <!--ProgressBar
-                    android:id="@+id/progressBarProjectWork"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/textViewProjectProgress"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:progress="10"/-->
 
             </RelativeLayout>
-
-
 
         </RelativeLayout>
 

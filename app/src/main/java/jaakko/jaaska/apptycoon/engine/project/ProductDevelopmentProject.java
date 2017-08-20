@@ -14,6 +14,8 @@ import jaakko.jaaska.apptycoon.engine.product.Product;
 public class ProductDevelopmentProject extends Project {
 
     private Product mProduct;
+    private double mFractionalQuality;
+    private long mQualityGain;
 
     public ProductDevelopmentProject(String description, Product product) {
         // Name of the new product dev. project is "New [product type]"
@@ -53,5 +55,21 @@ public class ProductDevelopmentProject extends Project {
 
     public void removeAllTasks() {
         mTasks = new ArrayList<>();
+    }
+
+    @Override
+    public void progress(double workAmount, double qualityAmount, long time) {
+        super.progress(workAmount, qualityAmount, time);
+
+        // Add quality gain.
+        mFractionalQuality += qualityAmount;
+        long qualityIntPart = (long) mFractionalQuality;
+        mFractionalQuality -= qualityIntPart;
+        mQualityGain += qualityIntPart;
+
+    }
+
+    public long getQualityGain() {
+        return mQualityGain;
     }
 }

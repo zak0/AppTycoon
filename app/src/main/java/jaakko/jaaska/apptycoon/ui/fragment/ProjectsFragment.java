@@ -162,8 +162,7 @@ public class ProjectsFragment extends Fragment {
             viewHolder.textViewProjectTime = (TextView) view.findViewById(R.id.textViewProjectTime);
             viewHolder.textViewProjectName = (TextView) view.findViewById(R.id.textViewProjectTitle);
             viewHolder.textViewProjectDescription = (TextView) view.findViewById(R.id.textViewProjectInfo);
-            viewHolder.textViewProjectProgress = (TextView) view.findViewById(R.id.textViewProjectProgress);
-            viewHolder.textViewProjectBugs = (TextView) view.findViewById(R.id.textViewProjectNewBugs);
+            viewHolder.textViewProjectWork = (TextView) view.findViewById(R.id.textViewProjectWork);
             viewHolder.textViewProjectQuality = (TextView) view.findViewById(R.id.textViewProjectQuality);
 
             return viewHolder;
@@ -281,6 +280,9 @@ public class ProjectsFragment extends Fragment {
                 // Setup views that are common to all not-free slots.
                 Project project = slot.getProject();
 
+                holder.layoutProgress.setVisibility(View.VISIBLE);
+                holder.textViewProjectTime.setVisibility(View.VISIBLE);
+
                 holder.textViewProjectName.setText(project.getName());
                 holder.textViewProjectDescription.setText(project.getDescription());
             }
@@ -290,7 +292,9 @@ public class ProjectsFragment extends Fragment {
                 ContractingProject project = (ContractingProject) slot.getProject();
 
                 Resources res = AppTycoonApp.getContext().getResources();
-                String strProjectInfo = res.getString(R.string.project_slot_contracting_project_info,
+
+                // Contracting projects have a custom description.
+                String strProjectDescription = res.getString(R.string.project_slot_contracting_project_info,
                                                     project.getCustomer());
                 String strProjectProgress = res.getString(R.string.project_slot_progress,
                                                     Utils.largeNumberToNiceString(project.getWorkProgress(), 2),
@@ -299,11 +303,10 @@ public class ProjectsFragment extends Fragment {
                                                     Utils.largeNumberToNiceString(project.getQuality(), 2),
                                                     Utils.largeNumberToNiceString(project.getRequiredQuality(), 2));
 
-                holder.textViewProjectName.setText(project.getName());
-                holder.textViewProjectDescription.setText(strProjectInfo);
                 holder.textViewProjectTime.setText(Utils.millisecondsToTimeString(project.getTimeLeft()));
-                holder.textViewProjectProgress.setText(strProjectProgress);
+                holder.textViewProjectWork.setText(strProjectProgress);
                 holder.textViewProjectQuality.setText(strProjectQuality);
+                holder.textViewProjectDescription.setText(strProjectDescription);
 
                 // Color text views red/green when the project is finished according whether the requirements
                 // were met or not.
@@ -311,12 +314,22 @@ public class ProjectsFragment extends Fragment {
                     int colorRed = ContextCompat.getColor(AppTycoonApp.getContext(), R.color.red);
                     int colorGreen = ContextCompat.getColor(AppTycoonApp.getContext(), R.color.green);
 
-                    //holder.textViewProjectTime.setText(project.isFinished() ? strReadyToDeliver : strFailedToDeliver);
-                    //holder.textViewProjectTime.setTextColor(project.isSuccessful() ? colorGreen : colorRed);
-                    //holder.textViewProjectName.setTextColor(project.isSuccessful() ? colorGreen : colorRed);
-                    holder.textViewProjectProgress.setTextColor(project.isSuccessful() ? colorGreen : colorRed);
+                    holder.textViewProjectWork.setTextColor(project.isSuccessful() ? colorGreen : colorRed);
                     holder.textViewProjectQuality.setTextColor(project.isSuccessful() ? colorGreen : colorRed);
                 }
+            } else if (slot.getProject() instanceof ProductDevelopmentProject) {
+                ProductDevelopmentProject project = (ProductDevelopmentProject) slot.getProject();
+
+                Resources res = AppTycoonApp.getContext().getResources();
+                String strProjectProgress = res.getString(R.string.project_slot_progress,
+                        Utils.largeNumberToNiceString(project.getWorkProgress(), 2),
+                        Utils.largeNumberToNiceString(project.getWorkAmount(), 2));
+                String strProjectQuality = res.getString(R.string.project_slot_product_dev_project_quality,
+                        Utils.largeNumberToNiceString(project.getQualityGain(), 2), // Quality added
+                        0); // Number of new bugs
+
+                holder.textViewProjectWork.setText(strProjectProgress);
+                holder.textViewProjectQuality.setText(strProjectQuality);
             }
         }
 
@@ -343,9 +356,7 @@ public class ProjectsFragment extends Fragment {
 
             TextView textViewProjectName;
             TextView textViewProjectDescription;
-
-            TextView textViewProjectProgress;
-            TextView textViewProjectBugs;
+            TextView textViewProjectWork;
             TextView textViewProjectQuality;
 
             ViewHolder(View v) {

@@ -12,7 +12,7 @@ import jaakko.jaaska.apptycoon.engine.project.Project;
 import jaakko.jaaska.apptycoon.engine.project.ProjectSlot;
 
 /**
- * Created by jaakko on 7.3.2017.
+ * Class representing a player company.
  */
 
 public class Company {
@@ -122,23 +122,15 @@ public class Company {
      * @param time Time passed
      */
     public void doWork(double amount, long time) {
-        //Log.d(TAG, "doWork() - workAmount = " + amount);
-
         for (ProjectSlot slot : mProjectSlots) {
             if (slot.getProject() == null) {
                 continue;
             }
 
             Project project = slot.getProject();
-
-            // Progress contracting projects only if they have time left.
-            // I.e. they are marked ready to be finished.
-            if (project instanceof ContractingProject && !project.isReady()) {
-                project.progress(amount * slot.getWorkFraction(), // workAmount
-                        amount * slot.getWorkFraction() * getQualityRatio(), // qualityAmount
-                        time); // time
-            }
-
+            project.progress(amount * slot.getWorkFraction(), // workAmount
+                    amount * slot.getWorkFraction() * getQualityRatio(), // qualityAmount
+                    time); // time
         }
     }
 
