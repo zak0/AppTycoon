@@ -7,7 +7,6 @@ import java.util.List;
 
 import jaakko.jaaska.apptycoon.engine.people.EmployeeType;
 import jaakko.jaaska.apptycoon.engine.product.Product;
-import jaakko.jaaska.apptycoon.engine.project.ContractingProject;
 import jaakko.jaaska.apptycoon.engine.project.Project;
 import jaakko.jaaska.apptycoon.engine.project.ProjectSlot;
 
@@ -22,7 +21,15 @@ public class Company {
     private String mName;
     private int mReputation;
     private long mValue;
+
     private long mFunds;
+
+    /** Stores unpaid fractions of costs. Funds are only tracked as integers. One full unit of
+     * funds is reduced when sum of current fraction and fractional part of next payment goes
+     * above 1. Value stored here should always stay below 1.
+     */
+    private double mFractionOfCost;
+
 
     private double mSalaryCosts; // Cumulative salary costs (per second)
 
@@ -50,6 +57,7 @@ public class Company {
         mReputation = reputation;
         mValue = value;
         mFunds = funds;
+        mFractionOfCost = 0.0f;
 
         mEmployees = new ArrayList<>();
         mProducts = new ArrayList<>();
@@ -132,6 +140,27 @@ public class Company {
                     amount * slot.getWorkFraction() * getQualityRatio(), // qualityAmount
                     time); // time
         }
+    }
+
+    /**
+     * Reduces running costs from funds for the time period that has passed.
+     *
+     * @param time Length of time period in milliseconds for which the costs are payed for.
+     */
+    public void payRunningCosts(long time) {
+
+        // Costs for the time period.
+        double costs = ((double) time) * getRunningCosts() / 1000.0f;
+        long integralPart = (long) costs;
+
+        mFractionOfCost += costs - (double) integralPart;
+
+        if (mFractionOfCost >= 1.00f) {
+            integralPart++;
+            mFractionOfCost = 0.0f;
+        }
+
+        mFunds -= integralPart;
     }
 
     /**
@@ -242,7 +271,7 @@ public class Company {
      * @return Running costs per second.
      */
     public double getRunningCosts() {
-        return  mSalaryCosts;
+        return mSalaryCosts;
     }
     public double getSalaryCosts() { return mSalaryCosts; }
 

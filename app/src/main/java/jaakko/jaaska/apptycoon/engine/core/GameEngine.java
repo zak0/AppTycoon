@@ -10,8 +10,6 @@ import jaakko.jaaska.apptycoon.engine.product.Product;
 import jaakko.jaaska.apptycoon.engine.product.ProductType;
 
 /**
- * Created by jaakko on 7.3.2017.
- *
  * Singleton for controlling the game engine. Also acts as an accessor for the current game instance.
  */
 
@@ -43,7 +41,7 @@ public class GameEngine {
      */
     public void loadTestData() {
         mGameState = new GameState();
-        Company company = new Company("Company Name Inc.", 10, 10000, 10000);
+        Company company = new Company("Company Name Inc.", 10, 25000000, 1000);
 
         // Add project slots
         for (int i = 0; i < 3; i++) {
@@ -52,8 +50,8 @@ public class GameEngine {
 
         // Add employees
         company.addEmployee(EmployeeType.TYPE_DEVELOPER, 3);
-        company.addEmployee(EmployeeType.TYPE_SENIOR_DEVELOPER, 2);
-        company.addEmployee(EmployeeType.TYPE_TEST_ENGINEER, 0);
+        //company.addEmployee(EmployeeType.TYPE_SENIOR_DEVELOPER, 2);
+        //company.addEmployee(EmployeeType.TYPE_TEST_ENGINEER, 0);
 
         // Add products
         Product mobileApp = new Product("NameOfTheApp", ProductType.getProductType(ProductType.PRODUCT_TYPE_MOBILE_APP));
@@ -100,7 +98,7 @@ public class GameEngine {
      * Use this only when setting current GameState to one that is loaded
      * from storage of cloud.
      *
-     * @param gameState
+     * @param gameState GameState that is to be loaded.
      */
     public void setGameState(GameState gameState) {
         mGameState = gameState;

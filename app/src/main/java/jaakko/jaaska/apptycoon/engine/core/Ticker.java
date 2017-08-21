@@ -55,6 +55,7 @@ public class Ticker implements Runnable {
         long delta = now - mLastTick; // How long since previous tick.
 
         progressProjects(delta);
+        handlePayments(delta);
 
         mLastTick = now;
 
@@ -85,6 +86,14 @@ public class Ticker implements Runnable {
     private void progressProjects(long delta) {
         double workAmount = (double) mCompany.getCps() / 1000.0f * (double) delta;
         mCompany.doWork(workAmount, delta);
+    }
+
+    /**
+     * Pays the payments that are due.
+     * @param delta Milliseconds since last tick.
+     */
+    private void handlePayments(long delta) {
+        mCompany.payRunningCosts(delta);
     }
 
 }
