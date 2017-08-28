@@ -47,6 +47,34 @@ public class Utils {
         return ret;
     }
 
+    /**
+     * Takes a large number and prints with a 'power of 1000' suffix added. For example,
+     * 12489 becomes 12.49k (with 2 decimals). Numbers less smaller than 1000 will be shown with
+     * the specified number of decimals, without a character suffix.
+     *
+     * @param numberToConvert The large number to convert.
+     * @param decimals Number of decimals to show.
+     * @return A nicely formatted string presentation of the large number.
+     */
+    public static String largeNumberToNiceString(double numberToConvert, int decimals) {
+        // If the number is large enough for the smallest 'power of 1000', then just
+        // use the implementation for numbers of type long.
+        if (numberToConvert >= 1000.00d) {
+            return largeNumberToNiceString((long) numberToConvert, decimals);
+        }
+
+        // Otherwise return the number with desired number of decimals as a string.
+        return String.format("%." + decimals + "f", numberToConvert);
+    }
+
+    /**
+     * Takes a large number and prints with a 'power of 1000' suffix added. For example,
+     * 12489 becomes 12.49k (with 2 decimals).
+     *
+     * @param numberToConvert The large number to print.
+     * @param decimals Number of decimals to show.
+     * @return A nicely formatted string presentation of the large number.
+     */
     public static String largeNumberToNiceString(long numberToConvert, int decimals) {
         String[] suffixes = {"k", "M", "G", "T", "P"};
         String suffix = "";

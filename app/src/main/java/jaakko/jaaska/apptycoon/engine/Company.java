@@ -29,13 +29,19 @@ public class Company {
      * above 1. Value stored here should always stay below 1.
      */
     private double mFractionOfCost;
-
-
-    private double mSalaryCosts; // Cumulative salary costs (per second)
+    private double mSalaryCostsPerSecond; // Cumulative salary costs (per second)
 
     private List<EmployeeType> mEmployees;
-    private long mCodePerSec = 0; // Cumulative cps of all employees and company assets
-    private long mQualityPerSec = 0; // Cumulative quality score of all employees and assets
+    private long mCodePerSecond = 0; // Cumulative cps of all employees and company assets
+    private long mQualityPerSecond = 0; // Cumulative quality score of all employees and assets
+
+    private double mIncomePerSecond; // Sum of the income (per second).
+    /** Stores unpaid fractions of income. Funds are only tracked as integers. One full unit of
+     * funds is reduced when sum of current fraction and fractional part of next payment goes
+     * above 1. Value stored here should always stay below 1.
+     */
+    private double mFractionOfIncome;
+
 
     /** All products of the company. */
     private List<Product> mProducts;
@@ -58,6 +64,8 @@ public class Company {
         mValue = value;
         mFunds = funds;
         mFractionOfCost = 0.0f;
+        mIncomePerSecond = 0.0f;
+        mFractionOfIncome = 0.0f;
 
         mEmployees = new ArrayList<>();
         mProducts = new ArrayList<>();
@@ -82,9 +90,9 @@ public class Company {
                    long codePerSec, long qualityPerSec, double salaryCosts) {
         this(name, reputation, value, funds);
 
-        mCodePerSec = codePerSec;
-        mQualityPerSec = qualityPerSec;
-        mSalaryCosts = salaryCosts;
+        mCodePerSecond = codePerSec;
+        mQualityPerSecond = qualityPerSec;
+        mSalaryCostsPerSecond = salaryCosts;
     }
 
     public List<Product> getProducts() {
@@ -116,11 +124,11 @@ public class Company {
     }
 
     public long getCps() {
-        return mCodePerSec;
+        return mCodePerSecond;
     }
 
     public double getQualityRatio() {
-        return (double) mQualityPerSec / (double) mCodePerSec;
+        return (double) mQualityPerSecond / (double) mCodePerSecond;
     }
 
     /**
@@ -157,10 +165,30 @@ public class Company {
 
         if (mFractionOfCost >= 1.00f) {
             integralPart++;
-            mFractionOfCost = 0.0f;
+            mFractionOfCost -= 1.00f;
         }
 
         mFunds -= integralPart;
+    }
+
+    /**
+     * Adds income gained during the time period to current funds.
+     *
+     * @param time Length of time period in milliseconds for which the income is being paid.
+     */
+    public void raiseIncome(long time) {
+
+        double income = ((double) time) * getIncome() / 1000.0f;
+        long integralPart = (long) income;
+
+        mFractionOfIncome += income - (double) integralPart;
+
+        if (mFractionOfIncome >= 1.00f) {
+            integralPart++;
+            mFractionOfIncome -= 1.00f;
+        }
+
+        mFunds += integralPart;
     }
 
     /**
@@ -189,9 +217,9 @@ public class Company {
             mEmployees.add(employeeType);
         }
 
-        mCodePerSec += employeeType.getCpsGain() * count;
-        mQualityPerSec += employeeType.getQualityGain() * count;
-        mSalaryCosts += employeeType.getSalary() * count;
+        mCodePerSecond += employeeType.getCpsGain() * count;
+        mQualityPerSecond += employeeType.getQualityGain() * count;
+        mSalaryCostsPerSecond += employeeType.getSalary() * count;
         employeeType.hire(count);
     }
 
@@ -219,9 +247,9 @@ public class Company {
 
         // Do not let the employee count get negative.
         int actualRemovedCount = count > employeeType.getCount() ? employeeType.getCount() : count;
-        mCodePerSec -= employeeType.getCpsGain() * actualRemovedCount;
-        mQualityPerSec -= employeeType.getQualityGain() * actualRemovedCount;
-        mSalaryCosts -= employeeType.getSalary() * actualRemovedCount;
+        mCodePerSecond -= employeeType.getCpsGain() * actualRemovedCount;
+        mQualityPerSecond -= employeeType.getQualityGain() * actualRemovedCount;
+        mSalaryCostsPerSecond -= employeeType.getSalary() * actualRemovedCount;
         employeeType.fire(actualRemovedCount);
     }
 
@@ -266,17 +294,36 @@ public class Company {
     }
 
     /**
+     * Call this whenever factors for the company income change. The sum of income is recalculated.
+     * This removes the need to calculate the income every time it is needed.
+     */
+    public void onIncomeChanged() {
+        mIncomePerSecond = 0.0d;
+
+        // Add income from products.
+        for (Product product : mProducts) {
+            mIncomePerSecond += product.getIncomePerSecond();
+        }
+
+        Log.d(TAG, "onIncomeChanged() - new income = " + mIncomePerSecond);
+    }
+
+    /**
      * Sums together all the running costs per second.
      *
      * @return Running costs per second.
      */
     public double getRunningCosts() {
-        return mSalaryCosts;
+        return mSalaryCostsPerSecond;
     }
-    public double getSalaryCosts() { return mSalaryCosts; }
+    public double getSalaryCosts() { return mSalaryCostsPerSecond; }
+
+    public double getIncome() {
+        return mIncomePerSecond;
+    }
 
     public double getQuality() {
-        return mQualityPerSec;
+        return mQualityPerSecond;
     }
 
     public List<ProjectSlot> getProjectSlots() {

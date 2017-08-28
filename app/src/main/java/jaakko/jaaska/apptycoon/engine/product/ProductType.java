@@ -147,14 +147,18 @@ public class ProductType {
         mobileApp.addPossibleSubType(serverBackend)
             .addPossibleFeature(ProductFeature.PRODUCT_FEATURE_RESPONSIVE_DESIGN)
             .addPossibleFeature(ProductFeature.PRODUCT_FEATURE_SOCIAL_MEDIA_INTEGRATION)
-            .addPossibleFeature(ProductFeature.PRODUCT_FEATURE_UI_ANIMATIONS);
+            .addPossibleFeature(ProductFeature.PRODUCT_FEATURE_UI_ANIMATIONS)
+            .addPossibleFeature(ProductFeature.PRODUCT_FEATURE_PAID_SUBSCRIPTIONS);
 
         desktopApp.addPossibleSubType(serverBackend)
             .addPossibleFeature(ProductFeature.PRODUCT_FEATURE_RESPONSIVE_DESIGN)
             .addPossibleFeature(ProductFeature.PRODUCT_FEATURE_SOCIAL_MEDIA_INTEGRATION)
             .addPossibleFeature(ProductFeature.PRODUCT_FEATURE_UI_ANIMATIONS);
 
-        mobileGame.addPossibleSubType(serverBackend);
+        mobileGame.addPossibleSubType(serverBackend)
+            .addPossibleFeature(ProductFeature.PRODUCT_FEATURE_BANNER_ADS)
+            .addPossibleFeature(ProductFeature.PRODUCT_FEATURE_VIDEO_ADS)
+            .addPossibleFeature(ProductFeature.PRODUCT_FEATURE_IN_APP_PURCHASES);
 
         /*
         addTypeToArrays(PRODUCT_TYPE_WEB_APP, webApp);

@@ -89,10 +89,11 @@ public class Ticker implements Runnable {
     }
 
     /**
-     * Pays the payments that are due.
+     * Pays the payments that are due. Both ways - income/costs.
      * @param delta Milliseconds since last tick.
      */
     private void handlePayments(long delta) {
+        mCompany.raiseIncome(delta);
         mCompany.payRunningCosts(delta);
     }
 

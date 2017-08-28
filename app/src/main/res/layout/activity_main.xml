@@ -41,6 +41,7 @@
                 android:layout_marginTop="@dimen/topBarVerticalPadding"
                 android:text="$ 143.82k"/>
 
+            <!-- Maybe these are better not shown here.
             <TextView
                 android:id="@+id/textViewCps"
                 android:layout_alignTop="@id/textViewMoney"
@@ -62,6 +63,7 @@
                 android:fontFamily="monospace"
                 android:textStyle="bold"
                 android:text="Q 0.42"/>
+                -->
 
 
         </RelativeLayout>

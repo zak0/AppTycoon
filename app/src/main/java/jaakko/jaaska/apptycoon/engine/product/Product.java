@@ -2,6 +2,7 @@ package jaakko.jaaska.apptycoon.engine.product;
 
 import android.support.v4.util.Pair;
 import android.util.Log;
+import android.util.SparseArray;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -35,23 +36,39 @@ public class Product {
     /** Sub-products */
     private List<Product> mSubProducts;
 
+    /** The version of this product currently in distribution */
+    private Product mReleasedVersion;
+
     /** Calculated complexity of the product */
     private long mComplexity;
 
     /** Current quality of the product */
     private long mQuality;
 
+    /** Number of active users the product has */
+    private long mUsers;
+
+    /** Number of all-time downloads (or purchases for a paid product) */
+    private long mDownloads;
+
     /** Money made from one sold unit */
     private int mUnitPrice;
+
+    /** Amount of money the product has earned all-time */
+    private long mTotalEarnings;
+
+    /**
+     * Array of all the features that directly generate income.
+     * Key of the array is the ID of the feature.
+     *
+     * All income values are money per second per active user.
+     */
+    private SparseArray<Double> mFeatureIncomes;
 
     /** The development project for the next release. This will be null until the next version
      * is defined. Be sure to nullify this after the project is done!
      */
     private ProductDevelopmentProject mDevProject;
-
-
-    private long mUnitsSold;
-    private long mMoneyMade;
 
     public Product(String name, ProductType type) {
         mName = name;
@@ -60,11 +77,13 @@ public class Product {
         mComplexity = 0;
         mQuality = 0;
 
-        mUnitPrice = 5;
-        mUnitsSold = 0;
-        mMoneyMade = 0;
+        mUnitPrice = 0;
+        mDownloads = 0;
+        mTotalEarnings = 0;
+        mUsers = 1288; // TODO: Set to something for dev purposes
 
         mFeatures = new ArrayList<>();
+        mFeatureIncomes = new SparseArray<>();
         mSubProducts = new ArrayList<>();
 
         // Every product has the "Core functionality" feature. So, we add it here.
@@ -181,17 +200,26 @@ public class Product {
     public void addFeature(ProductFeature feature, int level) {
         Log.d(TAG, "addFeature() - adding '" + feature.getName() + "', level " + level);
 
-        //for (Pair<ProductFeature, Integer> pair : mFeatures) {
-        Iterator<Pair<ProductFeature, Integer>> iter = mFeatures.iterator();
-        while (iter.hasNext()) {
-            Pair<ProductFeature, Integer> pair = iter.next();
+        // Use iterator instead of a foreach loop in order to allow removing items from the list
+        // while iterating through it.
+        Iterator<Pair<ProductFeature, Integer>> iterator = mFeatures.iterator();
+        while (iterator.hasNext()) {
+            Pair<ProductFeature, Integer> pair = iterator.next();
             ProductFeature existingFeature = pair.first;
             if (feature.equals(existingFeature)) {
                 Log.d(TAG, "addFeature() - removed existing '" + existingFeature + "'");
-                iter.remove();
+                iterator.remove();
             }
         }
-        mFeatures.add(new Pair<ProductFeature, Integer>(feature, level));
+        mFeatures.add(new Pair<>(feature, level));
+
+        // In case of a feature that gives income (ads, in-app purchases, subscriptions, ...),
+        // handle the change in income for this product.
+        if (feature.isIncomeFeature()) {
+            handleIncomeFeature(feature);
+        }
+
+        // Recalculate the complexity of this product.
         calculateComplexity();
     }
 
@@ -220,6 +248,47 @@ public class Product {
 
         calculateComplexity();
 
+    }
+
+    /**
+     * Handles the change in income by incrementing the correct income value for a given income
+     * feature.
+     *
+     * Call this method with the feature giving income whenever it is added.
+     *
+     * @param feature A feature that causes the change in income. This should be an income feature.
+     */
+    private void handleIncomeFeature(ProductFeature feature) {
+        if (!feature.isIncomeFeature()) {
+            Log.d(TAG, "handleIncomeFeature() - feature id " + feature.getFeatureId() + " is not" +
+                    "an income feature -> did nothing");
+            return;
+        }
+
+        // TODO: Get the correct income for the feature per second per user. Now it's just 0.005 * [level of the feature].
+        mFeatureIncomes.append(feature.getFeatureId(), (double) getLevelOfAFeature(feature) * 0.005d);
+    }
+
+    /**
+     * Returns the total income this product currently generates per second.
+     *
+     * @return Income per second
+     */
+    public double getIncomePerSecond() {
+        double sum = 0.0f;
+
+        //
+        // Add income from features that generate income.
+
+        // Check for all the income features if this product has them.
+        for (int i : ProductFeature.getIncomeFeatureIds()) {
+            Double income = mFeatureIncomes.get(i);
+
+            // Variable 'income' is now null if this product did not have the feature.
+            sum += (income == null ? 0.0f : income) * (double) mUsers;
+        }
+
+        return sum;
     }
 
     /**
@@ -261,7 +330,6 @@ public class Product {
         Log.d(TAG, "rebuildNewProductDevelopmentProject() - work amount of the project is " +
                 mDevProject.getWorkAmount());
     }
-
 
     //
     //

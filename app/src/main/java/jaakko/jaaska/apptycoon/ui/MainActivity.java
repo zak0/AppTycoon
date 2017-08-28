@@ -1,5 +1,6 @@
 package jaakko.jaaska.apptycoon.ui;
 
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import jaakko.jaaska.apptycoon.AppTycoonApp;
 import jaakko.jaaska.apptycoon.R;
 import jaakko.jaaska.apptycoon.engine.Company;
 import jaakko.jaaska.apptycoon.engine.core.GameEngine;
@@ -241,21 +243,28 @@ public class MainActivity extends FragmentActivity implements UiUpdater {
     public void updateUi(int action, Bundle args) {
         //Log.d(TAG, "updateUi() - start");
 
+        // First change the fragment if a fragment change is requested.
         if (action == UiUpdateHandler.ACTION_REPLACE_FRAGMENT) {
             switchFragment(args.getInt(UiUpdateHandler.ARG_TARGET_FRAGMENT), args);
         }
 
-        // Update the top bar
+        // Then update the top bar
         Company company = GameEngine.getInstance().getGameState().getCompany();
         TextView companyName = (TextView) findViewById(R.id.textViewCompanyName);
         TextView money = (TextView) findViewById(R.id.textViewMoney);
-        TextView cps = (TextView) findViewById(R.id.textViewCps);
-        TextView quality = (TextView) findViewById(R.id.textViewQuality);
+        //TextView cps = (TextView) findViewById(R.id.textViewCps);
+        //TextView quality = (TextView) findViewById(R.id.textViewQuality);
+
+        Resources res = AppTycoonApp.getContext().getResources();
+        String strMoney = res.getString(R.string.top_bar_money,
+                Utils.largeNumberToNiceString(company.getFunds(), 2), // Funds
+                Utils.largeNumberToNiceString(company.getIncome(), 2), // Income / s
+                Utils.largeNumberToNiceString(company.getRunningCosts(), 2)); // Costs / s
 
         companyName.setText(company.getName());
-        money.setText("$ " + Utils.largeNumberToNiceString(company.getFunds(), 2));
-        cps.setText("C/s " + company.getCps());
-        quality.setText("Q " +  String.format("%.2f", company.getQualityRatio()));
+        money.setText(strMoney);
+        //cps.setText("C/s " + company.getCps());
+        //quality.setText("Q " +  String.format("%.2f", company.getQualityRatio()));
 
     }
 

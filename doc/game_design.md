@@ -23,13 +23,13 @@ Projects can be either developing own in-house products or contracting projects.
 ### Products
 Products are result of in-house projects. All products have a __type__ (types include _web application_, _mobile application_, _desktop application_). Some products can have _subproducts_. This means that a larger product types can consist of other smaller products, which in can then be developed in their own projects. In case of a hierarchical product (i.e. a product structure) only the main product is the one that is sold. Only a few product types are available at the beginning. More can then be unlocked from the upgrades tree. In the beginning, the player selects the first type of products for the company. Further types can later be unlocked from the upgrades tree. Each type has a base complexity value.
 
-Products have __features__. Features together with the base complexity of the product determine the total __complexity__ of the product and thus also the time required to develop it, the price tag for the product and how well the product sells. Features are tied to the product type and not all types of products can have all the features. Features can be added and removed from a product. Features also have a level, which the player selects. Higher level features mean more complexity but in turn a more desirable product. Some features add more complexity than others when the feature level is increased. One feature that is common to all product types, and every product will automatically have, is _Core functionality_.
+Products have __features__. Features together with the base complexity of the product determine the total __complexity__ of the product and thus also the time required to develop it, the price tag for the product and how well the product sells. Features are tied to the product type and not all types of products can have all the features. Features can be added and removed from a product. Features also have a level, which the player selects. Higher level features mean more complexity but in turn a more desirable product. Some features add more complexity than others when the feature level is increased. One feature that is common to all product types, and every product will automatically have, is _Core functionality_. Some features that don't make sense to have a "level" can only be added to a product but cannot be leveled up.
 
 Products have a __quality__ score. Products have bugs. Bugs reduce the quality score until they are fixed. Bugs are detected during development and after the product has been released and deployed.
 
 Each product project results in a __release__ of a newly released product or an update to an already released product. After a release, sales of the product in question gets a boost. Only the latest release is available to the customers.
 
-The sales quantity and the sales price depends on the product complexity. More complex products sell fewer numbers but cost more than less complex ones. Some products can be released as freemium, meaning that the income comes from ads and in-app-purchases. Some can be released as a service, so that customers pay a continuous fee for a license to use the product
+The sales quantity and the sales price depends on the product complexity. More complex products sell fewer numbers but cost more than less complex ones. Some products can be released as freemium, meaning that the income comes from ads and in-app-purchases. Some can be released as a service, so that customers pay a continuous subscription fee for a license to use the product
 
 Products can also be released for free or the they can be made open source. This has an effect on company's reputation.
 
@@ -75,6 +75,9 @@ Boosts are temporary effects that increase (or decrease...) the productivity of 
 
 ### Random Events
 Random events are essentially boosts that trigger at random. They can have a positive or a negative impact.
+
+## Hidden Information and Hints
+Some information is hidden from the player until certain features are unlocked. For example, earnings broadcast for a product is initially hidden before unlocked by upgrades and hires.
 
 ## Money and Costs
 The company has running costs that need to be paid. Company premises have a running cost (rent + running cost, or only running costs when the property is owned by the company) and salaries need to be paid. Costs are directly deducted constantly from the company's funds. Costs are displayed as negative m/s (money per second).

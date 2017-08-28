@@ -8,6 +8,8 @@
 
     <string name="dialog_confirm_cancel_project">Really cancel the project?</string>
 
+    <string name="top_bar_money">$%1$s (+%2$s / -%3$s)</string>
+
     <string name="project_slot_empty_slot">Empty slot</string>
     <string name="project_slot_tap_to_start">Tap to start a new project.</string>
     <string name="project_slot_progress">%1$s / %2$s</string>

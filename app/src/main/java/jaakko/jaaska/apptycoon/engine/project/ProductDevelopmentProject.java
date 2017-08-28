@@ -5,6 +5,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import jaakko.jaaska.apptycoon.AppTycoonApp;
+import jaakko.jaaska.apptycoon.engine.core.GameEngine;
 import jaakko.jaaska.apptycoon.engine.product.Product;
 
 /**
@@ -47,6 +48,7 @@ public class ProductDevelopmentProject extends Project {
         int newReleaseCount = mProduct.getReleaseCount() + 1;
         mProduct.setReleaseCount(newReleaseCount);
         mProduct.setDevelopmentProject(null);
+        GameEngine.getInstance().getGameState().getCompany().onIncomeChanged();
 
         Toast.makeText(AppTycoonApp.getContext(),
                 mProduct.getName() + " released",
