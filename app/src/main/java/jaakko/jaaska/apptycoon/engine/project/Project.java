@@ -109,6 +109,12 @@ public abstract class Project {
         return mWorkAmount;
     }
 
+    public long getWorkLeft() {
+        long workLeft = mWorkAmount - mWorkProgress;
+
+        return workLeft < 0 ? 0 : workLeft;
+    }
+
     public long getTimeSpent() {
         return mTimeSpent;
     }

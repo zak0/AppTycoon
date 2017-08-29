@@ -283,6 +283,11 @@ public class ProjectsFragment extends Fragment {
                 holder.layoutProgress.setVisibility(View.VISIBLE);
                 holder.textViewProjectTime.setVisibility(View.VISIBLE);
 
+                double workPerSec = slot.getWorkFraction()
+                        * (double) GameEngine.getInstance().getGameState().getCompany().getCps();
+                long timeLeft =  (long) (1000.0d * (double) project.getWorkLeft () / workPerSec);
+
+                holder.textViewProjectTime.setText(Utils.millisecondsToTimeString(timeLeft));
                 holder.textViewProjectName.setText(project.getName());
                 holder.textViewProjectDescription.setText(project.getDescription());
             }
@@ -303,7 +308,6 @@ public class ProjectsFragment extends Fragment {
                                                     Utils.largeNumberToNiceString(project.getQuality(), 2),
                                                     Utils.largeNumberToNiceString(project.getRequiredQuality(), 2));
 
-                holder.textViewProjectTime.setText(Utils.millisecondsToTimeString(project.getTimeLeft()));
                 holder.textViewProjectWork.setText(strProjectProgress);
                 holder.textViewProjectQuality.setText(strProjectQuality);
                 holder.textViewProjectDescription.setText(strProjectDescription);
@@ -351,7 +355,7 @@ public class ProjectsFragment extends Fragment {
             /** Layout containing the progress views */
             View layoutProgress;
 
-            /** Project deadline or elapsed time */
+            /** Time it takes to finish the project in the given ProjectSlot. */
             TextView textViewProjectTime;
 
             TextView textViewProjectName;

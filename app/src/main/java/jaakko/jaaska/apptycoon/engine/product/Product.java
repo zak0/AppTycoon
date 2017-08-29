@@ -265,8 +265,8 @@ public class Product {
             return;
         }
 
-        // TODO: Get the correct income for the feature per second per user. Now it's just 0.005 * [level of the feature].
-        mFeatureIncomes.append(feature.getFeatureId(), (double) getLevelOfAFeature(feature) * 0.005d);
+        // TODO: Get the correct income for the feature per second per user. Now it's just 0.001 * [level of the feature].
+        mFeatureIncomes.append(feature.getFeatureId(), (double) getLevelOfAFeature(feature) * 0.001d);
     }
 
     /**
