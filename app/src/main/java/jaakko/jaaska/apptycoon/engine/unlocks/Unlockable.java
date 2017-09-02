@@ -1,4 +1,4 @@
-package jaakko.jaaska.apptycoon.unlocks;
+package jaakko.jaaska.apptycoon.engine.unlocks;
 
 import java.util.ArrayList;
 import java.util.List;

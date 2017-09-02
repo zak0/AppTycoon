@@ -6,8 +6,8 @@ import android.util.SparseArray;
 import java.util.ArrayList;
 import java.util.List;
 
-import jaakko.jaaska.apptycoon.unlocks.EmployeeUnlockCondition;
-import jaakko.jaaska.apptycoon.unlocks.Unlockable;
+import jaakko.jaaska.apptycoon.engine.unlocks.EmployeeUnlockCondition;
+import jaakko.jaaska.apptycoon.engine.unlocks.Unlockable;
 import jaakko.jaaska.apptycoon.utils.Utils;
 
 /**

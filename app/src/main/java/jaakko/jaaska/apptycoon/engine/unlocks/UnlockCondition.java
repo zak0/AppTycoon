@@ -1,4 +1,4 @@
-package jaakko.jaaska.apptycoon.unlocks;
+package jaakko.jaaska.apptycoon.engine.unlocks;
 
 /**
  * This is a condition that an object implementing an Unlockable must fulfill before it becomes

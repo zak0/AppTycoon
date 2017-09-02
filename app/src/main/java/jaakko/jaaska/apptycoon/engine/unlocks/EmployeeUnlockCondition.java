@@ -1,4 +1,4 @@
-package jaakko.jaaska.apptycoon.unlocks;
+package jaakko.jaaska.apptycoon.engine.unlocks;
 
 import jaakko.jaaska.apptycoon.engine.people.EmployeeType;
 
