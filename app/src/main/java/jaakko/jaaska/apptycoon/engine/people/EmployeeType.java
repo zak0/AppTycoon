@@ -6,6 +6,8 @@ import android.util.SparseArray;
 import java.util.ArrayList;
 import java.util.List;
 
+import jaakko.jaaska.apptycoon.unlocks.EmployeeUnlockCondition;
+import jaakko.jaaska.apptycoon.unlocks.Unlockable;
 import jaakko.jaaska.apptycoon.utils.Utils;
 
 /**
@@ -16,7 +18,7 @@ import jaakko.jaaska.apptycoon.utils.Utils;
  * employee type is acquired through the static getTypeForId() method.
  */
 
-public class EmployeeType {
+public class EmployeeType extends Unlockable {
 
     private static final String TAG = "EmployeeType";
 
@@ -40,6 +42,7 @@ public class EmployeeType {
     private double mMorale = 1.0; // TODO: Possible future development
     private long mHireCost = 0; // TODO: Possible future development
     private List<String> mNames = new ArrayList<>(); // Names of the employees of this type
+    private boolean mIsUnlocked = false; // True if this employee type has been unlocked
 
     /**
      * Use this constructor when initializing the static data.
@@ -136,26 +139,72 @@ public class EmployeeType {
         mCount = mCount < 0 ? 0 : mCount;
     }
 
-    /** Static employee type data. I.e. the default values. */
-    private static SparseArray<EmployeeType> sStaticTypes;
+    @Override
+    public boolean isUnlocked() {
+        // If this employee has been unlocked earlier, do not recheck for unlock.
+        if (!mIsUnlocked) {
+            mIsUnlocked = conditionsFulfilled();
+        }
+        return mIsUnlocked;
+    }
+
+    /**
+     *
+     *
+     *
+     *
+     *
+     *
+     * Static employee type data. I.e. the default values. */
+    private static SparseArray<EmployeeType> sTypesById;
+
+    /**
+     * Builds a list of all the possible EmployeeTypes and returns it.
+     *
+     * @return List of all the employee types.
+     */
+    public static List<EmployeeType> getAllTypes() {
+        initStaticData();
+        List<EmployeeType> ret = new ArrayList<>();
+
+        for (int i = 0; i < sTypesById.size(); i++) {
+            ret.add(sTypesById.get(sTypesById.keyAt(i)));
+        }
+
+        return ret;
+    }
 
     private static void initStaticData() {
         // Init only once.
-        if (sStaticTypes != null) {
+        if (sTypesById != null) {
             Log.e(TAG, "Tried to init statics again.");
             return;
         }
 
-        sStaticTypes = new SparseArray<>();
+        EmployeeType typeDeveloper = new EmployeeType(TYPE_DEVELOPER, "Software Developer",
+                44000, false, 2, 1,
+                "An all-round developer grunt.");
 
-        sStaticTypes.append(TYPE_DEVELOPER, new EmployeeType(TYPE_DEVELOPER, "Software Developer", 44000, false, 2, 1, "An all-round developer grunt."));
-        sStaticTypes.append(TYPE_SENIOR_DEVELOPER, new EmployeeType(TYPE_SENIOR_DEVELOPER, "Senior Software Developer", 55000, false, 3, 2, "A developer with excellent skills and years of experience."));
-        sStaticTypes.append(TYPE_TEST_ENGINEER, new EmployeeType(TYPE_TEST_ENGINEER, "Software Test Engineer", 39000, false, 0, 2, "Purpose of a test engineer is to break everything."));
+        EmployeeType typeSeniorDeveloper = new EmployeeType(TYPE_SENIOR_DEVELOPER, "Senior Software Developer",
+                55000, false, 3, 2,
+                "A developer with excellent skills and years of experience.");
+        typeSeniorDeveloper.addUnlockCondition(new EmployeeUnlockCondition(TYPE_DEVELOPER, 5));
+
+        EmployeeType typeTestEngineer = new EmployeeType(TYPE_TEST_ENGINEER, "Software Test Engineer",
+                39000, false, 0, 2,
+                "Purpose of a test engineer is to break everything.");
+        typeTestEngineer.addUnlockCondition(new EmployeeUnlockCondition(TYPE_DEVELOPER, 10));
+        typeTestEngineer.addUnlockCondition(new EmployeeUnlockCondition(TYPE_SENIOR_DEVELOPER, 2));
+
+        sTypesById = new SparseArray<>();
+        sTypesById.append(TYPE_DEVELOPER, typeDeveloper);
+        sTypesById.append(TYPE_SENIOR_DEVELOPER, typeSeniorDeveloper);
+        sTypesById.append(TYPE_TEST_ENGINEER, typeTestEngineer);
     }
 
     public static EmployeeType getTypeForId(int employeeTypeId) {
         initStaticData();
-        return sStaticTypes.get(employeeTypeId);
+        return sTypesById.get(employeeTypeId);
     }
 
 

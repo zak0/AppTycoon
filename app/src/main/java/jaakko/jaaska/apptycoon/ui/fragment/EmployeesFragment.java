@@ -50,7 +50,9 @@ public class EmployeesFragment extends Fragment {
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewEmployees);
         GameState gameState = GameEngine.getInstance().getGameState();
-        mRecyclerViewAdapter = new EmployeeRecyclerViewAdapter(gameState.getCompany().getEmployees());
+
+        // Show all employee types here (both that company already has and the ones that it doesn't).
+        mRecyclerViewAdapter = new EmployeeRecyclerViewAdapter(EmployeeType.getAllTypes());
 
         mRecyclerView.setHasFixedSize(true); // performance boost when content does not change the size of RecyclerView
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -76,6 +78,7 @@ public class EmployeesFragment extends Fragment {
 
             viewHolder.containerView = view;
 
+            viewHolder.layoutEmployeeStats = view.findViewById(R.id.layoutEmployeeStats);
             viewHolder.textViewEmployeeType = (TextView) view.findViewById(R.id.textViewEmployeeType);
             viewHolder.textViewEmployeeCount = (TextView) view.findViewById(R.id.textViewEmployeeCount);
             viewHolder.textViewEmployeeDescription = (TextView) view.findViewById(R.id.textViewEmployeeDescription);
@@ -99,29 +102,39 @@ public class EmployeesFragment extends Fragment {
 
             holder.textViewEmployeeType.setText(employeeType.getTitle());
             holder.textViewEmployeeCount.setText(stringPayrollCount);
-            holder.textViewEmployeeDescription.setText(employeeType.getDescription());
-            holder.textViewEmployeeCodeGain.setText(stringCodeGain);
-            holder.textViewEmployeeQualityGain.setText(stringQualityGain);
-            holder.textViewEmployeeSalary.setText(stringSalary);
 
-            // Now clicking the card hires one more of the selected employee.
-            holder.containerView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mGameState.getCompany().addEmployee(employeeType.getType(), 1);
-                    mRecyclerViewAdapter.notifyDataSetChanged();
-                }
-            });
+            if (employeeType.isUnlocked()) {
 
-            // Long-clicking fires an employee.
-            holder.containerView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    mGameState.getCompany().removeEmployee(employeeType.getType(), 1);
-                    mRecyclerViewAdapter.notifyDataSetChanged();
-                    return true; // do not pass to OnClickListener after this
-                }
-            });
+                holder.textViewEmployeeDescription.setText(employeeType.getDescription());
+
+                holder.layoutEmployeeStats.setVisibility(View.VISIBLE);
+                holder.textViewEmployeeCodeGain.setText(stringCodeGain);
+                holder.textViewEmployeeQualityGain.setText(stringQualityGain);
+                holder.textViewEmployeeSalary.setText(stringSalary);
+
+                // Now clicking the card hires one more of the selected employee.
+                holder.containerView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mGameState.getCompany().addEmployee(employeeType.getType(), 1);
+                        mRecyclerViewAdapter.notifyDataSetChanged();
+                    }
+                });
+
+                // Long-clicking fires an employee.
+                holder.containerView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        mGameState.getCompany().removeEmployee(employeeType.getType(), 1);
+                        mRecyclerViewAdapter.notifyDataSetChanged();
+                        return true; // do not pass to OnClickListener after this
+                    }
+                });
+            } else {
+                holder.textViewEmployeeDescription.setText(employeeType.getConditionsString());
+                holder.layoutEmployeeStats.setVisibility(View.INVISIBLE);
+            }
+
         }
 
         @Override
@@ -132,6 +145,7 @@ public class EmployeesFragment extends Fragment {
         class ViewHolder extends RecyclerView.ViewHolder {
 
             View containerView;
+            View layoutEmployeeStats;
 
             TextView textViewEmployeeType;
             TextView textViewEmployeeCount;

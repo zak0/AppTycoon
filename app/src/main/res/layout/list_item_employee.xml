@@ -44,35 +44,42 @@
                 android:fontFamily="monospace"
                 android:layout_marginBottom="@dimen/marginBelowCardTitle"
                 android:textColor="@color/secondary_text"
-                android:text="A short description of the employee type."/>
+                android:text="A short description of the employee type. Or a list of unlock conditions for locked types."/>
 
-            <TextView
-                android:id="@+id/textViewEmployeeCodeGain"
-                android:layout_width="wrap_content"
+            <!-- A layout containing the stats of this employee type. The stats are invisible when the type is locked. -->
+            <RelativeLayout
+                android:id="@+id/layoutEmployeeStats"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/textViewEmployeeDescription"
-                android:fontFamily="monospace"
-                android:textColor="@color/primary_text"
-                android:text="+3 code / sec"/>
+                android:layout_below="@id/textViewEmployeeDescription">
 
-            <TextView
-                android:id="@+id/textViewEmployeeQualityGain"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/textViewEmployeeCodeGain"
-                android:fontFamily="monospace"
-                android:textColor="@color/primary_text"
-                android:text="+1 quality"/>
+                <TextView
+                    android:id="@+id/textViewEmployeeCodeGain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="monospace"
+                    android:textColor="@color/primary_text"
+                    android:text="+3 code / sec"/>
 
-            <TextView
-                android:id="@+id/textViewEmployeeSalary"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:fontFamily="monospace"
-                android:textColor="@color/primary_text"
-                android:text="$1.20 / sec"/>
+                <TextView
+                    android:id="@+id/textViewEmployeeQualityGain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textViewEmployeeCodeGain"
+                    android:fontFamily="monospace"
+                    android:textColor="@color/primary_text"
+                    android:text="+1 quality"/>
+
+                <TextView
+                    android:id="@+id/textViewEmployeeSalary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:fontFamily="monospace"
+                    android:textColor="@color/primary_text"
+                    android:text="$1.20 / sec"/>
+            </RelativeLayout>
 
         </RelativeLayout>
 
