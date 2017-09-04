@@ -62,10 +62,10 @@ Employee types:
 *   __Manager of Human Resources__:
 
 ## Assets
-Player controls the assets of the company. These include computer hardware, company premises, coffee machines and so on.
+Player controls the assets of the company. These include physical property such as computer hardware, company premises, coffee machines and so on, as well as intellectual property like internal processes and patents. Every asset has a running cost (that is added to the cumulative cost / sec and thus gets automatically reduced from company's funds) and an acquisition cost. Each of these costs can be zero, of course, if the cost is not applicable to the asset.
 
 ### Premises
-Company premises can be rented or owned. Rental properties have a deposit when moving to a new location and additionally a running cost. Owned properties only have a running cost. Premises affect on how many employees the company can have. Bigger premises can house more employees. More expensive and larger properties also have an effect on company's reputation.
+Company premises can be rented or owned. Rental properties have a down-payment (or a deposit) when moving to a new location and additionally a running cost. Owned properties only have a running cost. Premises affect on how many employees the company can have. Bigger premises can house more employees. More expensive and larger properties also have an effect on company's reputation.
 
 ## Upgrades
 Upgrades system is presented as a tree. This essentially means that upgrades further into the tree are unlocked by first unlocking upgrades earlier in the tree.
