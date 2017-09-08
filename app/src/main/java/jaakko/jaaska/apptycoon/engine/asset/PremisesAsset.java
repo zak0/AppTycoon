@@ -6,17 +6,20 @@ import android.util.SparseArray;
 import java.util.ArrayList;
 import java.util.List;
 
+import jaakko.jaaska.apptycoon.engine.unlocks.Unlockable;
+
 /**
 * Company premises.
  */
 
-public class PremisesAsset implements Asset {
+public class PremisesAsset extends Unlockable implements Asset {
 
     private static final String TAG = "PremisesAsset";
 
     public static final int GARAGE = 10;
     public static final int SMALL_OFFICE_SPACE = 20;
-    public static final int MEDIUM_OFFICE_SPACE = 20;
+    public static final int MEDIUM_OFFICE_SPACE = 30;
+    public static final int SKYSCRAPER = 100;
 
     private String mName;
     private String mDescription;
@@ -81,6 +84,10 @@ public class PremisesAsset implements Asset {
         return mCostPerSecond;
     }
 
+    @Override
+    public boolean isUnlocked() {
+        return conditionsFulfilled();
+    }
 
     /*
      *
@@ -110,6 +117,7 @@ public class PremisesAsset implements Asset {
     }
 
     public static PremisesAsset getPremisesAssetById(int id) {
+        initStaticData();
         return sPremisesById.get(id);
     }
 
@@ -132,6 +140,10 @@ public class PremisesAsset implements Asset {
         sPremisesById.append(MEDIUM_OFFICE_SPACE,
                 new PremisesAsset(MEDIUM_OFFICE_SPACE, "Medium Office Space",
                         "A medium office with an open floor plan and a kitchen.", 32000, 3.0, 50, 1.05));
+
+        sPremisesById.append(SKYSCRAPER,
+                new PremisesAsset(SKYSCRAPER, "Downtown Skyscraper",
+                        "A modern piece of the city skyline.", 1800000000, 115400, 750, 50.5));
     }
 
 }

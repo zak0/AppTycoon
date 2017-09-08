@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/layoutFragmentTitle"
+        android:background="@color/accent"
+        android:padding="@dimen/fragmentPadding"
+        android:elevation="@dimen/fragmentTitleBarElevation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Back button for sub fragments.
+         Remove it for main fragments. -->
+        <!--TextView
+            android:id="@+id/textViewBack"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:fontFamily="monospace"
+            android:text="&lt; Back"/-->
+
+        <TextView
+            android:id="@+id/textViewTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:fontFamily="monospace"
+            android:textStyle="bold"
+            android:layout_centerInParent="true"
+            android:text="Assets"
+            />
+
+        <!-- Action button for performing or confirming
+        an action specific to the fragment. Remove this
+        if not needed -->
+        <!--TextView
+            android:id="@+id/textViewAction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:fontFamily="monospace"
+            android:layout_alignParentRight="true"
+            android:text="Action"
+            /-->
+
+    </RelativeLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- CONTENT GOES HERE -->
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="@dimen/cardview_default_elevation"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                app:cardUseCompatPadding="true">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/cardPadding">
+
+                    <TextView
+                        android:id="@+id/textViewPremisesTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:fontFamily="monospace"
+                        android:textColor="@color/primary_text"
+                        android:layout_marginBottom="@dimen/marginBelowCardTitle"
+                        android:text="Premises"/>
+
+                    <TextView
+                        android:id="@+id/textViewPremisesHeadCountTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="monospace"
+                        android:textColor="@color/primary_text"
+                        android:layout_below="@id/textViewPremisesTitle"
+                        android:text="People Count"/>
+
+                    <TextView
+                        android:id="@+id/textViewPremisesCostsTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="monospace"
+                        android:textColor="@color/primary_text"
+                        android:layout_below="@id/textViewPremisesHeadCountTitle"
+                        android:text="Costs"/>
+
+                    <TextView
+                        android:id="@+id/textViewPremisesName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="monospace"
+                        android:layout_alignParentEnd="true"
+                        android:text="Garage"/>
+
+                    <TextView
+                        android:id="@+id/textViewPremisesHeadCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="monospace"
+                        android:textColor="@color/primary_text"
+                        android:layout_alignBaseline="@id/textViewPremisesHeadCountTitle"
+                        android:layout_alignParentEnd="true"
+                        android:layout_below="@id/textViewPremisesTitle"
+                        android:text="2 / 5"/>
+
+                    <TextView
+                        android:id="@+id/textViewPremisesCosts"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="monospace"
+                        android:textColor="@color/primary_text"
+                        android:layout_alignBaseline="@id/textViewPremisesCostsTitle"
+                        android:layout_alignParentEnd="true"
+                        android:layout_below="@id/textViewPremisesHeadCountTitle"
+                        android:text="$ 1.22 / min"/>
+
+                </RelativeLayout>
+
+            </android.support.v7.widget.CardView>
+
+
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

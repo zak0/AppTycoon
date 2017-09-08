@@ -5,6 +5,7 @@ import android.util.Log;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import jaakko.jaaska.apptycoon.engine.Company;
+import jaakko.jaaska.apptycoon.engine.asset.PremisesAsset;
 import jaakko.jaaska.apptycoon.engine.people.EmployeeType;
 import jaakko.jaaska.apptycoon.engine.product.Product;
 import jaakko.jaaska.apptycoon.engine.product.ProductType;
@@ -57,6 +58,9 @@ public class GameEngine {
         Product mobileApp = new Product("NameOfTheApp", ProductType.getProductType(ProductType.PRODUCT_TYPE_MOBILE_APP));
         mobileApp.rebuildNewProductDevelopmentProject();
         company.addProduct(mobileApp);
+
+        // Add premises asset
+        company.addAsset(PremisesAsset.getPremisesAssetById(PremisesAsset.SMALL_OFFICE_SPACE));
 
         mGameState.setCompany(company);
     }

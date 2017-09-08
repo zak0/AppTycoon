@@ -21,6 +21,7 @@ import jaakko.jaaska.apptycoon.R;
 import jaakko.jaaska.apptycoon.engine.Company;
 import jaakko.jaaska.apptycoon.engine.core.GameEngine;
 import jaakko.jaaska.apptycoon.storage.StorageManager;
+import jaakko.jaaska.apptycoon.ui.fragment.AssetsFragment;
 import jaakko.jaaska.apptycoon.ui.fragment.EmployeesFragment;
 import jaakko.jaaska.apptycoon.ui.fragment.NewProductFragment;
 import jaakko.jaaska.apptycoon.ui.fragment.NewProjectFragment;
@@ -38,11 +39,10 @@ public class MainActivity extends FragmentActivity implements UiUpdater {
 
     public static final int FRAGMENT_PROJECTS = 0;
     public static final int FRAGMENT_NEW_PROJECT = 1;
-
     public static final int FRAGMENT_HUMAN_RESOURCES = 10;
-
     public static final int FRAGMENT_PRODUCTS = 20;
     public static final int FRAGMENT_NEW_PRODUCT = 21;
+    public static final int FRAGMENT_ASSETS = 30;
 
     /** Currently visible fragment. */
     private int mCurrentFragment = Integer.MIN_VALUE;
@@ -88,6 +88,7 @@ public class MainActivity extends FragmentActivity implements UiUpdater {
         setNavItemListeners((TextView) findViewById(R.id.textViewNavProjects), FRAGMENT_PROJECTS);
         setNavItemListeners((TextView) findViewById(R.id.textViewNavProducts), FRAGMENT_PRODUCTS);
         setNavItemListeners((TextView) findViewById(R.id.textViewNavEmployees), FRAGMENT_HUMAN_RESOURCES);
+        setNavItemListeners((TextView) findViewById(R.id.textViewNavAssets), FRAGMENT_ASSETS);
 
         updateUi(Integer.MIN_VALUE, null);
 
@@ -170,6 +171,8 @@ public class MainActivity extends FragmentActivity implements UiUpdater {
             case FRAGMENT_NEW_PRODUCT:
                 newFragment = new NewProductFragment();
                 break;
+            case FRAGMENT_ASSETS:
+                newFragment = new AssetsFragment();
             default:
                 break;
         }

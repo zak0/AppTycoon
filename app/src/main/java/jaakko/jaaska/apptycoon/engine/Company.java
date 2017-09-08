@@ -3,8 +3,11 @@ package jaakko.jaaska.apptycoon.engine;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import jaakko.jaaska.apptycoon.engine.asset.Asset;
+import jaakko.jaaska.apptycoon.engine.asset.PremisesAsset;
 import jaakko.jaaska.apptycoon.engine.people.EmployeeType;
 import jaakko.jaaska.apptycoon.engine.product.Product;
 import jaakko.jaaska.apptycoon.engine.project.Project;
@@ -24,12 +27,19 @@ public class Company {
 
     private long mFunds;
 
+    /** All the assets that the company has, including the premises asset. */
+    private List<Asset> mAssets;
+
+    /** Current company premises */
+    private PremisesAsset mPremises;
+
     /** Stores unpaid fractions of costs. Funds are only tracked as integers. One full unit of
      * funds is reduced when sum of current fraction and fractional part of next payment goes
      * above 1. Value stored here should always stay below 1.
      */
     private double mFractionOfCost;
     private double mSalaryCostsPerSecond; // Cumulative salary costs (per second)
+    private double mAssetCostsPerSecond; // Cumulative asset costs. TODO: Maybe separate different asset 'categories' into their own variables for more detailed stats.
 
     private List<EmployeeType> mEmployees;
     private long mCodePerSecond = 0; // Cumulative cps of all employees and company assets
@@ -70,6 +80,7 @@ public class Company {
         mEmployees = new ArrayList<>();
         mProducts = new ArrayList<>();
         mProjectSlots = new ArrayList<>();
+        mAssets = new ArrayList<>();
     }
 
     /**
@@ -273,6 +284,53 @@ public class Company {
         mEmployees = employees;
     }
 
+    /**
+     * Adds an asset to company. If this is a premises asset, current premises is replaced with
+     * the new one.
+     *
+     * TODO: Handle adding multiple (meaning the 'count' of one Asset being greater than one) at once.
+     *
+     * @param asset New asset to add
+     */
+    public void addAsset(Asset asset) {
+        Log.d(TAG, "addAsset() - adding '" + asset.getName() + "'");
+
+        if (asset instanceof PremisesAsset) {
+            removeCurrentPremisesAsset();
+            mPremises = (PremisesAsset) asset;
+        }
+
+        mAssets.add(asset);
+
+        // Handle the change in running costs
+        mAssetCostsPerSecond += asset.getCostPerSecond();
+    }
+
+    /**
+     * Removes the current premises from the list of all assets.
+     * Use this when the premises is changed.
+     */
+    private void removeCurrentPremisesAsset() {
+        Log.d(TAG, "removeCurrentPremisesAsset()");
+        Iterator<Asset> iter = mAssets.iterator();
+        while (iter.hasNext()) {
+            Asset asset = iter.next();
+            if (asset instanceof PremisesAsset) {
+                Log.d(TAG, "removeCurrentPremisesAsset() - removed '" + asset.getName() + "'");
+                mAssets.remove(asset);
+
+                // Handle the changed running cost
+                mAssetCostsPerSecond -= asset.getCostPerSecond();
+                break;
+            }
+        }
+    }
+
+    public PremisesAsset getPremises() {
+        return mPremises;
+    }
+
+
     public void addProjectSlot() {
         ProjectSlot newSlot = new ProjectSlot(null, 1);
 
@@ -314,7 +372,7 @@ public class Company {
      * @return Running costs per second.
      */
     public double getRunningCosts() {
-        return mSalaryCostsPerSecond;
+        return mSalaryCostsPerSecond + mAssetCostsPerSecond;
     }
     public double getSalaryCosts() { return mSalaryCostsPerSecond; }
 

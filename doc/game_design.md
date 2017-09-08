@@ -67,6 +67,8 @@ Player controls the assets of the company. These include physical property such 
 ### Premises
 Company premises can be rented or owned. Rental properties have a down-payment (or a deposit) when moving to a new location and additionally a running cost. Owned properties only have a running cost. Premises affect on how many employees the company can have. Bigger premises can house more employees. More expensive and larger properties also have an effect on company's reputation.
 
+Moving to new premises takes time. During the move period the efficiency of the company lowers to half.
+
 ## Upgrades
 Upgrades system is presented as a tree. This essentially means that upgrades further into the tree are unlocked by first unlocking upgrades earlier in the tree.
 

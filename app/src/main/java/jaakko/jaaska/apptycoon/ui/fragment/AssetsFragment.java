@@ -1,0 +1,56 @@
+package jaakko.jaaska.apptycoon.ui.fragment;
+
+import android.content.res.Resources;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import jaakko.jaaska.apptycoon.AppTycoonApp;
+import jaakko.jaaska.apptycoon.R;
+import jaakko.jaaska.apptycoon.engine.Company;
+import jaakko.jaaska.apptycoon.engine.asset.PremisesAsset;
+import jaakko.jaaska.apptycoon.engine.core.GameEngine;
+import jaakko.jaaska.apptycoon.utils.Utils;
+
+/**
+ * The parent fragment for managing company's assets.
+ */
+
+public class AssetsFragment extends Fragment {
+    private static final String TAG = "AssetsFragment";
+
+    private View mView;
+    private Company mCompany;
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        mView = inflater.inflate(R.layout.fragment_assets, container, false);
+        mCompany = GameEngine.getInstance().getGameState().getCompany();
+
+        populatePremisesCard();
+
+        return mView;
+    }
+
+    private void populatePremisesCard() {
+        TextView textViewHeadCount = (TextView) mView.findViewById(R.id.textViewPremisesHeadCount);
+        TextView textViewCosts = (TextView) mView.findViewById(R.id.textViewPremisesCosts);
+        TextView textViewName = (TextView) mView.findViewById(R.id.textViewPremisesName);
+
+        PremisesAsset premises = mCompany.getPremises();
+        Resources res = AppTycoonApp.getContext().getResources();
+        String strHeadCount = res.getString(R.string.premises_asset_people_count,
+                mCompany.getEmployeeCount(), premises.getMaximumHeadCount());
+        String strCosts = res.getString(R.string.premises_asset_costs,
+                Utils.largeNumberToNiceString(premises.getCostPerSecond(), 2));
+
+        textViewHeadCount.setText(strHeadCount);
+        textViewCosts.setText(strCosts);
+        textViewName.setText(premises.getName());
+    }
+}

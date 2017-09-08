@@ -135,6 +135,17 @@
                 />
 
             <TextView
+                android:id="@+id/textViewNavAssets"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffffff"
+                android:fontFamily="monospace"
+                android:textStyle="bold"
+                android:layout_margin="@dimen/navigationDrawerItemMargin"
+                android:text="[ ] Assets"
+                />
+
+            <TextView
                 android:id="@+id/textViewNavFinances"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

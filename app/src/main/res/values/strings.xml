@@ -30,4 +30,7 @@
     <string name="product_list_item_next_version_defined">Next version defined (%1$s work)</string>
 
     <string name="product_feature_list_item_level">level %1$d</string>
+
+    <string name="premises_asset_people_count">%1$d / %2$d</string>
+    <string name="premises_asset_costs">$ %1$s / s</string>
 </resources>
