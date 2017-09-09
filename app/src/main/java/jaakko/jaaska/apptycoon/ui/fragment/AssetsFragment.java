@@ -20,21 +20,23 @@ import jaakko.jaaska.apptycoon.utils.Utils;
  * The parent fragment for managing company's assets.
  */
 
-public class AssetsFragment extends Fragment {
+public class AssetsFragment extends AppTycoonFragment {
     private static final String TAG = "AssetsFragment";
 
     private View mView;
     private Company mCompany;
 
-    @Nullable
+    public AssetsFragment() {
+        super("Assets", R.layout.fragment_assets);
+    }
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mView = inflater.inflate(R.layout.fragment_assets, container, false);
+    protected void onContentCreateView(View view) {
+        mView = view;
         mCompany = GameEngine.getInstance().getGameState().getCompany();
 
         populatePremisesCard();
 
-        return mView;
     }
 
     private void populatePremisesCard() {
