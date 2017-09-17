@@ -16,11 +16,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.concurrent.RunnableFuture;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
+
 import jaakko.jaaska.apptycoon.AppTycoonApp;
 import jaakko.jaaska.apptycoon.R;
 import jaakko.jaaska.apptycoon.engine.Company;
 import jaakko.jaaska.apptycoon.engine.core.GameEngine;
 import jaakko.jaaska.apptycoon.storage.StorageManager;
+import jaakko.jaaska.apptycoon.ui.dialog.AppTycoonAlertDialog;
 import jaakko.jaaska.apptycoon.ui.fragment.AssetsFragment;
 import jaakko.jaaska.apptycoon.ui.fragment.EmployeesFragment;
 import jaakko.jaaska.apptycoon.ui.fragment.NewProductFragment;
@@ -277,4 +282,29 @@ public class MainActivity extends FragmentActivity implements UiUpdater {
 
     }
 
+    /**
+     * Override back button to prevent accidental app exits. This because everything is now
+     * running on one activity. So, without this, a single back press would kill the entire app.
+     * TODO: Make back button to navigate one step back when there is a back action set for current fragment.
+     */
+    @Override
+    public void onBackPressed() {
+        // Display a dialog that prompts for quit.
+        final AppTycoonAlertDialog dialog = new AppTycoonAlertDialog(this, "Exit", "Are you sure?");
+        dialog.setOkAction("Yes", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                finish();
+            }
+        });
+        dialog.setCancelAction("No", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+
+    }
 }
