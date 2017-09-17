@@ -29,7 +29,7 @@ Products have a __quality__ score. Products have bugs. Bugs reduce the quality s
 
 Each product project results in a __release__ of a newly released product or an update to an already released product. After a release, sales of the product in question gets a boost. Only the latest release is available to the customers.
 
-The sales quantity and the sales price depends on the product complexity. More complex products sell fewer numbers but cost more than less complex ones. Some products can be released as freemium, meaning that the income comes from ads and in-app-purchases. Some can be released as a service, so that customers pay a continuous subscription fee for a license to use the product
+The sales quantity and the sales price depend on the product complexity. More complex products sell fewer numbers but cost more than less complex ones. Some products can be released as freemium, meaning that the income comes from ads and in-app-purchases. Some can be released as a service, so that customers pay a continuous subscription fee for a license to use the product.
 
 Products can also be released for free or the they can be made open source. This has an effect on company's reputation.
 
@@ -86,5 +86,21 @@ The company has running costs that need to be paid. Company premises have a runn
 
 ## Prestige System
 Game has a prestige system typical to idle genre. Resetting the game earns Guru Points which can be used to unlock special upgrades.
+
+## Stats
+One very important part of an idle game is stats and numbers (same goes for management/tycoon-like games as well). The stats do not directly affect the gameplay, but some will be used when unlocking achievements. These stats are tracked and stored:
+*   __Total Money Earned__: Sum of all earnings
+*   __Money Earned From Ads__: Earnings from ads
+*   __Money Earned From IAPs__: Earnings from in-app purchases
+*   __Money Earned From Subscriptions__: Earnings from subscriptions 
+*   __Total Downloads__: Number of times a product has been downloaded. This does not include contracting projects.
+*   __Total Expenses__: Sum of all expenses
+*   __Payroll Expenses__
+*   __Premises Expenses__
+*   __Other Expenses__
+*   __New Bugs__
+*   __Bugs Resolved__
+
+Statistics are tracked and displayed per different time spans (of real life time): per day, per week, all time.
 
 ## Achievements
