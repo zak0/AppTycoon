@@ -89,4 +89,22 @@ public class AppTycoonDialog extends Dialog {
         setActionTextViewListener(mTextViewCancel, onCancelListener);
     }
 
+    public void setOkLabel(String label) {
+        mTextViewOk.setText(label);
+    }
+
+    public void setCancelLabel(String label) {
+        mTextViewCancel.setText(label);
+    }
+
+    public void setOkAction(String label, View.OnClickListener onOkListener) {
+        setOkAction(onOkListener);
+        setOkLabel(label);
+    }
+
+    public void setCancelAction(String label, View.OnClickListener onCancelListener) {
+        setCancelAction(onCancelListener);
+        setCancelLabel(label);
+    }
+
 }
