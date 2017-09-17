@@ -49,6 +49,9 @@ public class GameEngine {
             company.addProjectSlot();
         }
 
+        // Add premises asset
+        company.addAsset(PremisesAsset.getPremisesAssetById(PremisesAsset.SMALL_OFFICE_SPACE));
+
         // Add employees
         company.addEmployee(EmployeeType.TYPE_DEVELOPER, 3);
         //company.addEmployee(EmployeeType.TYPE_SENIOR_DEVELOPER, 2);
@@ -58,9 +61,6 @@ public class GameEngine {
         Product mobileApp = new Product("NameOfTheApp", ProductType.getProductType(ProductType.PRODUCT_TYPE_MOBILE_APP));
         mobileApp.rebuildNewProductDevelopmentProject();
         company.addProduct(mobileApp);
-
-        // Add premises asset
-        company.addAsset(PremisesAsset.getPremisesAssetById(PremisesAsset.SMALL_OFFICE_SPACE));
 
         mGameState.setCompany(company);
     }

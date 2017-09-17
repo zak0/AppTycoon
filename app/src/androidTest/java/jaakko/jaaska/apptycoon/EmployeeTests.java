@@ -99,4 +99,32 @@ public class EmployeeTests {
         assertEquals(costOfOne * 11.0d, company.getSalaryCosts(), mDelta);
     }
 
+    /**
+     * Tests that no more people cannot be hired than the current office space allows.
+     */
+    @Test
+    public void officeSpaceIsRespected() {
+        Company company = GameEngine.getInstance().getGameState().getCompany();
+        int type = EmployeeType.TYPE_DEVELOPER;
+        Long maxCount = company.getPremises().getMaximumHeadCount();
+
+        // At the start the company should have 0 employees.
+        assertEquals(company.getEmployeeCount(), 0);
+
+        // Add one employee.
+        boolean success = company.addEmployee(type, 1);
+        assertEquals(success, true);
+        assertEquals(company.getEmployeeCount(), 1);
+
+        // Then max out the employee count.
+        success = company.addEmployee(type, maxCount.intValue() - 1);
+        assertEquals(success, true);
+        assertEquals(company.getEmployeeCount(), maxCount.intValue());
+
+        // Now adding more employees should not be possible.
+        // So, after attempting to add more, we should still be at maximum headcount.
+        success = company.addEmployee(type, 1);
+        assertEquals(success, false);
+        assertEquals(company.getEmployeeCount(), maxCount.intValue());
+    }
 }

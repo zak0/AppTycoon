@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -116,8 +117,15 @@ public class EmployeesFragment extends Fragment {
                 holder.containerView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mGameState.getCompany().addEmployee(employeeType.getType(), 1);
-                        mRecyclerViewAdapter.notifyDataSetChanged();
+                        boolean success = mGameState.getCompany().addEmployee(employeeType.getType(), 1);
+
+                        if (success) {
+                            mRecyclerViewAdapter.notifyDataSetChanged();
+                        } else {
+                            Toast.makeText(getContext(),
+                                    "Office is full. Consider moving into a larger office.",
+                                    Toast.LENGTH_LONG).show();
+                        }
                     }
                 });
 

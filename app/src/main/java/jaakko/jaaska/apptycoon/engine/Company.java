@@ -203,14 +203,22 @@ public class Company {
     }
 
     /**
-     * Adds a new employee into the company. Takes care of handling changes in periodic expenses
-     * as well as changes in company productivity. So this is what to call when adding a new
-     * employee to the company.
+     * Adds new employees into the company. Takes care of handling changes in periodic expenses
+     * as well as changes in company productivity. So this is what to call when adding new
+     * employees to the company.
      *
      * @param type Type of the employee to add.
      * @param count How many employees of this type to add.
+     *
+     * @return True when adding succeeds.
      */
-    public void addEmployee(int type, int count) {
+    public boolean addEmployee(int type, int count) {
+
+        // Do not add the employee(s) in case current company premises does not have room.
+        if (getEmployeeCount() + count > mPremises.getMaximumHeadCount()) {
+            Log.d(TAG, "addEmployee() - premises are full -> employee(s) not added");
+            return false;
+        }
 
         // The employee data is stored in an EmployeeType.
         // Get the type from the list if employees of this type are already hired before.
@@ -232,6 +240,8 @@ public class Company {
         mQualityPerSecond += employeeType.getQualityGain() * count;
         mSalaryCostsPerSecond += employeeType.getSalary() * count;
         employeeType.hire(count);
+
+        return true;
     }
 
     /**
