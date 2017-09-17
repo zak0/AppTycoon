@@ -16,10 +16,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.concurrent.RunnableFuture;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicLong;
-
 import jaakko.jaaska.apptycoon.AppTycoonApp;
 import jaakko.jaaska.apptycoon.R;
 import jaakko.jaaska.apptycoon.engine.Company;
@@ -241,7 +237,7 @@ public class MainActivity extends FragmentActivity implements UiUpdater {
     private class NavItemOnClickListener implements View.OnClickListener {
         private int mLinksToFragment; // The fragment this items links to.
 
-        public NavItemOnClickListener(int linksTo) {
+        NavItemOnClickListener(int linksTo) {
             mLinksToFragment = linksTo;
         }
 
