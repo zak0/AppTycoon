@@ -18,6 +18,12 @@ import jaakko.jaaska.apptycoon.ui.listener.TextViewChangeColourOnTouchListener;
 /**
  * A class for providing consistent look and feel for all fragments that are shown within the
  * MainActivity. This includes the "fragment title bar" back button and action button handling.
+ *
+ * Extend this class for new content fragments.
+ *
+ * In the constructor of the subclass, only call the constructor of the superclass. Don't call
+ * other superclass methods. Superclass is properly initialized after the overridden onContentCreateView
+ * method is being called. So, that is the earliest point at which to call superclass methods.
  */
 public abstract class AppTycoonFragment extends Fragment {
 

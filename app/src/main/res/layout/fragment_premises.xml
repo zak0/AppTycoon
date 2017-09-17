@@ -1,31 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingTop="@dimen/fragmentTopPadding">
+    android:layout_height="match_parent">
 
 
-    <TextView
-        android:id="@+id/textViewTitle"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/layoutCurrentPremises"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/fragmentPadding"
-        android:textColor="@color/primary_text"
-        android:fontFamily="monospace"
-        android:textStyle="bold"
-        android:text="Premises"
-        />
+        android:elevation="@dimen/genericElevation"
+        android:padding="@dimen/fragmentPadding">
 
-    <TextView
-        android:id="@+id/textViewEmployeeSlots"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/fragmentPadding"
-        android:layout_alignParentRight="true"
-        android:textColor="@color/primary_text"
-        android:fontFamily="monospace"
-        android:textStyle="bold"
-        android:text="2.82k / month"/>
+        <TextView
+            android:id="@+id/textViewCurrentPremisesName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/primary_text"
+            android:fontFamily="monospace"
+            android:textStyle="bold"
+            android:text="Name of current premises"
+            />
+
+        <TextView
+            android:id="@+id/textViewCurrentPremisesDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewCurrentPremisesName"
+            android:fontFamily="monospace"
+            android:text="Description of current premises"
+            android:layout_marginBottom="@dimen/fragmentSectionPadding"
+            />
+
+
+        <!--
+
+        Titles for properties of current premises
+
+        -->
+        <LinearLayout
+            android:id="@+id/layoutCurrentPremisesPropertyTitles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@id/textViewCurrentPremisesDescription">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/primary_text"
+                android:fontFamily="monospace"
+                android:text="Cost"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/primary_text"
+                android:fontFamily="monospace"
+                android:text="Office Space"
+                />
+
+        </LinearLayout>
+
+        <!--
+
+        Values for properties of current premises
+
+        -->
+        <LinearLayout
+            android:id="@+id/layoutCurrentPremisesPropertyValues"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentEnd="true"
+            android:gravity="end"
+            android:layout_below="@id/textViewCurrentPremisesDescription">
+
+            <TextView
+                android:id="@+id/textViewCurrentPremisesCost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/primary_text"
+                android:fontFamily="monospace"
+                android:text="$ xxx/s"
+                />
+
+            <TextView
+                android:id="@+id/textViewCurrentPremisesSpace"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/primary_text"
+                android:fontFamily="monospace"
+                android:text="3/15 used"
+                />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layoutCurrentPremisesPropertyTitles"
+            android:layout_marginTop="@dimen/fragmentSectionPadding"
+            android:textColor="@color/primary_text"
+            android:fontFamily="monospace"
+            android:textStyle="bold"
+            android:text="Relocate"
+            />
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewMoveToPremises"
+        android:layout_below="@id/layoutCurrentPremises"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 
 </RelativeLayout>

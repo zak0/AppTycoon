@@ -2,6 +2,9 @@
     <string name="app_name">App Tycoon</string>
 
     <string name="generic_time_d_h_m">%1$dd %2$dh %3$dmin</string>
+    <string name="generic_large_money">$%1$s</string>
+    <string name="generic_money_per_second">$ %1$s / s</string>
+    <string name="generic_large_number">%1$s</string>
 
     <string name="message_project_delivered">Project delivered.</string>
     <string name="message_project_not_ready_for_delivery">Project is not ready for delivery.</string>

@@ -4,6 +4,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,8 @@ import jaakko.jaaska.apptycoon.R;
 import jaakko.jaaska.apptycoon.engine.Company;
 import jaakko.jaaska.apptycoon.engine.asset.PremisesAsset;
 import jaakko.jaaska.apptycoon.engine.core.GameEngine;
+import jaakko.jaaska.apptycoon.ui.MainActivity;
+import jaakko.jaaska.apptycoon.ui.UiUpdateHandler;
 import jaakko.jaaska.apptycoon.utils.Utils;
 
 /**
@@ -40,6 +43,7 @@ public class AssetsFragment extends AppTycoonFragment {
     }
 
     private void populatePremisesCard() {
+        CardView cardView = (CardView) mView.findViewById(R.id.cardViewPremisesAsset);
         TextView textViewHeadCount = (TextView) mView.findViewById(R.id.textViewPremisesHeadCount);
         TextView textViewCosts = (TextView) mView.findViewById(R.id.textViewPremisesCosts);
         TextView textViewName = (TextView) mView.findViewById(R.id.textViewPremisesName);
@@ -54,5 +58,13 @@ public class AssetsFragment extends AppTycoonFragment {
         textViewHeadCount.setText(strHeadCount);
         textViewCosts.setText(strCosts);
         textViewName.setText(premises.getName());
+
+        // Clicking on the premises card opens a PremisesFragment.
+        cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UiUpdateHandler.obtainReplaceFragmentMessage(MainActivity.FRAGMENT_PREMISES).sendToTarget();
+            }
+        });
     }
 }

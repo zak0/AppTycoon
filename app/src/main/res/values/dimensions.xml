@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="genericElevation">4dp</dimen>
+
     <dimen name="topBarPadding">6dp</dimen>
     <dimen name="topBarElevation">4dp</dimen>
     <dimen name="topBarVerticalPadding">18dp</dimen>
