@@ -302,7 +302,7 @@ public class Product {
      */
     public void rebuildNewProductDevelopmentProject() {
         if (mDevProject == null) {
-            Log.e(TAG, "rebuildNewProductDevelopmentProject() - new project created");
+            Log.d(TAG, "rebuildNewProductDevelopmentProject() - new project created");
             mDevProject = new ProductDevelopmentProject("no description", this);
         }
         Log.d(TAG, "rebuildNewProductDevelopmentProject() - start");
