@@ -42,7 +42,7 @@ public class GameEngine {
      */
     public void loadTestData() {
         mGameState = new GameState();
-        Company company = new Company("Company Name Inc.", 10, 25000000, 1000);
+        Company company = new Company("Company Name Inc.", 10, 25000000, 90000000000L);
 
         // Add project slots
         for (int i = 0; i < 3; i++) {

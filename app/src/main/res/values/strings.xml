@@ -36,4 +36,6 @@
 
     <string name="premises_asset_people_count">%1$d / %2$d</string>
     <string name="premises_asset_costs">$ %1$s / s</string>
+    <string name="premises_move_to_new_premises_alert_title">Relocate</string>
+    <string name="premises_move_to_new_premises_alert">Relocating the company to %1$s will cost \n\n$%2$s.\n\n Are you sure you want to move?</string>
 </resources>

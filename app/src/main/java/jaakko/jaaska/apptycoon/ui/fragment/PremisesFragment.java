@@ -8,8 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 import jaakko.jaaska.apptycoon.AppTycoonApp;
@@ -18,6 +16,8 @@ import jaakko.jaaska.apptycoon.engine.Company;
 import jaakko.jaaska.apptycoon.engine.asset.PremisesAsset;
 import jaakko.jaaska.apptycoon.engine.core.GameEngine;
 import jaakko.jaaska.apptycoon.ui.MainActivity;
+import jaakko.jaaska.apptycoon.ui.UiUpdateHandler;
+import jaakko.jaaska.apptycoon.ui.dialog.AppTycoonAlertDialog;
 import jaakko.jaaska.apptycoon.utils.Utils;
 
 /**
@@ -127,6 +127,37 @@ public class PremisesFragment extends AppTycoonFragment {
 
             private ViewHolder(View v) {
                 super(v);
+
+                v.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Resources res = getResources();
+                        String title = res.getString(R.string.premises_move_to_new_premises_alert_title);
+                        String alert = res.getString(R.string.premises_move_to_new_premises_alert,
+                                premises.getName(),
+                                Utils.largeNumberToNiceString(premises.getAcquisitionCost(), 2));
+                        final AppTycoonAlertDialog dialog = new AppTycoonAlertDialog(getContext(), title, alert);
+                        dialog.setCancelAction("No", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                dialog.dismiss();
+                            }
+                        });
+                        dialog.setOkAction("Yes", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                // Add the new premises asset to company's assets.
+                                GameEngine.getInstance().getGameState().getCompany().addAsset(premises);
+
+                                // Then go back to AssetsFragment..
+                                UiUpdateHandler.obtainReplaceFragmentMessage(MainActivity.FRAGMENT_ASSETS).sendToTarget();
+                                dialog.dismiss();
+                            }
+                        });
+                        dialog.show();
+
+                    }
+                });
 
             }
         }

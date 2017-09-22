@@ -312,6 +312,9 @@ public class Company {
 
         mAssets.add(asset);
 
+        // Deduct the acquisition cost from funds.
+        mFunds -= asset.getAcquisitionCost();
+
         // Handle the change in running costs
         mAssetCostsPerSecond += asset.getCostPerSecond();
     }
@@ -323,6 +326,11 @@ public class Company {
     private void removeCurrentPremisesAsset() {
         Log.d(TAG, "removeCurrentPremisesAsset()");
         Iterator<Asset> iter = mAssets.iterator();
+
+        // Quiet down linter as an iterator is needed to be able to remove
+        // from the array while it's being iterated upon.
+        //
+        //noinspection WhileLoopReplaceableByForEach
         while (iter.hasNext()) {
             Asset asset = iter.next();
             if (asset instanceof PremisesAsset) {
