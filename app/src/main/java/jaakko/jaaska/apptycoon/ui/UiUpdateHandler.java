@@ -44,7 +44,7 @@ public class UiUpdateHandler extends Handler {
     /** Refreshes the UI. This calls the updateUi() of all registered UiUpdaters. */
     public static final int ACTION_REFRESH_UI = 20;
 
-    /** Navigates one step back in the navigation stack.
+    /** Navigates one step back in the navigation stack. */
     public static final int ACTION_GO_BACK = 30;
 
     //
@@ -159,6 +159,17 @@ public class UiUpdateHandler extends Handler {
         Bundle data = new Bundle();
         data.putInt(UiUpdateHandler.ARG_TARGET_FRAGMENT, targetFragment);
         msg.setData(data);
+        return msg;
+    }
+
+    /**
+     * Generates a message which after sending navigates one step back on the navigation
+     * stack.
+     *
+     * @return The message
+     */
+    public static Message obtainGoBackMessage() {
+        Message msg = getInstance().obtainMessage(UiUpdateHandler.ACTION_GO_BACK);
         return msg;
     }
 

@@ -150,6 +150,7 @@ public class MainActivity extends FragmentActivity implements UiUpdater {
         super.onResume();
         UiUpdateHandler uiUpdateHandler = UiUpdateHandler.getInstance();
         uiUpdateHandler.registerUpdater(this, UiUpdateHandler.ACTION_REPLACE_FRAGMENT);
+        uiUpdateHandler.registerUpdater(this, UiUpdateHandler.ACTION_GO_BACK);
         uiUpdateHandler.registerUpdater(this, UiUpdateHandler.ACTION_REFRESH_UI);
     }
 
@@ -222,7 +223,9 @@ public class MainActivity extends FragmentActivity implements UiUpdater {
 
             // Only add the current fragment into the stack when navigation is going forward.
             if (!isBackTransition) {
-                mNavigationStack.add(mCurrentFragment);
+                if (mCurrentFragment >= 0) { // Skip the invalid initialized value of mCurrentFragment.
+                    mNavigationStack.add(mCurrentFragment);
+                }
             }
 
             mCurrentFragment = fragment;
@@ -291,6 +294,8 @@ public class MainActivity extends FragmentActivity implements UiUpdater {
         // First change the fragment if a fragment change is requested.
         if (action == UiUpdateHandler.ACTION_REPLACE_FRAGMENT) {
             switchFragment(args.getInt(UiUpdateHandler.ARG_TARGET_FRAGMENT), args);
+        } else if (action == UiUpdateHandler.ACTION_GO_BACK) { // Or navigate back on the navigation stack.
+            goBackOnNavigationStack();
         }
 
         // Then update the top bar
@@ -311,6 +316,24 @@ public class MainActivity extends FragmentActivity implements UiUpdater {
         //cps.setText("C/s " + company.getCps());
         //quality.setText("Q " +  String.format("%.2f", company.getQualityRatio()));
 
+    }
+
+    /**
+     * Switches the current fragment back to the previous one on the stack.
+     *
+     * If the currently visible fragment is the only one in the stack, then this
+     * method does nothing.
+     */
+    private void goBackOnNavigationStack() {
+        if (mNavigationStack.size() <= 0) {
+            Log.d(TAG, "goBackOnNavigationStack() - already at the bottom");
+        } else {
+            Log.d(TAG, "goBackOnNavigationStack() - going back");
+            int prevFragment = mNavigationStack.remove(mNavigationStack.size() - 1);
+            Bundle args = new Bundle();
+            args.putBoolean(UiUpdateHandler.ARG_IS_BACK_TRANSITION, true);
+            switchFragment(prevFragment, args);
+        }
     }
 
     /**
@@ -345,10 +368,7 @@ public class MainActivity extends FragmentActivity implements UiUpdater {
 
         // If the navigation stack is empty, prompt for exit.
         if (mNavigationStack.size() > 0) {
-            int prevFragment = mNavigationStack.remove(mNavigationStack.size() - 1);
-            Bundle args = new Bundle();
-            args.putBoolean(UiUpdateHandler.ARG_IS_BACK_TRANSITION, true);
-            switchFragment(prevFragment, args);
+            goBackOnNavigationStack();
         } else {
             promptExit();
         }

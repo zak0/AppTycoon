@@ -27,11 +27,7 @@ public class FragmentBackButtonOnClickListener implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         Log.d(TAG, "onClick() - previous fragment = " + mPreviousFragment);
-        Message msg = UiUpdateHandler.obtainReplaceFragmentMessage(mPreviousFragment);
-        Bundle args = msg.getData();
-        args.putBoolean(UiUpdateHandler.ARG_IS_BACK_TRANSITION, true);
-        msg.setData(args);
-
+        Message msg = UiUpdateHandler.obtainGoBackMessage();
         msg.sendToTarget();
     }
 }
