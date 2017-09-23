@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -15,6 +16,8 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import jaakko.jaaska.apptycoon.AppTycoonApp;
 import jaakko.jaaska.apptycoon.R;
@@ -50,6 +53,11 @@ public class MainActivity extends FragmentActivity implements UiUpdater {
     /** Currently visible fragment. */
     private int mCurrentFragment = Integer.MIN_VALUE;
 
+    /** IDs of the fragments that the user navigated to.
+     * Used for providing "back" action.
+     */
+    private ArrayList<Integer> mNavigationStack = new ArrayList<>();
+
     private DrawerLayout mDrawerLayout;
 
     @Override
@@ -68,12 +76,17 @@ public class MainActivity extends FragmentActivity implements UiUpdater {
         // TODO: Check if this is necessary.
         if (savedInstanceState == null) {
             Log.d(TAG, "onCreate() loaded a previous state -> default fragment not added");
+            Bundle args = new Bundle();
+            args.putBoolean(UiUpdateHandler.ARG_REPLACE_FRAGMENT_WITH_ANIMATION, true);
+            switchFragment(FRAGMENT_PROJECTS, args);
+            /*
             ProjectsFragment projectsFragment = new ProjectsFragment();
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.layoutFragmentContainer, projectsFragment)
                     .commit();
 
             mCurrentFragment = FRAGMENT_PROJECTS;
+            */
         }
 
         RelativeLayout topBar = (RelativeLayout) findViewById(R.id.layoutTopBar);
@@ -185,14 +198,32 @@ public class MainActivity extends FragmentActivity implements UiUpdater {
         }
 
         if (newFragment != null) {
+
+            boolean animateTransition = true;
+            boolean isBackTransition = false;
+
             if (args != null) {
                 newFragment.setArguments(args);
+                animateTransition = args.getBoolean(UiUpdateHandler.ARG_REPLACE_FRAGMENT_WITH_ANIMATION, true);
+                isBackTransition = args.getBoolean(UiUpdateHandler.ARG_IS_BACK_TRANSITION, false);
             }
 
-            getSupportFragmentManager().beginTransaction()
-                    .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
-                    .replace(R.id.layoutFragmentContainer, newFragment)
-                    .commit();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+            if (animateTransition) {
+                if (isBackTransition) {
+                    transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right);
+                } else {
+                    transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left);
+                }
+            }
+
+            transaction.replace(R.id.layoutFragmentContainer, newFragment).commit();
+
+            // Only add the current fragment into the stack when navigation is going forward.
+            if (!isBackTransition) {
+                mNavigationStack.add(mCurrentFragment);
+            }
 
             mCurrentFragment = fragment;
         }
@@ -246,6 +277,10 @@ public class MainActivity extends FragmentActivity implements UiUpdater {
             updateUi(Integer.MIN_VALUE, null);
             switchFragment(mLinksToFragment, null);
             mDrawerLayout.closeDrawer(GravityCompat.START);
+
+            // Navigation stack is emptied when a new fragment is entered from
+            // the navigation drawer.
+            mNavigationStack.clear();
         }
     }
 
@@ -279,13 +314,9 @@ public class MainActivity extends FragmentActivity implements UiUpdater {
     }
 
     /**
-     * Override back button to prevent accidental app exits. This because everything is now
-     * running on one activity. So, without this, a single back press would kill the entire app.
-     * TODO: Make back button to navigate one step back when there is a back action set for current fragment.
+     * Prompts the user for quitting the app. Quits on no.
      */
-    @Override
-    public void onBackPressed() {
-        // Display a dialog that prompts for quit.
+    private void promptExit() {
         final AppTycoonAlertDialog dialog = new AppTycoonAlertDialog(this, "Exit", "Are you sure?");
         dialog.setOkAction("Yes", new View.OnClickListener() {
             @Override
@@ -301,6 +332,25 @@ public class MainActivity extends FragmentActivity implements UiUpdater {
             }
         });
         dialog.show();
+    }
 
+    /**
+     * Override back button to prevent accidental app exits. This because everything is now
+     * running on one activity. So, without this, a single back press would kill the entire app.
+     * TODO: Make back button to navigate one step back when there is a back action set for current fragment.
+     */
+    @Override
+    public void onBackPressed() {
+        Log.d(TAG, "onBackPressed() - navstack size: " + mNavigationStack.size());
+
+        // If the navigation stack is empty, prompt for exit.
+        if (mNavigationStack.size() > 0) {
+            int prevFragment = mNavigationStack.remove(mNavigationStack.size() - 1);
+            Bundle args = new Bundle();
+            args.putBoolean(UiUpdateHandler.ARG_IS_BACK_TRANSITION, true);
+            switchFragment(prevFragment, args);
+        } else {
+            promptExit();
+        }
     }
 }

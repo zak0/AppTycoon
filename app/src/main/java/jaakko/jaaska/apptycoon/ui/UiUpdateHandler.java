@@ -34,13 +34,39 @@ public class UiUpdateHandler extends Handler {
 
     private static final String TAG = "UiUpdateHandler";
 
+    //
+    //
     // Update actions that UiUpdaters implement.
+
+    /** Replaces the currently visible fragment with another one. */
     public static final int ACTION_REPLACE_FRAGMENT = 12;
+
+    /** Refreshes the UI. This calls the updateUi() of all registered UiUpdaters. */
     public static final int ACTION_REFRESH_UI = 20;
 
+    /** Navigates one step back in the navigation stack.
+    public static final int ACTION_GO_BACK = 30;
+
+    //
+    //
     // Constants for argument Bundle keys.
+
+    /** ID of the fragment to navigate to. Type: int */
     public static final String ARG_TARGET_FRAGMENT = "target_fragment";
+
+    /** Flag to toggle fragment transition animation of/off.
+     * This is optional and defaults to true. Type: boolean */
+    public static final String ARG_REPLACE_FRAGMENT_WITH_ANIMATION = "replace_fragment_anim";
+
+    /** Flag for telling the new fragment is a previous one in the navigation stack.
+     * Type: boolean */
+    public static final String ARG_IS_BACK_TRANSITION = "override_back_animation";
+
+    /** Used with project slot related fragments. The array index of the project slot.
+     * Type: int */
     public static final String ARG_PROJECT_SLOT_INDEX = "project_slot_index";
+
+    /** Used with product related fragments. The ID of the product type. Type: int */
     public static final String ARG_NEW_PRODUCT_TYPE = "product_type";
 
     // List of currently registered UiUpdaters and their actions.

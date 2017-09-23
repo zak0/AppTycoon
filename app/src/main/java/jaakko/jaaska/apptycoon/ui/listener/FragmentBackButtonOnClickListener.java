@@ -1,5 +1,7 @@
 package jaakko.jaaska.apptycoon.ui.listener;
 
+import android.os.Bundle;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 
@@ -11,7 +13,6 @@ import jaakko.jaaska.apptycoon.ui.UiUpdateHandler;
  *
  * Constructor takes the ID of the previous fragment that the back button navigates to.
  *
- * Created by jaakko on 8.5.2017.
  */
 
 public class FragmentBackButtonOnClickListener implements View.OnClickListener {
@@ -26,6 +27,11 @@ public class FragmentBackButtonOnClickListener implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         Log.d(TAG, "onClick() - previous fragment = " + mPreviousFragment);
-        UiUpdateHandler.obtainReplaceFragmentMessage(mPreviousFragment).sendToTarget();
+        Message msg = UiUpdateHandler.obtainReplaceFragmentMessage(mPreviousFragment);
+        Bundle args = msg.getData();
+        args.putBoolean(UiUpdateHandler.ARG_IS_BACK_TRANSITION, true);
+        msg.setData(args);
+
+        msg.sendToTarget();
     }
 }
