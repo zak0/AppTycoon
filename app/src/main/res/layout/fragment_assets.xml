@@ -1,96 +1,197 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <!--
+
+        Premises
+
+        -->
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardViewPremisesAsset"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:elevation="@dimen/cardview_default_elevation"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardUseCompatPadding="true">
 
-            <!-- CONTENT GOES HERE -->
-            <android.support.v7.widget.CardView
-                android:id="@+id/cardViewPremisesAsset"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:elevation="@dimen/cardview_default_elevation"
-                android:clickable="true"
-                android:foreground="?android:attr/selectableItemBackground"
-                app:cardUseCompatPadding="true">
-                <RelativeLayout
-                    android:layout_width="match_parent"
+                android:padding="@dimen/cardPadding">
+
+                <TextView
+                    android:id="@+id/textViewPremisesTitle"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/cardPadding">
+                    android:textStyle="bold"
+                    android:fontFamily="monospace"
+                    android:textColor="@color/primary_text"
+                    android:layout_marginBottom="@dimen/marginBelowCardTitle"
+                    android:text="Premises"/>
 
+                <TextView
+                    android:id="@+id/textViewPremisesHeadCountTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="monospace"
+                    android:textColor="@color/primary_text"
+                    android:layout_below="@id/textViewPremisesTitle"
+                    android:text="Personnel"/>
+
+                <TextView
+                    android:id="@+id/textViewPremisesCostsTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="monospace"
+                    android:textColor="@color/primary_text"
+                    android:layout_below="@id/textViewPremisesHeadCountTitle"
+                    android:text="Costs"/>
+
+                <TextView
+                    android:id="@+id/textViewPremisesName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="monospace"
+                    android:layout_alignParentEnd="true"
+                    android:text="Garage"/>
+
+                <TextView
+                    android:id="@+id/textViewPremisesHeadCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="monospace"
+                    android:textColor="@color/primary_text"
+                    android:layout_alignBaseline="@id/textViewPremisesHeadCountTitle"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@id/textViewPremisesTitle"
+                    android:text="2 / 5"/>
+
+                <TextView
+                    android:id="@+id/textViewPremisesCosts"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="monospace"
+                    android:textColor="@color/primary_text"
+                    android:layout_alignBaseline="@id/textViewPremisesCostsTitle"
+                    android:layout_alignParentEnd="true"
+                    android:layout_below="@id/textViewPremisesHeadCountTitle"
+                    android:text="$ 1.22 / min"/>
+
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <!--
+
+        IT
+
+        -->
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardViewITAsset"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="@dimen/cardview_default_elevation"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            app:cardUseCompatPadding="true">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/cardPadding">
+
+                <TextView
+                    android:id="@+id/textViewITTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:fontFamily="monospace"
+                    android:textColor="@color/primary_text"
+                    android:layout_marginBottom="@dimen/marginBelowCardTitle"
+                    android:text="IT"/>
+
+                <TextView
+                    android:id="@+id/textViewITUpgrades"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="monospace"
+                    android:layout_alignParentEnd="true"
+                    android:text="2/52 unlocked"/>
+
+                <!-- Titles of attributes go into this LinearLayout -->
+                <LinearLayout
+                    android:id="@+id/layoutTitles"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_below="@id/textViewITTitle">
                     <TextView
-                        android:id="@+id/textViewPremisesTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textStyle="bold"
                         android:fontFamily="monospace"
                         android:textColor="@color/primary_text"
-                        android:layout_marginBottom="@dimen/marginBelowCardTitle"
-                        android:text="Premises"/>
-
+                        android:text="Workstation issues"/>
                     <TextView
-                        android:id="@+id/textViewPremisesHeadCountTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="monospace"
                         android:textColor="@color/primary_text"
-                        android:layout_below="@id/textViewPremisesTitle"
-                        android:text="Personnel"/>
-
+                        android:text="Server issues"/>
                     <TextView
-                        android:id="@+id/textViewPremisesCostsTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="monospace"
                         android:textColor="@color/primary_text"
-                        android:layout_below="@id/textViewPremisesHeadCountTitle"
                         android:text="Costs"/>
+                </LinearLayout>
 
+                <!-- Values of attributes go into this LinearLayout -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="end"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignTop="@id/layoutTitles">
                     <TextView
-                        android:id="@+id/textViewPremisesName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="monospace"
-                        android:layout_alignParentEnd="true"
-                        android:text="Garage"/>
-
-                    <TextView
-                        android:id="@+id/textViewPremisesHeadCount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="monospace"
-                        android:textColor="@color/primary_text"
-                        android:layout_alignBaseline="@id/textViewPremisesHeadCountTitle"
-                        android:layout_alignParentEnd="true"
-                        android:layout_below="@id/textViewPremisesTitle"
-                        android:text="2 / 5"/>
-
-                    <TextView
-                        android:id="@+id/textViewPremisesCosts"
+                        android:id="@+id/textViewITPCs"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="monospace"
                         android:textColor="@color/primary_text"
-                        android:layout_alignBaseline="@id/textViewPremisesCostsTitle"
-                        android:layout_alignParentEnd="true"
-                        android:layout_below="@id/textViewPremisesHeadCountTitle"
-                        android:text="$ 1.22 / min"/>
+                        android:text="All OK"/>
+                    <TextView
+                        android:id="@+id/textViewITServers"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="monospace"
+                        android:textColor="@color/primary_text"
+                        android:text="All OK"/>
+                    <TextView
+                        android:id="@+id/textViewITCosts"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="monospace"
+                        android:textColor="@color/primary_text"
+                        android:text="$ 8.45 / min"/>
+                </LinearLayout>
 
-                </RelativeLayout>
 
-            </android.support.v7.widget.CardView>
+            </RelativeLayout>
 
-        </LinearLayout>
-    </ScrollView>
+        </android.support.v7.widget.CardView>
 
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>
+

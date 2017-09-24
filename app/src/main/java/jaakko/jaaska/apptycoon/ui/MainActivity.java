@@ -27,6 +27,7 @@ import jaakko.jaaska.apptycoon.storage.StorageManager;
 import jaakko.jaaska.apptycoon.ui.dialog.AppTycoonAlertDialog;
 import jaakko.jaaska.apptycoon.ui.fragment.AssetsFragment;
 import jaakko.jaaska.apptycoon.ui.fragment.EmployeesFragment;
+import jaakko.jaaska.apptycoon.ui.fragment.ItFragment;
 import jaakko.jaaska.apptycoon.ui.fragment.NewProductFragment;
 import jaakko.jaaska.apptycoon.ui.fragment.NewProjectFragment;
 import jaakko.jaaska.apptycoon.ui.fragment.PremisesFragment;
@@ -49,6 +50,7 @@ public class MainActivity extends FragmentActivity implements UiUpdater {
     public static final int FRAGMENT_NEW_PRODUCT = 21;
     public static final int FRAGMENT_ASSETS = 30;
     public static final int FRAGMENT_PREMISES = 31;
+    public static final int FRAGMENT_IT = 32;
 
     /** Currently visible fragment. */
     private int mCurrentFragment = Integer.MIN_VALUE;
@@ -193,6 +195,9 @@ public class MainActivity extends FragmentActivity implements UiUpdater {
                 break;
             case FRAGMENT_PREMISES:
                 newFragment = new PremisesFragment();
+                break;
+            case FRAGMENT_IT:
+                newFragment = new ItFragment();
                 break;
             default:
                 break;

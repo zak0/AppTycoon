@@ -69,6 +69,9 @@ Company premises can be rented or owned. Rental properties have a down-payment (
 
 Moving to new premises takes time. During the move period the efficiency of the company lowers to half.
 
+### IT
+IT assets include all the PC and software tool related infrastructure as well as handling problems related to these. Issues occur at random and can affect either workstations or servers. A workstation issue lowers the working efficiency of employees, while a server issue affects company income. The negative effects are removed when the issues are fixed. The fixing can be done either by the player or by the hired IT staff. IT staff has a solving time, that is the duration it takes for one IT employee to solve one issue. In addition to in-house IT staff, The IT can be bought from a subcontractor.
+
 ## Upgrades
 Upgrades system is presented as a tree. This essentially means that upgrades further into the tree are unlocked by first unlocking upgrades earlier in the tree.
 

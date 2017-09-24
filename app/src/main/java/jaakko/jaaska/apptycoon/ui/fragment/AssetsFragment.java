@@ -1,13 +1,8 @@
 package jaakko.jaaska.apptycoon.ui.fragment;
 
 import android.content.res.Resources;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import jaakko.jaaska.apptycoon.AppTycoonApp;
@@ -39,7 +34,7 @@ public class AssetsFragment extends AppTycoonFragment {
         mCompany = GameEngine.getInstance().getGameState().getCompany();
 
         populatePremisesCard();
-
+        populateItCard();
     }
 
     private void populatePremisesCard() {
@@ -64,6 +59,16 @@ public class AssetsFragment extends AppTycoonFragment {
             @Override
             public void onClick(View view) {
                 UiUpdateHandler.obtainReplaceFragmentMessage(MainActivity.FRAGMENT_PREMISES).sendToTarget();
+            }
+        });
+    }
+
+    private void populateItCard() {
+        CardView cardView = (CardView) mView.findViewById(R.id.cardViewITAsset);
+        cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UiUpdateHandler.obtainReplaceFragmentMessage(MainActivity.FRAGMENT_IT).sendToTarget();
             }
         });
     }

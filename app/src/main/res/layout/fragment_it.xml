@@ -2,30 +2,98 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="@dimen/fragmentTopPadding">
+    android:padding="@dimen/fragmentPadding">
 
 
-    <TextView
-        android:id="@+id/textViewTitle"
+    <!-- Titles of attributes go into this LinearLayout -->
+    <LinearLayout
+        android:id="@+id/layoutTitles"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/fragmentPadding"
-        android:textColor="@color/primary_text"
-        android:fontFamily="monospace"
-        android:textStyle="bold"
-        android:text="IT Department"
-        />
+        android:orientation="vertical"
+        android:layout_below="@id/textViewITTitle">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:textColor="@color/primary_text"
+            android:text="Issue solving rate"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/fragmentSectionPadding"
+            android:fontFamily="monospace"
+            android:textColor="@color/primary_text"
+            android:text="Workstation issues"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:textColor="@color/primary_text"
+            android:text="Server issues"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/fragmentSectionPadding"
+            android:fontFamily="monospace"
+            android:textColor="@color/primary_text"
+            android:text="Upgrades"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/fragmentSectionPadding"
+            android:fontFamily="monospace"
+            android:textColor="@color/primary_text"
+            android:text="Costs"/>
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/textViewEmployeeSlots"
+    <!-- Values of attributes go into this LinearLayout -->
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/fragmentPadding"
-        android:layout_alignParentRight="true"
-        android:textColor="@color/primary_text"
-        android:fontFamily="monospace"
-        android:textStyle="bold"
-        android:text="89% intact"/>
+        android:orientation="vertical"
+        android:gravity="end"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@id/layoutTitles">
+        <TextView
+            android:id="@+id/textViewServers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:textColor="@color/primary_text"
+            android:text="15m 8s / issue"/>
+        <TextView
+            android:id="@+id/textViewPCs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/fragmentSectionPadding"
+            android:fontFamily="monospace"
+            android:textColor="@color/primary_text"
+            android:text="All OK"/>
+        <TextView
+            android:id="@+id/textViewServers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:textColor="@color/primary_text"
+            android:text="All OK"/>
+        <TextView
+            android:id="@+id/textViewUpgrades"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/fragmentSectionPadding"
+            android:fontFamily="monospace"
+            android:textColor="@color/primary_text"
+            android:text="12 / 52 unlocked"/>
+        <TextView
+            android:id="@+id/textViewCosts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/fragmentSectionPadding"
+            android:fontFamily="monospace"
+            android:textColor="@color/primary_text"
+            android:text="$ 8.45 / min"/>
+    </LinearLayout>
 
 
 </RelativeLayout>
