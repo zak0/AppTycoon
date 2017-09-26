@@ -1,0 +1,71 @@
+{
+    "schema": {
+        "version": 1,
+
+        "EmployeeType": {
+            "typeId": -1,
+            "title": "notitle",
+            "description": "nodescription",
+            "salary": 0,
+            "isUnique": false,
+            "cpsGain": 0,
+            "qualityGain": 0
+        },
+
+        "ProductType": {
+            "typeId": 0,
+            "name": "noname"
+        }
+    },
+
+    "typeIds": {
+        "EmployeeType": {
+            "TYPE_DEVELOPER": 1,
+            "TYPE_SENIOR_DEVELOPER": 2,
+            "TYPE_TEST_ENGINEER": 50,
+            "TYPE_SENIOR_TEST_ENGINEER": 51,
+            "TYPE_CEO": 1234
+        },
+        "ProductType": {
+            "PRODUCT_TYPE_WEB_APP": 10,
+            "PRODUCT_TYPE_MOBILE_APP": 20,
+            "PRODUCT_TYPE_MOBILE_GAME": 25,
+            "PRODUCT_TYPE_DESKTOP_APP": 30,
+            "PRODUCT_TYPE_SERVER_BACKEND": 40
+        }
+    },
+
+    "data": {
+        "EmployeeType": [{
+            "typeId": 1,
+            "title": "Software Developer",
+            "description": "A programmer grunt",
+            "salary": 22,
+            "isUnique": false,
+            "cpsGain": 2,
+            "qualityGain": 1
+        },
+        {
+            "typeId": 2,
+            "title": "Senior Software Developer",
+            "description": "A developer with skills and experience",
+            "salary": 32,
+            "isUnique": false,
+            "cpsGain": 3,
+            "qualityGain": 2
+        },
+        {
+            "typeId": 3,
+            "title": "Software Test Engineer",
+            "description": "Tries to break everything",
+            "salary": 19,
+            "isUnique": false,
+            "cpsGain": 0,
+            "qualityGain": 3
+        }
+
+        ],
+
+        "ProductType": []
+    }
+}

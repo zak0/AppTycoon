@@ -1,0 +1,54 @@
+body {
+    font-family: monospace;
+    font-size: 12px;
+}
+
+h1 {
+    font-size: 16px;
+}
+
+textarea {
+    font-family: monospace;
+}
+
+div#exportBox {
+    position: absolute;
+    left: 24px;
+    top: 24px;
+    border: 4px solid gray;
+    background-color: white;
+    padding: 16px;
+}
+
+div#selectorDiv {
+    margin-top: 16px;
+}
+
+div#contentDiv {
+    margin-top: 16px;
+}
+
+span.resourceSelectorLink {
+    cursor: pointer;
+    cursor: hand;
+}
+
+span.resourceSelectorLink:hover {
+    color: red;
+}
+
+span.resourceSelectorLink:active {
+    color: blue;
+}
+
+tr.titleRow {
+    background-color: black;
+    color: white;
+    font-weight: bold;
+}
+
+td {
+    border: 1px solid gray;
+    padding: 4px;
+    min-width: 100px;
+}

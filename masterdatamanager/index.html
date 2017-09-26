@@ -1,0 +1,29 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="script.js"></script>
+    <link href="style.css" rel="stylesheet" type="text/css">
+    <title>App Tycoon: Master Data Manager</title>
+</head>
+
+<body>
+    <h1>App Tycoon: Master Data Manager</h1>
+    <hr>
+    <b>Resources: </b> <span id="spanResLoaded"></span> |
+    <button id="buttonImport">Import</button>
+    <button id="buttonExport">Export</button>
+    <div id="selectorDiv"></div>
+    <hr>
+
+    <div id="contentDiv"></div>
+
+    <div id="exportBox">
+        <b>Export</b><br><br>
+        <textarea id="textareaExportedJson" rows=24 cols=80></textarea>
+        <br><br>
+        <button id="buttonCloseExportBox">Close</button>
+    </div>
+</body>
+</html>
