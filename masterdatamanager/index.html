@@ -17,9 +17,41 @@
     <div id="selectorDiv"></div>
     <hr>
 
-    <div id="contentDiv"></div>
+    <div id="contentAreaDiv">
+        <button id="buttonSave">Save</button>
+        <br><br>
+        <div id="contentDiv"></div>
+        <br><br>
+        <button id="buttonAddRow">Add</button>
+    </div>
 
-    <div id="exportBox">
+    <!--
+
+
+    ADD ROW BOX
+    - This is a pop-up box for entering a new data item into the table that's
+    currently open.
+
+    -->
+    <div id="addRowBox" class="popupBox">
+        <b>New Data Item</b><br><br>
+        <div id="addRowBoxFields"></div>
+        <br><br>
+        <button id="buttonAddRowBoxDone">Done</button>
+        <button id="buttonAddRowBoxCancel">Cancel</button>
+    </div>
+
+
+    <!--
+
+
+    POP-UP EXPORT BOX
+    - This pop-up shows the data currently loaded into the manager as a JSON
+    that can be directly imported into the app.
+
+
+    -->
+    <div id="exportBox" class="popupBox">
         <b>Export</b><br><br>
         <textarea id="textareaExportedJson" rows=24 cols=80></textarea>
         <br><br>

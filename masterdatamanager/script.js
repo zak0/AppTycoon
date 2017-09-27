@@ -6,7 +6,8 @@ This is a tool for managing the static master data of AppTycoon.
 
 
 var resources, // The dataset loaded from an external JSON goes here.
-    UiUtils; // Declare UiUtils here, defined later on. Provides utilities for handling the UI.
+    UiUtils, // Declare UiUtils here, defined later on. Provides utilities for handling the UI.
+    selectedDataType; // Content that's being editet.
 
 
 /**
@@ -38,6 +39,39 @@ function loadResourcesFromFile(fileName) {
 
 
 /**
+ * getTypeIdDropdownForObject - Builds a dropdown menu as a HTML string that contains
+ * the typeIds shown with their constant name instead of just a number. Also sets the
+ * current ID as the default selection.
+ *
+ * @param  {object} typeIds   Object containing all typeIds
+ * @param  {number} currentId ID of the row. This will be selected as default
+ * @return {string}           A <select> dropdown menu as a string
+ */
+function getTypeIdDropdownForObject(typeIds, currentId) {
+    "use strict";
+    console.log("getTypeIdDropdownForObject() - currentId=" + currentId);
+
+    var typeIdMenu = "<select>",
+        key;
+
+    for (key in typeIds) {
+        if (typeIds.hasOwnProperty(key)) {
+            typeIdMenu += "<option value=\"" + typeIds[key] + "\"";
+
+            // Set the current ID as default selection.
+            if (typeIds[key] === currentId) {
+                typeIdMenu += " selected=\"selected\"";
+            }
+
+            typeIdMenu += ">" + key + "</option>";
+        }
+    }
+    typeIdMenu += "</select>";
+
+    return typeIdMenu;
+}
+
+/**
  * displayData - Builds and then shows a table that displays the selected data.
  *
  * @param  {string} dataType Data type name (as written in the data JSON).
@@ -61,20 +95,7 @@ function displayData(dataType) {
         i,
 
         // Possible typeId values for this data type.
-        typeIds = resources.typeIds[dataType],
-
-        // The dropdown menu as a HTML string with possible type IDs.
-        typeIdMenu;
-
-    // Build the type ID dropdown menu.
-    typeIdMenu = "<select>";
-    for (key in typeIds) {
-        if (typeIds.hasOwnProperty(key)) {
-            typeIdMenu += "<option value=\"" + typeIds[key] + "\">" + key
-                + "</option>";
-        }
-    }
-    typeIdMenu += "</select>";
+        typeIds = resources.typeIds[dataType];
 
     // Build the header row using the schema.
     for (key in schema) {
@@ -88,7 +109,7 @@ function displayData(dataType) {
     for (i in data) {
         if (data.hasOwnProperty(i)) {
             dataObject = data[i];
-            table += "<tr>";
+            table += "<tr class=\"dataRow\">";
 
             // Now add the columns for the object based on the schema.
             // This because the columns might not be in the same order as in
@@ -100,7 +121,7 @@ function displayData(dataType) {
                         table += "<td>";
                         if (key === "typeId") {
                             // TypeId is always a dropdown menu of possible options.
-                            table += typeIdMenu;
+                            table += getTypeIdDropdownForObject(typeIds, dataObject[key]);
                         } else {
                             // Else this was a 'normal' data property.
                             table += "<input class=\"dataValue\" value=\"" + dataObject[key] + "\">";
@@ -109,7 +130,7 @@ function displayData(dataType) {
                     } else {
                         // The dataObject did not have a property that was
                         // in the schema!
-                        table += "<td> !!!MISSING!!! </td>";
+                        table += "<td><b>none</b></td>";
                     }
                 }
             }
@@ -124,6 +145,91 @@ function displayData(dataType) {
     //console.log(table);
 
     UiUtils.showDataTable(table);
+}
+
+
+/**
+ * storeCurrentDataTable - Stores the data that's in the currently visible table
+ * into the currently loaded resources.
+ */
+function storeCurrentDataTable() {
+    "use strict";
+    console.log("storeCurrentDataTable()");
+
+    var schema = resources.schema[selectedDataType],
+        properties = [],
+        i = 0,
+        key;
+
+    for (key in schema) {
+        if (schema.hasOwnProperty(key)) {
+            properties[i] = key;
+            i += 1;
+        }
+    }
+
+    // Clear the current data for the data type
+    resources.data[selectedDataType] = [];
+
+    // Iterate through all the data rows
+    $(".dataRow").each(function (index) {
+        var rowIndex = index;
+
+        // Then iterate through each column
+        $(this).find("td").each(function (index) {
+            // Index of the column matches the index of the property
+            // in the properties[] array.
+            //
+            // Based on the element type, the value we want is stored in
+            // differently named properties.
+            var elementTypes = ["input", "select"],
+                elementType,
+                $element,
+                value;
+
+            for (i = 0; i < elementTypes.length; i += 1) {
+                elementType = elementTypes[i];
+                $element = $(this).find(elementType);
+                console.log("type: " + elementType);
+                console.log($element);
+                if ($element.length > 0) {
+                    break;
+                }
+            }
+
+            console.log(elementType);
+
+            if (elementType === "input") {
+                value = $element.prop("value");
+            } else if (elementType === "select") {
+                $element.find("option").each(function () {
+                    console.log(this);
+                    if ($(this).prop("selected") === "selected") {
+                        console.log("this was selected");
+                        value = $(this).prop("value");
+                    }
+                });
+            }
+
+            console.log("row " + rowIndex + ", col " + index + ": " + $(this).html());
+            console.log("row " + rowIndex + ", col " + index + ": " + value);
+        });
+
+    });
+}
+
+
+/**
+ * buildAddRowFields - Builds the "dialog" for inputting data for a new row.
+ * The input fields are selected based on currently selected content type's
+ * schema. The fields are initialized with the default values loaded from the
+ * schema.
+ *
+ * @return {string} String of HTML showing the fields for a new data item.
+ */
+function buildAddRowFields() {
+    "use strict";
+    console.log("buildAddRowFields()");
 }
 
 // UI modifications wrapped into its own namespace.
@@ -152,12 +258,12 @@ UiUtils = {
                 console.log(key + ": " + typeof resources.schema[key]);
                 $("#selectorDiv").append("<span class=\"resourceSelectorLink\">"
                     + key + "</span> ");
-
-                // Re-bind elements to click event handlers as the DOM has
-                // now changed.
-                UiUtils.bindOnClickEvents();
             }
         }
+
+        // Re-bind elements to click event handlers as the DOM has
+        // now changed.
+        UiUtils.bindOnClickEvents();
     },
 
     clearContentDiv: function () {
@@ -177,11 +283,9 @@ UiUtils = {
 
         // Handler for clicks on content type selector links.
         $(".resourceSelectorLink").click(function () {
-            var key = $(this).html();
-            $(this).click(function () {
-                displayData(key);
-            });
-            console.log(key);
+            selectedDataType = $(this).html();
+            displayData(selectedDataType);
+            console.log("resourceSelectorLink.click() - " + selectedDataType);
         });
 
         // Export button
@@ -193,6 +297,23 @@ UiUtils = {
         $("#buttonCloseExportBox").click(function () {
             UiUtils.hideExportBox();
         });
+
+        // Add row button
+        $("#buttonAddRow").click(function () {
+            UiUtils.showAddRowBox();
+        });
+
+        // Cancel button for adding a row
+        $("#buttonAddRowBoxCancel").click(function () {
+            UiUtils.hideAddRowBox();
+        });
+
+        // Save button
+        $("#buttonSave").unbind("click");
+        $("#buttonSave").click(function () {
+            console.log("buttonSave.click()");
+            storeCurrentDataTable();
+        });
     },
 
     /**
@@ -203,6 +324,11 @@ UiUtils = {
     showDataTable: function (table) {
         "use strict";
         $("#contentDiv").html(table);
+    },
+
+    showAddRowBox: function () {
+        "use strict";
+        $("#addRowBox").show();
     },
 
     /**
@@ -220,6 +346,17 @@ UiUtils = {
     hideExportBox: function () {
         "use strict";
         $("#exportBox").hide();
+    },
+
+    hideAddRowBox: function () {
+        "use strict";
+        $("#addRowBox").hide();
+    },
+
+    hideAllPopUps: function () {
+        "use strict";
+        UiUtils.hideExportBox();
+        UiUtils.hideAddRowBox();
     }
 
 };
@@ -232,7 +369,7 @@ $(function () {
     $("#contentDiv").html("Nothing to show...");
 
     loadResourcesFromFile("example_dataset.json");
-    UiUtils.hideExportBox();
+    UiUtils.hideAllPopUps();
     UiUtils.setResourcesLoaded(false);
     UiUtils.bindOnClickEvents();
 });

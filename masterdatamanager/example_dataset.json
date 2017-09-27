@@ -9,7 +9,8 @@
             "salary": 0,
             "isUnique": false,
             "cpsGain": 0,
-            "qualityGain": 0
+            "qualityGain": 0,
+            "unlockConditions": []
         },
 
         "ProductType": {
@@ -55,7 +56,7 @@
             "qualityGain": 2
         },
         {
-            "typeId": 3,
+            "typeId": 50,
             "title": "Software Test Engineer",
             "description": "Tries to break everything",
             "salary": 19,
