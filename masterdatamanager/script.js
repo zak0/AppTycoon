@@ -71,6 +71,31 @@ function getTypeIdDropdownForObject(typeIds, currentId) {
     return typeIdMenu;
 }
 
+
+/**
+ * getBooleanSelect - Builds a HTML <select> with options 'true' and 'false'.
+ * Values for those are "0" and "1" respectively.
+ *
+ * @param  {boolean} defaultValue Value to be selected as default.
+ * @return {string}              String with HTML <select>
+ */
+function getBooleanSelect(defaultValue) {
+    "use strict";
+    console.log("getBooleanSelect() - defaultValue = " + defaultValue);
+
+    var select = "<select><option value=\"0\"",
+        selectedProp = " selected=\"selected\">";
+
+    select += defaultValue ? ">" : selectedProp;
+    select += "false" + "</option>";
+
+    select += "<option value=\"1\"";
+    select += defaultValue ? selectedProp : ">";
+    select += "true" + "</option>";
+
+    return select;
+}
+
 /**
  * displayData - Builds and then shows a table that displays the selected data.
  *
@@ -122,6 +147,9 @@ function displayData(dataType) {
                         if (key === "typeId") {
                             // TypeId is always a dropdown menu of possible options.
                             table += getTypeIdDropdownForObject(typeIds, dataObject[key]);
+                        } else if (typeof schema[key] === "boolean") {
+                            // For booleans, show a dropdown menu with 'true' and 'false'.
+                            table += getBooleanSelect(dataObject[key]);
                         } else {
                             // Else this was a 'normal' data property.
                             table += "<input class=\"dataValue\" value=\"" + dataObject[key] + "\">";
@@ -173,7 +201,10 @@ function storeCurrentDataTable() {
 
     // Iterate through all the data rows
     $(".dataRow").each(function (index) {
-        var rowIndex = index;
+        var rowIndex = index,
+            newDataItem = {};
+
+        console.log("storeCurrentDataTable() - rowIndex = " + rowIndex);
 
         // Then iterate through each column
         $(this).find("td").each(function (index) {
@@ -185,35 +216,54 @@ function storeCurrentDataTable() {
             var elementTypes = ["input", "select"],
                 elementType,
                 $element,
-                value;
+                value,
+                valueType;
 
+            // Determine which kind of input element the column contains.
             for (i = 0; i < elementTypes.length; i += 1) {
                 elementType = elementTypes[i];
                 $element = $(this).find(elementType);
-                console.log("type: " + elementType);
-                console.log($element);
                 if ($element.length > 0) {
                     break;
                 }
             }
 
-            console.log(elementType);
-
+            // Dig the data from the input element.
             if (elementType === "input") {
                 value = $element.prop("value");
             } else if (elementType === "select") {
                 $element.find("option").each(function () {
-                    console.log(this);
-                    if ($(this).prop("selected") === "selected") {
-                        console.log("this was selected");
+                    if ($(this).prop("selected")) {
                         value = $(this).prop("value");
                     }
                 });
             }
 
-            console.log("row " + rowIndex + ", col " + index + ": " + $(this).html());
-            console.log("row " + rowIndex + ", col " + index + ": " + value);
+            // The value is cast according to the type specified in the schema.
+            valueType = typeof resources.schema[selectedDataType][properties[index]];
+            console.log(valueType + " " + value);
+
+            switch (valueType) {
+            case "number":
+                value = Number(value);
+                break;
+            case "boolean":
+                // "Booleans" are gotten as strings "0" or "1" from the table.
+                // So, first cast that string to number, then that number
+                // to boolean.
+                value = Boolean(Number(value));
+                break;
+            default:
+                break;
+            }
+
+            // Finally add the value for the new data item.
+            newDataItem[properties[index]] = value;
+
         });
+
+        // Add the new data item into the data for the selected data type.
+        resources.data[selectedDataType].push(newDataItem);
 
     });
 }
