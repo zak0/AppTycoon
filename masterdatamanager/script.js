@@ -96,6 +96,126 @@ function getBooleanSelect(defaultValue) {
     return select;
 }
 
+
+/**
+ * addNewrow - Adds a new row with properties entered by the user.
+ *
+ * @return {boolean} True when added successfully
+ */
+function addNewRow() {
+    "use strict";
+    var key,
+        value,
+        elementTypes = ["input", "select"],
+        elementType,
+        $element,
+        valueType,
+        i,
+        newDataItem = {};
+
+    console.log("addNewrow()");
+
+    $(".addRowBoxPropertyRow").each(function () {
+        $(this).find("td").each(function (index) {
+            if (index === 0) {
+                // This is a "key" column.
+                key = $(this).html();
+            } else {
+                // This is a "value" column.
+                // Determine which kind of input element the column contains.
+                for (i = 0; i < elementTypes.length; i += 1) {
+                    elementType = elementTypes[i];
+                    $element = $(this).find(elementType);
+                    if ($element.length > 0) {
+                        break;
+                    }
+                }
+
+                // Dig the data from the input element.
+                if (elementType === "input") {
+                    value = $element.prop("value");
+                } else if (elementType === "select") {
+                    $element.find("option").each(function () {
+                        if ($(this).prop("selected")) {
+                            value = $(this).prop("value");
+                        }
+                    });
+                }
+
+                // The value is cast according to the type specified in the schema.
+                valueType = typeof resources.schema[selectedDataType][key];
+                console.log(valueType + " " + value);
+
+                switch (valueType) {
+                case "number":
+                    value = Number(value);
+                    break;
+                case "boolean":
+                    // "Booleans" are gotten as strings "0" or "1" from the table.
+                    // So, first cast that string to number, then that number
+                    // to boolean.
+                    value = Boolean(Number(value));
+                    break;
+                default:
+                    break;
+                }
+            }
+        });
+
+        // Finally store the property to the new data item.
+        newDataItem[key] = value;
+        console.log("key=" + key + ", value=" + value);
+    });
+
+    resources.data[selectedDataType].push(newDataItem);
+    return true;
+}
+
+/**
+ * buildAndShowAddRowBox - Constructs a "dilaog" for entering a new row of data
+ * of the currently selected type.
+ *
+ * Then shows the box.
+ *
+ */
+function buildAndShowAddRowBox() {
+    "use strict";
+    console.log("buildAndShowAddRowBox()");
+
+    var schema = resources.schema[selectedDataType],
+        table,
+        key,
+        propertyType;
+
+    // Compile a nice table to enter the properties for the new item.
+    table = "<table cellspacing=\"0\" cellpadding=\"0\">";
+    for (key in schema) {
+        if (schema.hasOwnProperty(key)) {
+            // Title column.
+            table += "<tr class=\"addRowBoxPropertyRow\"><td>" + key + "</td><td>";
+
+            // Value input column. The type of the input element depends on
+            // the type of the property in the schema.
+            propertyType = typeof schema[key];
+
+            // Type ID is always a dropdown
+            if (key === "typeId") {
+                table += getTypeIdDropdownForObject(resources.typeIds[selectedDataType], -1);
+            } else if (propertyType === "string" || propertyType === "number") {
+                table += "<input type=\"text\">";
+            } else if (propertyType === "boolean") {
+                table += getBooleanSelect(schema[key]);
+            }
+
+            table += "</td></tr>";
+        }
+    }
+
+    table += "</table>";
+
+    $("#addRowBoxFields").html(table);
+}
+
 /**
  * displayData - Builds and then shows a table that displays the selected data.
  *
@@ -269,19 +389,6 @@ function storeCurrentDataTable() {
 }
 
 
-/**
- * buildAddRowFields - Builds the "dialog" for inputting data for a new row.
- * The input fields are selected based on currently selected content type's
- * schema. The fields are initialized with the default values loaded from the
- * schema.
- *
- * @return {string} String of HTML showing the fields for a new data item.
- */
-function buildAddRowFields() {
-    "use strict";
-    console.log("buildAddRowFields()");
-}
-
 // UI modifications wrapped into its own namespace.
 UiUtils = {
 
@@ -358,6 +465,19 @@ UiUtils = {
             UiUtils.hideAddRowBox();
         });
 
+        // Done button for adding a row
+        $("#buttonAddRowBoxDone").unbind("click");
+        $("#buttonAddRowBoxDone").click(function () {
+            var success = addNewRow();
+            console.log("buttonAddRowBoxDone.click() - success=" + success);
+            UiUtils.hideAddRowBox();
+
+            // If new data was added, reload the data table.
+            if (success) {
+                displayData(selectedDataType);
+            }
+        });
+
         // Save button
         $("#buttonSave").unbind("click");
         $("#buttonSave").click(function () {
@@ -379,6 +499,7 @@ UiUtils = {
     showAddRowBox: function () {
         "use strict";
         $("#addRowBox").show();
+        buildAndShowAddRowBox();
     },
 
     /**

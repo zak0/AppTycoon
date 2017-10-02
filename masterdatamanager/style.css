@@ -11,6 +11,14 @@ textarea {
     font-family: monospace;
 }
 
+input {
+    font-family: monospace;
+}
+
+button {
+    font-family: monospace;
+}
+
 div.popupBox {
     position: absolute;
     left: 24px;
@@ -40,6 +48,14 @@ span.resourceSelectorLink:hover {
 
 span.resourceSelectorLink:active {
     color: blue;
+}
+
+table {
+    border: none;
+}
+
+tr.addRowBoxPropertyRow {
+    border: 0px;
 }
 
 tr.titleRow {
