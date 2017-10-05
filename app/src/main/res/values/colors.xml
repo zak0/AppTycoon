@@ -30,7 +30,7 @@
     <color name="accent">#00e676</color>
     <color name="secondaryLightColor">#66ffa6</color>
     <color name="secondaryDarkColor">#00b248</color>
-    <color name="secondary_text">#ffffff</color>
+    <color name="secondary_text">#808080</color>
     <color name="primary_text">#000000</color>
     <color name="icons">#000000</color>
 
