@@ -44,7 +44,8 @@
             "salary": 22,
             "isUnique": false,
             "cpsGain": 2,
-            "qualityGain": 1
+            "qualityGain": 1,
+            "unlockConditions": []
         },
         {
             "typeId": 2,
@@ -53,7 +54,8 @@
             "salary": 32,
             "isUnique": false,
             "cpsGain": 3,
-            "qualityGain": 2
+            "qualityGain": 2,
+            "unlockConditions": []
         },
         {
             "typeId": 50,
@@ -62,7 +64,8 @@
             "salary": 19,
             "isUnique": false,
             "cpsGain": 0,
-            "qualityGain": 3
+            "qualityGain": 3,
+            "unlockConditions": []
         }
 
         ],

@@ -203,6 +203,8 @@ function buildAndShowAddRowBox() {
                 table += getTypeIdDropdownForObject(resources.typeIds[selectedDataType], -1);
             } else if (propertyType === "string" || propertyType === "number") {
                 table += "<input type=\"text\">";
+            } else if (propertyType === "object") {
+                table += "cannot be defined here";
             } else if (propertyType === "boolean") {
                 table += getBooleanSelect(schema[key]);
             }
@@ -270,6 +272,9 @@ function displayData(dataType) {
                         } else if (typeof schema[key] === "boolean") {
                             // For booleans, show a dropdown menu with 'true' and 'false'.
                             table += getBooleanSelect(dataObject[key]);
+                        } else if (typeof schema[key] === "object") {
+                            // This should only catch arrays of unlock conditions.
+                            table += schema[key].length + " conditions";
                         } else {
                             // Else this was a 'normal' data property.
                             table += "<input class=\"dataValue\" value=\"" + dataObject[key] + "\">";
@@ -278,7 +283,7 @@ function displayData(dataType) {
                     } else {
                         // The dataObject did not have a property that was
                         // in the schema!
-                        table += "<td><b>none</b></td>";
+                        table += "<td><b>property did not exist!</b></td>";
                     }
                 }
             }
@@ -372,6 +377,9 @@ function storeCurrentDataTable() {
                 // So, first cast that string to number, then that number
                 // to boolean.
                 value = Boolean(Number(value));
+                break;
+            case "object": // Objects are arrays of unlock conditions
+                value = [];
                 break;
             default:
                 break;
