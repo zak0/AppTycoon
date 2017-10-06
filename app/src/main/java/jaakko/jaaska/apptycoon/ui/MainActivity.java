@@ -172,6 +172,12 @@ public class MainActivity extends FragmentActivity implements UiUpdater {
     private void switchFragment(int fragment, Bundle args) {
         Log.d(TAG, "switchFragment() - fragment = " + fragment);
 
+        // If the target fragment is the same as current one, do nothing.
+        if (fragment == mCurrentFragment) {
+            Log.d(TAG, "switchFragment() - already at target fragment!");
+            return;
+        }
+
         Fragment newFragment = null;
 
         switch(fragment) {
