@@ -113,7 +113,8 @@ public class ProductsFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
-            final Product product = mProducts.get(position);
+            final Product product = mProducts.get(position).getReleasedVersion() == null ?
+                    mProducts.get(position) : mProducts.get(position).getReleasedVersion();
 
             Resources res = AppTycoonApp.getContext().getResources();
 

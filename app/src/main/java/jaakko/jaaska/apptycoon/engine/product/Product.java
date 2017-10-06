@@ -115,6 +115,26 @@ public class Product {
         return mComplexity;
     }
 
+    /**
+     * Takes care of all the housekeeping needed for releasing the next version.
+     */
+    public void releaseNextVersion() {
+        Log.d(TAG, "releaseNextVersion()");
+        mReleaseCount++;
+        mDevProject = null;
+        mReleasedVersion = cloneForStorage();
+    }
+
+    /**
+     * Returns the version that's been released and currently in distribution.
+     *
+     * @return Product object representing the version that's released
+     */
+    public Product getReleasedVersion() {
+        Log.d(TAG, "getReleasedVersion() - null? " + (mReleasedVersion == null));
+        return mReleasedVersion;
+    }
+
     public String getName() {
         return mName;
     }
@@ -129,10 +149,6 @@ public class Product {
 
     public int getReleaseCount() {
         return mReleaseCount;
-    }
-
-    public void setReleaseCount(int releaseCount) {
-        mReleaseCount = releaseCount;
     }
 
     public ProductDevelopmentProject getDevelopmentProject() {
@@ -329,6 +345,28 @@ public class Product {
 
         Log.d(TAG, "rebuildNewProductDevelopmentProject() - work amount of the project is " +
                 mDevProject.getWorkAmount());
+    }
+
+    /**
+     * Clones the current Product object and stores all the information, that is necessary to
+     * be stored (for keeping track of different release versions of the same product), into a
+     * new object.
+     *
+     * @return A new object with all the necessary fields copied.
+     */
+    private Product cloneForStorage() {
+        Log.d(TAG, "cloneForStorage()");
+        Product ret = new Product(mName, mType);
+
+        ret.mReleaseCount = mReleaseCount;
+        ret.mComplexity = mComplexity;
+        ret.mQuality = mQuality;
+        ret.mUnitPrice = mUnitPrice;
+        ret.mFeatures = new ArrayList<>(mFeatures);
+        ret.mFeatureIncomes = mFeatureIncomes.clone();
+        ret.mSubProducts = new ArrayList<>(mSubProducts);
+
+        return ret;
     }
 
     //

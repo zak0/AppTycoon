@@ -45,9 +45,7 @@ public class ProductDevelopmentProject extends Project {
     /** Delivering the project releases the new version of the product. */
     @Override
     public void deliver() {
-        int newReleaseCount = mProduct.getReleaseCount() + 1;
-        mProduct.setReleaseCount(newReleaseCount);
-        mProduct.setDevelopmentProject(null);
+        mProduct.releaseNextVersion();
         GameEngine.getInstance().getGameState().getCompany().onIncomeChanged();
 
         Toast.makeText(AppTycoonApp.getContext(),
