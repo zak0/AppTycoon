@@ -37,6 +37,7 @@ public abstract class AppTycoonFragment extends Fragment {
     private String mActionLabel;
     private Action mAction;
 
+    private View mView;
     private TextView mTextViewBack;
     private TextView mTextViewAction;
 
@@ -89,25 +90,35 @@ public abstract class AppTycoonFragment extends Fragment {
         });
     }
 
+    /**
+     * Set the title of the fragment.
+     *
+     * @param title The title to show for the fragment
+     */
+    protected void setTitle(String title) {
+        mTitle = title;
+        TextView textViewTitle = (TextView) mView.findViewById(R.id.textViewTitle);
+        textViewTitle.setText(mTitle);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_parent, container, false);
+        mView = inflater.inflate(R.layout.fragment_parent, container, false);
 
         // Inflate the content...
         View contentView = inflater.inflate(mContentLayoutResourceId, null);
 
         // ...and add it into the container layout for it.
-        LinearLayout layoutContent = (LinearLayout) view.findViewById(R.id.layoutFragmentContent);
+        LinearLayout layoutContent = (LinearLayout) mView.findViewById(R.id.layoutFragmentContent);
         layoutContent.addView(contentView);
 
         // Set the fragment title
-        TextView textViewTitle = (TextView) view.findViewById(R.id.textViewTitle);
-        textViewTitle.setText(mTitle);
+        setTitle(mTitle);
 
         // Store references to action and back buttons
-        mTextViewBack = (TextView) view.findViewById(R.id.textViewBack);
-        mTextViewAction = (TextView) view.findViewById(R.id.textViewAction);
+        mTextViewBack = (TextView) mView.findViewById(R.id.textViewBack);
+        mTextViewAction = (TextView) mView.findViewById(R.id.textViewAction);
 
         // The back and action buttons are hidden when nothing are assigned to them.
         mTextViewBack.setVisibility(View.INVISIBLE);
@@ -125,7 +136,7 @@ public abstract class AppTycoonFragment extends Fragment {
         // layout resource.
         onContentCreateView(contentView);
 
-        return view;
+        return mView;
     }
 
     /**
