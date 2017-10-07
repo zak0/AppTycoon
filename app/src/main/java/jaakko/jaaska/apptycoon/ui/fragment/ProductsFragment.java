@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -25,18 +24,16 @@ import jaakko.jaaska.apptycoon.engine.product.ProductType;
 import jaakko.jaaska.apptycoon.engine.project.Project;
 import jaakko.jaaska.apptycoon.ui.MainActivity;
 import jaakko.jaaska.apptycoon.ui.UiUpdateHandler;
-import jaakko.jaaska.apptycoon.ui.UiUpdater;
 import jaakko.jaaska.apptycoon.ui.dialog.ActionSelectDialogBuilder;
 import jaakko.jaaska.apptycoon.ui.listener.TextViewChangeColourOnTouchListener;
 import jaakko.jaaska.apptycoon.utils.Utils;
 
 /**
- * Created by jaakko on 10.8.2017.
+ * Fragment that lists all the company's products and displays a short status of each product.
  */
 
 public class ProductsFragment extends Fragment {
 
-    private ProductRecyclerViewAdapter mRecyclerAdapter;
     private GameState mGameState;
 
     @Nullable
@@ -47,9 +44,10 @@ public class ProductsFragment extends Fragment {
         mGameState = GameEngine.getInstance().getGameState();
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewProducts);
+        ProductRecyclerViewAdapter recyclerAdapter;
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerAdapter = new ProductRecyclerViewAdapter(mGameState.getCompany().getProducts());
-        recyclerView.setAdapter(mRecyclerAdapter);
+        recyclerAdapter = new ProductRecyclerViewAdapter(mGameState.getCompany().getProducts());
+        recyclerView.setAdapter(recyclerAdapter);
 
         // New product button
         TextView newProductTextView = (TextView) view.findViewById(R.id.textViewAction);
@@ -86,7 +84,6 @@ public class ProductsFragment extends Fragment {
     private class ProductRecyclerViewAdapter extends RecyclerView.Adapter<ProductRecyclerViewAdapter.ViewHolder> {
 
         private List<Product> mProducts;
-        private GameState mGameState;
 
         private ProductRecyclerViewAdapter(List<Product> products) {
             mProducts = products;
@@ -118,7 +115,7 @@ public class ProductsFragment extends Fragment {
 
             Resources res = AppTycoonApp.getContext().getResources();
 
-            String stringLastVersion = "";
+            String stringLastVersion;
             if (product.getReleaseCount() > 0) {
                 stringLastVersion = res.getString(R.string.product_list_item_version_released,
                         product.getReleaseCount(),
@@ -166,6 +163,18 @@ public class ProductsFragment extends Fragment {
 
             private ViewHolder(View itemView) {
                 super(itemView);
+
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Message msg = UiUpdateHandler
+                                .obtainReplaceFragmentMessage(MainActivity.FRAGMENT_PRODUCT_STATS);
+                        Bundle args = msg.getData();
+                        args.putInt(UiUpdateHandler.ARG_PRODUCT_INDEX, getAdapterPosition());
+                        msg.setData(args);
+                        msg.sendToTarget();
+                    }
+                });
             }
         }
     }

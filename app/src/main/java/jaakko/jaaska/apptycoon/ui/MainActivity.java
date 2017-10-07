@@ -31,6 +31,7 @@ import jaakko.jaaska.apptycoon.ui.fragment.ItFragment;
 import jaakko.jaaska.apptycoon.ui.fragment.NewProductFragment;
 import jaakko.jaaska.apptycoon.ui.fragment.NewProjectFragment;
 import jaakko.jaaska.apptycoon.ui.fragment.PremisesFragment;
+import jaakko.jaaska.apptycoon.ui.fragment.ProductStatsFragment;
 import jaakko.jaaska.apptycoon.ui.fragment.ProductsFragment;
 import jaakko.jaaska.apptycoon.ui.fragment.ProjectsFragment;
 import jaakko.jaaska.apptycoon.utils.Utils;
@@ -45,9 +46,13 @@ public class MainActivity extends FragmentActivity implements UiUpdater {
 
     public static final int FRAGMENT_PROJECTS = 0;
     public static final int FRAGMENT_NEW_PROJECT = 1;
+
     public static final int FRAGMENT_HUMAN_RESOURCES = 10;
+
     public static final int FRAGMENT_PRODUCTS = 20;
     public static final int FRAGMENT_NEW_PRODUCT = 21;
+    public static final int FRAGMENT_PRODUCT_STATS = 22;
+
     public static final int FRAGMENT_ASSETS = 30;
     public static final int FRAGMENT_PREMISES = 31;
     public static final int FRAGMENT_IT = 32;
@@ -170,7 +175,8 @@ public class MainActivity extends FragmentActivity implements UiUpdater {
      * @param fragment Const of the fragment to switch to.
      */
     private void switchFragment(int fragment, Bundle args) {
-        Log.d(TAG, "switchFragment() - fragment = " + fragment);
+        Log.d(TAG, "switchFragment() - fragment = " + fragment +
+            ", has args = " + (args != null));
 
         // If the target fragment is the same as current one, do nothing.
         if (fragment == mCurrentFragment) {
@@ -204,6 +210,9 @@ public class MainActivity extends FragmentActivity implements UiUpdater {
                 break;
             case FRAGMENT_IT:
                 newFragment = new ItFragment();
+                break;
+            case FRAGMENT_PRODUCT_STATS:
+                newFragment = new ProductStatsFragment();
                 break;
             default:
                 break;

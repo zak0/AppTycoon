@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/fragmentPadding">
+
+    <LinearLayout
+        android:id="@+id/layout_titles_column"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:textColor="@color/primary_text"
+            android:text="Complexity"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:textColor="@color/primary_text"
+            android:text="Quality"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:textColor="@color/primary_text"
+            android:text="Known bugs"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/fragmentSectionPadding"
+            android:fontFamily="monospace"
+            android:textColor="@color/primary_text"
+            android:text="Earnings"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:textColor="@color/primary_text"
+            android:text="Downloads"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:textColor="@color/primary_text"
+            android:text="Rating"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:textColor="@color/primary_text"
+            android:text="Active Users"/>
+
+    </LinearLayout>
+
+
+
+
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:gravity="end"
+        android:orientation="vertical">
+
+
+        <!-- Product stat values -->
+        <TextView
+            android:id="@+id/textViewComplexity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:textColor="@color/primary_text"
+            android:text="14.82k"/>
+
+        <TextView
+            android:id="@+id/textViewQuality"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:textColor="@color/primary_text"
+            android:text="10.15k (68%)"/>
+
+        <TextView
+            android:id="@+id/textViewBugs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:textColor="@color/primary_text"
+            android:text="n/a (n/a quality)"/>
+
+        <TextView
+            android:id="@+id/textViewIncome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/fragmentSectionPadding"
+            android:fontFamily="monospace"
+            android:textColor="@color/primary_text"
+            android:text="n/a"/>
+
+        <TextView
+            android:id="@+id/textViewDownloads"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:textColor="@color/primary_text"
+            android:text="n/a"/>
+
+        <TextView
+            android:id="@+id/textViewRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:textColor="@color/primary_text"
+            android:text="n/a"/>
+
+        <TextView
+            android:id="@+id/textViewUsers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:textColor="@color/primary_text"
+            android:text="n/a"/>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

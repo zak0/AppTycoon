@@ -69,6 +69,10 @@ public class UiUpdateHandler extends Handler {
     /** Used with product related fragments. The ID of the product type. Type: int */
     public static final String ARG_NEW_PRODUCT_TYPE = "product_type";
 
+    /** Used to pass a product to a fragment. This should be an index of the product in the
+     * List of products in the Company object. */
+    public static final String ARG_PRODUCT_INDEX = "product_index";
+
     // List of currently registered UiUpdaters and their actions.
     private Map<Integer, List<UiUpdater>> mUpdaters;
 
