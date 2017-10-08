@@ -107,4 +107,11 @@ public class AppTycoonDialog extends Dialog {
         setCancelLabel(label);
     }
 
+    /**
+     * A custom call back meant to be used on dialogs that extend the AppTycoonDialog.
+     */
+    public interface CustomCallback {
+        void callBack();
+    }
+
 }
