@@ -1,6 +1,7 @@
 package jaakko.jaaska.apptycoon.ui.fragment;
 
 import android.os.Bundle;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 
@@ -33,6 +34,13 @@ public class ProductStatsFragment extends AppTycoonFragment {
         Log.d(TAG, "onContentCreateView() - product = " + mProduct.getName());
 
         setTitle(mProduct.getName());
-        setBackTargetFragment(MainActivity.FRAGMENT_PRODUCTS);
+        showBackButton();
+        setAction("Spec. Update", new Action() {
+            @Override
+            public void doAction() {
+                Message msg = UiUpdateHandler.obtainReplaceFragmentMessage(MainActivity.FRAGMENT_PRODUCT_NEW_RELEASE);
+                msg.sendToTarget();
+            }
+        });
     }
 }

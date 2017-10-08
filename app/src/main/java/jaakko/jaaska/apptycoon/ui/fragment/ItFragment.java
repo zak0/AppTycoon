@@ -17,6 +17,6 @@ public class ItFragment extends AppTycoonFragment {
 
     @Override
     protected void onContentCreateView(View view) {
-        setBackTargetFragment(MainActivity.FRAGMENT_ASSETS);
+        showBackButton();
     }
 }

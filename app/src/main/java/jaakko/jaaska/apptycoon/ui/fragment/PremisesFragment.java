@@ -36,7 +36,7 @@ public class PremisesFragment extends AppTycoonFragment {
     protected void onContentCreateView(View view) {
         mView = view;
 
-        setBackTargetFragment(MainActivity.FRAGMENT_ASSETS);
+        showBackButton();
 
         populateCurrentPremisesViews();
         setupNewPremisesRecyclerView();

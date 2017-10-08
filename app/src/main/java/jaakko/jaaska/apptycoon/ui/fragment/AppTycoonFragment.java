@@ -32,6 +32,8 @@ public abstract class AppTycoonFragment extends Fragment {
     private int mContentLayoutResourceId;
 
     private String mTitle;
+
+    private Bundle mBackArgs;
     private Integer mBackFragment;
 
     private String mActionLabel;
@@ -47,12 +49,24 @@ public abstract class AppTycoonFragment extends Fragment {
     }
 
     /**
-     * Set the fragment to which the back button navigates back to.
-     * @param fragmentId ID of the fragment to navigate back to.
+     * Display the back button, that navigates one step back in the navigation stack.
      */
-    protected void setBackTargetFragment(int fragmentId) {
+    protected void showBackButton() {
+        bindBackButton();
+    }
+
+    /**
+     * Set the fragment to which the back button navigates back to. And optional arguments. Use
+     * this when you need to pass arguments for the previous fragment, and the plain showBackButton()
+     * otherwise.
+     *
+     * @param fragmentId ID of the fragment to navigate back to.
+     * @param args Arguments to pass to the previous fragment.
+     */
+    protected void showCustomBackButton(int fragmentId, @Nullable Bundle args) {
         Log.d(TAG, "setBackTargetFragment() - fragmentId = " + fragmentId);
         mBackFragment = fragmentId;
+        mBackArgs = args;
         bindBackButton();
     }
 
