@@ -29,7 +29,10 @@ import jaakko.jaaska.apptycoon.engine.product.ProductType;
 import jaakko.jaaska.apptycoon.engine.project.ProductDevelopmentProject;
 import jaakko.jaaska.apptycoon.ui.MainActivity;
 import jaakko.jaaska.apptycoon.ui.UiUpdateHandler;
+import jaakko.jaaska.apptycoon.ui.dialog.AddProductFeatureDialog;
 import jaakko.jaaska.apptycoon.ui.dialog.AppTycoonDialog;
+import jaakko.jaaska.apptycoon.ui.dialog.ChangeProductNameDialog;
+import jaakko.jaaska.apptycoon.ui.dialog.EditProductFeatureDialog;
 import jaakko.jaaska.apptycoon.ui.listener.FragmentBackButtonOnClickListener;
 import jaakko.jaaska.apptycoon.ui.listener.TextViewChangeColourOnTouchListener;
 import jaakko.jaaska.apptycoon.utils.Utils;
@@ -145,36 +148,14 @@ public class NewProductFragment extends Fragment {
      * Builds and shows a dialog for changing the product name.
      */
     private void showNameChangeDialog() {
-        final EditText editTextName = new EditText(getActivity());
-        editTextName.setTypeface(Typeface.MONOSPACE);
-        editTextName.setText(mProduct.getName());
-
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.MATCH_PARENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT);
-
-        editTextName.setLayoutParams(params);
-
-        Resources res = AppTycoonApp.getContext().getResources();
-        float dimension = res.getDimension(R.dimen.editTextFontSize);
-
-        Log.d(TAG, "showNameChangeDialog() - dimension = " + dimension);
-        editTextName.setTextSize(TypedValue.COMPLEX_UNIT_PX, res.getDimension(R.dimen.editTextFontSize));
-
-        final AppTycoonDialog dialog = new AppTycoonDialog(getActivity(),
-                editTextName,
-                "Set product name");
-
-        dialog.setOkAction(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mProduct.setName(editTextName.getText().toString());
-                refreshViewsAndNewProductProject();
-                dialog.dismiss();
-            }
-        });
-
-        dialog.show();
+        new ChangeProductNameDialog(mProduct,
+                getActivity(),
+                new AppTycoonDialog.CustomCallback() {
+                    @Override
+                    public void callBack() {
+                        refreshViewsAndNewProductProject();
+                    }
+                }).show();
     }
 
     /**
@@ -183,57 +164,32 @@ public class NewProductFragment extends Fragment {
      * @param feature The ProductFeature to edit with the dialog.
      */
     private void showEditFeatureDialog(final ProductFeature feature) {
-        final AppTycoonDialog dialog = new AppTycoonDialog(getActivity(),
-                R.layout.dialog_edit_product_feature,
-                "Edit feature");
+        mRecyclerViewAdapter.notifyDataSetChanged();
+        refreshViewsAndNewProductProject();
 
-        final EditText editTextLevel = (EditText) dialog.findViewById(R.id.editTextFeatureLevel);
-        String stringCurrentLevel = "" + mProduct.getLevelOfAFeature(feature);
-        editTextLevel.setText(stringCurrentLevel);
-
-        TextView textView = (TextView) dialog.findViewById(R.id.textViewFeatureName);
-        textView.setText(feature.getName());
-
-        dialog.setOkAction(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mProduct.addFeature(feature, Integer.parseInt(editTextLevel.getText().toString()));
-                mRecyclerViewAdapter.notifyDataSetChanged();
-                refreshViewsAndNewProductProject();
-                dialog.dismiss();
-            }
-        });
-
-
-
-
-        dialog.show();
+        new EditProductFeatureDialog(mProduct, feature, getActivity(),
+                new AppTycoonDialog.CustomCallback() {
+                    @Override
+                    public void callBack() {
+                        mRecyclerViewAdapter.notifyDataSetChanged();
+                        refreshViewsAndNewProductProject();
+                    }
+        }).show();
     }
 
     /**
      * Show a dialog for adding a feature into the product.
      */
     private void showAddFeatureDialog() {
-        final AppTycoonDialog dialog = new AppTycoonDialog(getActivity(),
-                R.layout.dialog_add_product_feature,
-                "Add a feature");
-
-        dialog.setCancelAction(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-
-        RecyclerView recyclerView = (RecyclerView) dialog.findViewById(R.id.recyclerViewAddableFeatures);
-        List<ProductFeature> addableFeatures = mProduct.getType().getPossibleFeatures();
-        AddableFeaturesRecyclerViewAdapter adapter = new AddableFeaturesRecyclerViewAdapter(addableFeatures, dialog);
-
-        Log.d(TAG, "showAddFeatureDialog() - " + addableFeatures.size() + " features");
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setAdapter(adapter);
-
-        dialog.show();
+        new AddProductFeatureDialog(mProduct,
+                getActivity(),
+                new AppTycoonDialog.CustomCallback() {
+                    @Override
+                    public void callBack() {
+                        mRecyclerViewAdapter.notifyDataSetChanged();
+                        refreshViewsAndNewProductProject();
+                    }
+                }).show();
     }
 
     /**
@@ -294,68 +250,4 @@ public class NewProductFragment extends Fragment {
             }
         }
     }
-
-
-    /**
-     * This is the RecyclerViewAdapter for the features that can be added to the product.
-     *
-     * This is used inside the "add features" dialog.
-     */
-    private class AddableFeaturesRecyclerViewAdapter extends RecyclerView.Adapter<AddableFeaturesRecyclerViewAdapter.ViewHolder> {
-        private List<ProductFeature> mFeatures;
-        private AppTycoonDialog mAddFeatureDialog;
-
-        AddableFeaturesRecyclerViewAdapter(List<ProductFeature> features, AppTycoonDialog dialog) {
-            mFeatures = features;
-            mAddFeatureDialog = dialog;
-        }
-
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_addable_product_feature, parent, false);
-            ViewHolder viewHolder = new ViewHolder(view);
-            viewHolder.textViewFeatureName = (TextView) view.findViewById(R.id.textViewFeatureName);
-            viewHolder.parent = view;
-
-            return viewHolder;
-        }
-
-        @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
-            final ProductFeature feature = mFeatures.get(position);
-            holder.textViewFeatureName.setText(feature.getName());
-
-            // Clicking a feature adds the feature for the product.
-            //
-            // The feature is always with its level set to 1.
-            holder.textViewFeatureName.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mProduct.addFeature(feature, 1);
-                    mRecyclerViewAdapter.notifyDataSetChanged();
-                    refreshViewsAndNewProductProject();
-                    mAddFeatureDialog.dismiss();
-                }
-            });
-
-            Resources res = AppTycoonApp.getContext().getResources();
-            holder.textViewFeatureName.setOnTouchListener(new TextViewChangeColourOnTouchListener(Color.GRAY,
-                    holder.textViewFeatureName.getCurrentTextColor()));
-        }
-
-        @Override
-        public int getItemCount() {
-            return mFeatures.size();
-        }
-
-        class ViewHolder extends RecyclerView.ViewHolder {
-            View parent; // The top level layout view of the item.
-            TextView textViewFeatureName;
-
-            ViewHolder(View itemView) {
-                super(itemView);
-            }
-        }
-    }
-
 }
