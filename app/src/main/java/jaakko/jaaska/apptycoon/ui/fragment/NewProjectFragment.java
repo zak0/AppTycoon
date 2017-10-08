@@ -53,7 +53,7 @@ public class NewProjectFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_new_project, container, false);
 
         TextView viewBack = (TextView) view.findViewById(R.id.textViewBack);
-        viewBack.setOnClickListener(new FragmentBackButtonOnClickListener(MainActivity.FRAGMENT_PROJECTS));
+        viewBack.setOnClickListener(new FragmentBackButtonOnClickListener());
         viewBack.setOnTouchListener(new TextViewChangeColourOnTouchListener(Color.BLACK, viewBack.getCurrentTextColor()));
 
         TextView viewStartProject = (TextView) view.findViewById(R.id.textViewAction);

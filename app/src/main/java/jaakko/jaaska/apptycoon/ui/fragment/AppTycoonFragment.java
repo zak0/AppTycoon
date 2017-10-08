@@ -73,7 +73,7 @@ public abstract class AppTycoonFragment extends Fragment {
         mTextViewBack.setVisibility(View.VISIBLE);
         mTextViewBack.setOnTouchListener(new TextViewChangeColourOnTouchListener(Color.BLACK,
                 mTextViewBack.getCurrentTextColor()));
-        mTextViewBack.setOnClickListener(new FragmentBackButtonOnClickListener(mBackFragment));
+        mTextViewBack.setOnClickListener(new FragmentBackButtonOnClickListener());
     }
 
     private void bindActionButton() {

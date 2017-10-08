@@ -69,7 +69,7 @@ public class NewProductFragment extends Fragment {
 
         // Setup the fragment top bar title and action button actions.
         TextView viewBack = (TextView) mView.findViewById(R.id.textViewBack);
-        viewBack.setOnClickListener(new FragmentBackButtonOnClickListener(MainActivity.FRAGMENT_PRODUCTS));
+        viewBack.setOnClickListener(new FragmentBackButtonOnClickListener());
         viewBack.setOnTouchListener(new TextViewChangeColourOnTouchListener(Color.BLACK, viewBack.getCurrentTextColor()));
 
         TextView textViewTitle = (TextView) mView.findViewById(R.id.textViewTitle);
