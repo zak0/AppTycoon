@@ -49,8 +49,10 @@ public class FragmentBackButtonOnClickListener implements View.OnClickListener {
                                     UiUpdateHandler.obtainGoBackMessage();
 
         if (customArgs) {
-            // Raise the flag telling that this 'regulat' transition is actually a back transition.
+            // Raise the flag telling that this 'regular' transition is actually a back transition.
             mArgs.putBoolean(UiUpdateHandler.ARG_IS_BACK_TRANSITION, true);
+            mArgs.putAll(msg.getData()); // Add all the original args as well, as e.g. the target
+                                        // fragment ID is set there.
             msg.setData(mArgs);
         }
 

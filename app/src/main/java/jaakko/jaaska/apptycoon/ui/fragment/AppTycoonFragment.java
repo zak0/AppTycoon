@@ -33,8 +33,10 @@ public abstract class AppTycoonFragment extends Fragment {
 
     private String mTitle;
 
+    // Back button fragment ID and arguments are only defined when a custom back target is used.
+    // The default back action (without parameters) does not need these.
     private Bundle mBackArgs;
-    private Integer mBackFragment;
+    private Integer mBackFragment = -1; // Negative ID indicates that custom back target is not set.
 
     private String mActionLabel;
     private Action mAction;
@@ -87,7 +89,13 @@ public abstract class AppTycoonFragment extends Fragment {
         mTextViewBack.setVisibility(View.VISIBLE);
         mTextViewBack.setOnTouchListener(new TextViewChangeColourOnTouchListener(Color.BLACK,
                 mTextViewBack.getCurrentTextColor()));
-        mTextViewBack.setOnClickListener(new FragmentBackButtonOnClickListener());
+
+        // Use the listener with custom target and arguments if they're defined.
+        FragmentBackButtonOnClickListener listener = mBackFragment < 0 ?
+                new FragmentBackButtonOnClickListener() :
+                new FragmentBackButtonOnClickListener(mBackFragment, mBackArgs);
+
+        mTextViewBack.setOnClickListener(listener);
     }
 
     private void bindActionButton() {
