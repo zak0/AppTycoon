@@ -246,6 +246,9 @@ public class MainActivity extends FragmentActivity implements UiUpdater {
                 if (mCurrentFragment >= 0) { // Skip the invalid initialized value of mCurrentFragment.
                     mNavigationStack.add(mCurrentFragment);
                 }
+            } else {
+                // Remove the last fragment from the navigation stack when going back.
+                mNavigationStack.remove(mNavigationStack.size() - 1);
             }
 
             mCurrentFragment = fragment;
@@ -343,13 +346,16 @@ public class MainActivity extends FragmentActivity implements UiUpdater {
      *
      * If the currently visible fragment is the only one in the stack, then this
      * method does nothing.
+     *
+     * NOTE! Back navigation with custom arguments do not go through this method, but directly
+     * to switchFragment!
      */
     private void goBackOnNavigationStack() {
         if (mNavigationStack.size() <= 0) {
             Log.d(TAG, "goBackOnNavigationStack() - already at the bottom");
         } else {
             Log.d(TAG, "goBackOnNavigationStack() - going back");
-            int prevFragment = mNavigationStack.remove(mNavigationStack.size() - 1);
+            int prevFragment = mNavigationStack.get(mNavigationStack.size() - 1);
             Bundle args = new Bundle();
             args.putBoolean(UiUpdateHandler.ARG_IS_BACK_TRANSITION, true);
             switchFragment(prevFragment, args);
