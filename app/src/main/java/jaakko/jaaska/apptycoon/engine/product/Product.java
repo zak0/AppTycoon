@@ -4,7 +4,6 @@ import android.support.v4.util.Pair;
 import android.util.Log;
 import android.util.SparseArray;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -344,6 +343,69 @@ public class Product {
         mDevProject.updateWorkAmount();
 
         Log.d(TAG, "rebuildNewProductDevelopmentProject() - work amount of the project is " +
+                mDevProject.getWorkAmount());
+    }
+
+    /** Rebuilds the development project for the next version of a product based on difference of
+     * the current product configuration to that of the previously released.
+     *
+     * Call this when the product or its features change during configuration of the next release.
+     */
+    public void rebuildNewVersionDevelopmentProject() {
+        // No need to (re)initialize the mDevProject here. At this point it should always be set.
+        Log.d(TAG, "rebuildNewVersionDevelopmentProject() - start");
+
+        // First clear all the tasks from the project.
+        mDevProject.removeAllTasks();
+
+        // Then add feature tasks based on the difference of this product to the previous version.
+        // Iterate through each feature of this product and see if it exists on the previous
+        // and by which level.
+        for (Pair<ProductFeature, Integer> pair : mFeatures) {
+            ProductFeature feature = pair.first;
+            int level = pair.second;
+            boolean newFeature = true;
+            FeatureTask task = null;
+
+            for (Pair<ProductFeature, Integer> prevPair : mReleasedVersion.getFeatures()) {
+                ProductFeature prevFeature = prevPair.first;
+                int prevLevel = prevPair.second;
+
+                // If the feature exists also on the previous version, and it's leveled up,
+                // create a task for leveling the feature for the level difference.
+                if (feature.equals(prevFeature)) {
+                    if (level > prevLevel) {
+                        Log.d(TAG, "rebuildNewProductDevelopmentProject() - level up '" +
+                                    feature.getName() + "' from " + prevLevel + " to " + level);
+                        task = new FeatureTask(feature, prevLevel, level);
+                    }
+                    newFeature = false;
+                    break;
+                }
+            }
+
+            // If the feature was not found on the previous version of the product, then the
+            // newFeature flag will be up at this point. Create a task for a new feature in this case.
+            if (newFeature) {
+                Log.d(TAG, "rebuildNewProductDevelopmentProject() - new feature '" +
+                            feature.getName() + "'");
+                task = new FeatureTask(feature, 0, level);
+            }
+
+            // If a task is defined at this point, it means that either a new feature was added, or
+            // an existing feature was leveled up. Add the task to the project, if it was defined.
+            if (task != null) {
+                Log.d(TAG, "rebuildNewProductDevelopmentProject() - adding task '" +
+                            task.getTaskTitle() + "'");
+                mDevProject.addTask(task);
+            }
+        }
+
+        // TODO: Add a re-branding task in case the product name was changed.
+
+        // TODO: Add a bug fixing phase in case bugs are marked to be fixed.
+
+        Log.d(TAG, "rebuildNewProductDevelopmentProject() - done. work amount of the project is " +
                 mDevProject.getWorkAmount());
     }
 
