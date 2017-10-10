@@ -405,6 +405,7 @@ public class Product {
 
         // TODO: Add a bug fixing phase in case bugs are marked to be fixed.
 
+        mDevProject.updateWorkAmount();
         Log.d(TAG, "rebuildNewProductDevelopmentProject() - done. work amount of the project is " +
                 mDevProject.getWorkAmount());
     }
