@@ -164,9 +164,6 @@ public class NewProductFragment extends Fragment {
      * @param feature The ProductFeature to edit with the dialog.
      */
     private void showEditFeatureDialog(final ProductFeature feature) {
-        mRecyclerViewAdapter.notifyDataSetChanged();
-        refreshViewsAndNewProductProject();
-
         new EditProductFeatureDialog(mProduct, feature, getActivity(),
                 new AppTycoonDialog.CustomCallback() {
                     @Override
