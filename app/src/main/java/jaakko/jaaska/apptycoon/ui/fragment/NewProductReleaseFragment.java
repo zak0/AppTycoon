@@ -42,9 +42,11 @@ public class NewProductReleaseFragment extends AppTycoonFragment {
     protected void onContentCreateView(View view) {
         int productIndex = getArguments().getInt(UiUpdateHandler.ARG_PRODUCT_INDEX);
         mProduct = GameEngine.getInstance().getGameState().getCompany().getProducts().get(productIndex);
-        ProductDevelopmentProject project = new ProductDevelopmentProject(mProduct.getName() + " v"
-                                                                        + (mProduct.getReleaseCount() + 1), mProduct);
-        mProduct.setDevelopmentProject(project);
+
+        // (Re)build the project.
+        // This will first initialize a new project (if not already initialized) and then
+        // recalculates the work amount.
+        mProduct.rebuildNewVersionDevelopmentProject();
 
         Bundle args = new Bundle();
         args.putInt(UiUpdateHandler.ARG_PRODUCT_INDEX, productIndex);

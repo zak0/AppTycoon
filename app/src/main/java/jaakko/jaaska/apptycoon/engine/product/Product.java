@@ -350,9 +350,16 @@ public class Product {
      * the current product configuration to that of the previously released.
      *
      * Call this when the product or its features change during configuration of the next release.
+     *
+     * If the project is not already created, this will create it.
      */
     public void rebuildNewVersionDevelopmentProject() {
-        // No need to (re)initialize the mDevProject here. At this point it should always be set.
+        if (mDevProject == null) {
+            Log.d(TAG, "rebuildNewVersionDevelopmentProject() - new project created");
+            mDevProject = new ProductDevelopmentProject(getName() + " v"
+                    + (getReleaseCount() + 1), this);
+        }
+
         Log.d(TAG, "rebuildNewVersionDevelopmentProject() - start");
 
         // First clear all the tasks from the project.
