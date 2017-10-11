@@ -10,6 +10,9 @@
     <string name="message_project_not_ready_for_delivery">Project is not ready for delivery.</string>
 
     <string name="dialog_confirm_cancel_project">Really cancel the project?</string>
+    <string name="dialog_cannot_spec_update_for_unreleased_product">An update cannot be specified for an unreleased product.</string>
+    <string name="dialog_generic_alert_dialog_title">Nope</string>
+    <string name="dialog_generic_alert_dialog_ok">Okay</string>
 
     <string name="top_bar_money">$%1$s (+%2$s / -%3$s)</string>
 

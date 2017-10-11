@@ -1,5 +1,6 @@
 package jaakko.jaaska.apptycoon.ui.fragment;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Message;
 import android.util.Log;
@@ -11,6 +12,7 @@ import jaakko.jaaska.apptycoon.engine.core.GameEngine;
 import jaakko.jaaska.apptycoon.engine.product.Product;
 import jaakko.jaaska.apptycoon.ui.MainActivity;
 import jaakko.jaaska.apptycoon.ui.UiUpdateHandler;
+import jaakko.jaaska.apptycoon.ui.dialog.AppTycoonAlertDialog;
 
 /**
  * Fragment for displaying more detailed stats for a product and its history.
@@ -39,11 +41,20 @@ public class ProductStatsFragment extends AppTycoonFragment {
         setAction("Spec. Update", new Action() {
             @Override
             public void doAction() {
-                Message msg = UiUpdateHandler.obtainReplaceFragmentMessage(MainActivity.FRAGMENT_PRODUCT_NEW_RELEASE);
-                Bundle args = msg.getData();
-                args.putInt(UiUpdateHandler.ARG_PRODUCT_INDEX, productIndex);
-                msg.setData(args);
-                msg.sendToTarget();
+                Resources res = getContext().getResources();
+
+                if (mProduct.getReleasedVersion() == null) {
+                    // Only allow specification of the next update if the product has been released.
+                    String dialogTitle = res.getString(R.string.dialog_generic_alert_dialog_title);
+                    String dialogText = res.getString(R.string.dialog_cannot_spec_update_for_unreleased_product);
+                    new AppTycoonAlertDialog(getActivity(), dialogTitle, dialogText).show();
+                } else {
+                    Message msg = UiUpdateHandler.obtainReplaceFragmentMessage(MainActivity.FRAGMENT_PRODUCT_NEW_RELEASE);
+                    Bundle args = msg.getData();
+                    args.putInt(UiUpdateHandler.ARG_PRODUCT_INDEX, productIndex);
+                    msg.setData(args);
+                    msg.sendToTarget();
+                }
             }
         });
     }
