@@ -411,6 +411,21 @@ public class Product {
     }
 
     /**
+     * Gets a specific product feature of the product together with its level.
+     *
+     * @param feature ID of the feature to get
+     * @return A Pair with the feature and its level, null if the product does not have the searched feature.
+     */
+    public Pair<ProductFeature, Integer> getFeature(int feature) {
+        for (Pair<ProductFeature, Integer> pair : getFeatures()) {
+            if (pair.first.getFeatureId() == feature) {
+                return pair;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Clones the current Product object and stores all the information, that is necessary to
      * be stored (for keeping track of different release versions of the same product), into a
      * new object.

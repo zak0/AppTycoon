@@ -30,7 +30,8 @@ public class ProductStatsFragment extends AppTycoonFragment {
     protected void onContentCreateView(View view) {
         Bundle args = getArguments();
         Company company = GameEngine.getInstance().getGameState().getCompany();
-        mProduct = company.getProducts().get(args.getInt(UiUpdateHandler.ARG_PRODUCT_INDEX, -1));
+        final int productIndex = args.getInt(UiUpdateHandler.ARG_PRODUCT_INDEX, -1);
+        mProduct = company.getProducts().get(productIndex);
         Log.d(TAG, "onContentCreateView() - product = " + mProduct.getName());
 
         setTitle(mProduct.getName());
@@ -39,6 +40,9 @@ public class ProductStatsFragment extends AppTycoonFragment {
             @Override
             public void doAction() {
                 Message msg = UiUpdateHandler.obtainReplaceFragmentMessage(MainActivity.FRAGMENT_PRODUCT_NEW_RELEASE);
+                Bundle args = msg.getData();
+                args.putInt(UiUpdateHandler.ARG_PRODUCT_INDEX, productIndex);
+                msg.setData(args);
                 msg.sendToTarget();
             }
         });

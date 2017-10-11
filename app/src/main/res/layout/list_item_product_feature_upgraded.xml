@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- This is the list item for NewProductReleaseFragment, for entirely newly added features.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="@dimen/cardview_default_elevation"
+        app:cardUseCompatPadding="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/cardMargin"
+            android:padding="@dimen/cardPadding">
+
+            <TextView
+                android:id="@+id/textViewFeatureName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:fontFamily="monospace"
+                android:textColor="@color/primary_text"
+                android:text="Feature Name"/>
+
+            <TextView
+                android:id="@+id/textViewFeatureLevelAddition"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:fontFamily="monospace"
+                android:textColor="@color/accent"
+                android:layout_alignParentEnd="true"
+                android:text="(+12)"/>
+
+            <TextView
+                android:id="@+id/textViewFeatureLevel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:fontFamily="monospace"
+                android:layout_toStartOf="@id/textViewFeatureLevelAddition"
+                android:layout_marginEnd="@dimen/fragmentSectionPadding"
+                android:textColor="@color/accent"
+                android:text="level xx" />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

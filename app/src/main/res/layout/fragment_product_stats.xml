@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="monospace"
             android:textColor="@color/primary_text"
-            android:text="Known bugs"/>
+            android:text="Known Bugs"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -60,6 +60,14 @@
             android:fontFamily="monospace"
             android:textColor="@color/primary_text"
             android:text="Active Users"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:layout_marginTop="@dimen/fragmentSectionPadding"
+            android:textColor="@color/primary_text"
+            android:text="Next Release"/>
 
     </LinearLayout>
 
@@ -134,7 +142,18 @@
             android:textColor="@color/primary_text"
             android:text="n/a"/>
 
+        <TextView
+            android:id="@+id/textViewNextRelease"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/fragmentSectionPadding"
+            android:fontFamily="monospace"
+            android:textColor="@color/primary_text"
+            android:text="not specified"/>
+
     </LinearLayout>
+
+
 
 
 </RelativeLayout>
