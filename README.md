@@ -20,6 +20,8 @@ See the files under the /doc folder. There is a file called game-description.md 
 
 Screenshots will follow soon!
 
+Meanwhile, take a peek at what the style of the game will be like at [youtu.be/AVLkh5k8LeA](https://youtu.be/AVLkh5k8LeA).
+
 
 ## Technical stuff
 
