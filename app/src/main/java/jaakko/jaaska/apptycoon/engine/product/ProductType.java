@@ -196,6 +196,7 @@ public class ProductType {
      * @return The list with all the product types.
      */
     public static List<ProductType> getAllTypes() {
+        initStaticContent();
         ArrayList<ProductType> types = new ArrayList<>();
 
         for (int typeId : sProductTypeIds) {
