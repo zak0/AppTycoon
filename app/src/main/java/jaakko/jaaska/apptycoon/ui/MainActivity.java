@@ -335,9 +335,7 @@ public class MainActivity extends FragmentActivity implements UiUpdater {
 
         Resources res = AppTycoonApp.getContext().getResources();
         String strMoney = res.getString(R.string.top_bar_money,
-                Utils.largeNumberToNiceString(company.getFunds(), 2), // Funds
-                Utils.largeNumberToNiceString(company.getIncome(), 2), // Income / s
-                Utils.largeNumberToNiceString(company.getRunningCosts(), 2)); // Costs / s
+                Utils.largeNumberToNiceString(company.getFunds(), 2));
 
         companyName.setText(company.getName());
         money.setText(strMoney);
