@@ -146,14 +146,6 @@ public abstract class AppTycoonFragment extends Fragment {
         mTextViewBack.setVisibility(View.INVISIBLE);
         mTextViewAction.setVisibility(View.INVISIBLE);
 
-        // Set back and/or action buttons visible if actions are already set for them.
-        if (mBackFragment != null) {
-            bindBackButton();
-        }
-        if (mAction != null) {
-            bindActionButton();
-        }
-
         // Now configure the content of the fragment that was inflated from a separate
         // layout resource.
         onContentCreateView(contentView);
