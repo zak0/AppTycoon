@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import jaakko.jaaska.apptycoon.R;
 import jaakko.jaaska.apptycoon.engine.Company;
@@ -13,6 +14,7 @@ import jaakko.jaaska.apptycoon.engine.product.Product;
 import jaakko.jaaska.apptycoon.ui.MainActivity;
 import jaakko.jaaska.apptycoon.ui.UiUpdateHandler;
 import jaakko.jaaska.apptycoon.ui.dialog.AppTycoonAlertDialog;
+import jaakko.jaaska.apptycoon.utils.Utils;
 
 /**
  * Fragment for displaying more detailed stats for a product and its history.
@@ -57,5 +59,13 @@ public class ProductStatsFragment extends AppTycoonFragment {
                 }
             }
         });
+
+        // Populate the views
+        TextView textViewComplexity = (TextView) view.findViewById(R.id.textViewComplexity);
+        TextView textViewQuality = (TextView) view.findViewById(R.id.textViewQuality);
+
+        textViewComplexity.setText(Utils.largeNumberToNiceString(mProduct.getComplexity(), 2));
+        textViewQuality.setText(Utils.largeNumberToNiceString(mProduct.getQuality(), 2));
+
     }
 }
