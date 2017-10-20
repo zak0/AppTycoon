@@ -47,7 +47,7 @@ Each project is divided into tasks. For product development projects, the tasks 
 ## Human Resources
 Company needs people to do the work. Size of the company premises limit the maximum number of employees. Employees are managed in groups by employee types (not by individuals). Different employee types benefit the company in different ways.
 
-New employees are hired by opening a a job position (or a number of job positions) and starting a hiring campaign. Then, after a random time the positions are filled. The rate at which the open positions are filled depends on company reputation, current salary for the position and the type of the hiring campaign. When multiple positions (for the same role or different roles) are open, each position is filled individually. After a suitable candidate has been found, the player needs to "sign the contrtact" before the new hire starts working for the company.
+New employees are hired by opening a a job position (or a number of job positions) and starting a hiring campaign. Then, after a random time the positions are filled. The rate at which the open positions are filled depends on company reputation, current salary for the position and the type of the hiring campaign. When multiple positions (for the same role or different roles) are open, each position is filled individually. After a suitable candidate has been found, the player needs to "sign the contract" before the new hire starts working for the company.
 
 ### Employee Types
 Different employee types benefit the company in different ways. Some types unlock new features, some enhance _code speed_, some enhance _code quality_. Employee types go with unique titles. Some employee types have a limit for how many employees of that type can exist.
@@ -82,7 +82,7 @@ Boosts are temporary effects that increase (or decrease...) the productivity of 
 Random events are essentially boosts that trigger at random. They can have a positive or a negative impact.
 
 ## Hidden Information and Hints
-Some information is hidden from the player until certain features are unlocked. For example, earnings broadcast for a product is initially hidden before unlocked by upgrades and hires.
+Some information is hidden from the player until certain features are unlocked. For example, earnings forecast for a product is initially hidden before unlocked by upgrades and hires.
 
 ## Money and Costs
 The company has running costs that need to be paid. Company premises have a running cost (rent + running cost, or only running costs when the property is owned by the company) and salaries need to be paid. Costs are directly deducted constantly from the company's funds. Costs are displayed as negative m/s (money per second).
