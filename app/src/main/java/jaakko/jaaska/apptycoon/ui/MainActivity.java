@@ -67,6 +67,11 @@ public class MainActivity extends FragmentActivity implements UiUpdater {
      */
     private ArrayList<Integer> mNavigationStack = new ArrayList<>();
 
+    /** A list containing all the navigation drawer TextViews.
+     * This is used to control their appearance based on which fragment
+     * is visible. */
+    private ArrayList<TextView> mNavigationTextViews = new ArrayList<>();
+
     private DrawerLayout mDrawerLayout;
 
     @Override
@@ -81,23 +86,6 @@ public class MainActivity extends FragmentActivity implements UiUpdater {
 
         setContentView(R.layout.activity_main);
 
-        // Do not load a fragment if we're restoring a previous state.
-        // TODO: Check if this is necessary.
-        if (savedInstanceState == null) {
-            Log.d(TAG, "onCreate() loaded a previous state -> default fragment not added");
-            Bundle args = new Bundle();
-            args.putBoolean(UiUpdateHandler.ARG_REPLACE_FRAGMENT_WITH_ANIMATION, true);
-            switchFragment(FRAGMENT_PROJECTS, args);
-            /*
-            ProjectsFragment projectsFragment = new ProjectsFragment();
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.layoutFragmentContainer, projectsFragment)
-                    .commit();
-
-            mCurrentFragment = FRAGMENT_PROJECTS;
-            */
-        }
-
         RelativeLayout topBar = (RelativeLayout) findViewById(R.id.layoutTopBar);
         topBar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,7 +94,6 @@ public class MainActivity extends FragmentActivity implements UiUpdater {
             }
         });
 
-
         //
         // Navigation drawer item handling
         mDrawerLayout = (DrawerLayout) findViewById(R.id.layoutDrawer);
@@ -114,6 +101,9 @@ public class MainActivity extends FragmentActivity implements UiUpdater {
         setNavItemListeners((TextView) findViewById(R.id.textViewNavProducts), FRAGMENT_PRODUCTS);
         setNavItemListeners((TextView) findViewById(R.id.textViewNavEmployees), FRAGMENT_HUMAN_RESOURCES);
         setNavItemListeners((TextView) findViewById(R.id.textViewNavAssets), FRAGMENT_ASSETS);
+
+        // Go to the Projects fragment on startup
+        findViewById(R.id.textViewNavProjects).performClick();
 
         updateUi(Integer.MIN_VALUE, null);
 
@@ -232,8 +222,35 @@ public class MainActivity extends FragmentActivity implements UiUpdater {
      * @param linkItemTo The fragment that the item should navigate to.
      */
     private void setNavItemListeners(TextView navItem, int linkItemTo) {
+        // Set the listeners
         navItem.setOnClickListener(new NavItemOnClickListener(linkItemTo));
         navItem.setOnTouchListener(new NavItemOnTouchListener());
+
+        // And add the TextView to the list of navigation drawer text views
+        mNavigationTextViews.add(navItem);
+    }
+
+    /**
+     * Navigation drawer link items have a indicator ("[ ]" / [x]")
+     * that tells which navigation item is currently active.
+     * This method clears all the navigation items back to "[ ]" state.
+     */
+    private void clearNavItemIndicators() {
+        for (TextView tw : mNavigationTextViews) {
+            setNavItemIndicator(tw, false);
+        }
+    }
+
+    /**
+     * Sets the selected nav item indicator for a text view either on or off.
+     *
+     * @param tw Navigation item TextView
+     * @param selected True marks this item selected ("[x]")
+     */
+    private void setNavItemIndicator(TextView tw, boolean selected) {
+        String textNow = tw.getText().toString();
+        String newToggle = "[" + (selected ? "x" : " ") + "]";
+        tw.setText(textNow.replace(textNow.substring(0, 3), newToggle));
     }
 
     /**
@@ -278,6 +295,9 @@ public class MainActivity extends FragmentActivity implements UiUpdater {
             // Navigation stack is emptied when a new fragment is entered from
             // the navigation drawer.
             mNavigationStack.clear();
+
+            clearNavItemIndicators();
+            setNavItemIndicator((TextView) v, true);
         }
     }
 
