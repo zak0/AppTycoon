@@ -117,40 +117,6 @@ public class MainActivity extends FragmentActivity implements UiUpdater {
 
         updateUi(Integer.MIN_VALUE, null);
 
-        //
-        // This is only for development purposes. A button to execute something.
-        View viewTestHook = findViewById(R.id.textViewNavTestHook);
-        viewTestHook.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                /*
-                long employeeCount = GameEngine.getInstance().getGameState().getCompany().getEmployeeCount();
-                Toast.makeText(MainActivity.this, "employee count = " + employeeCount, Toast.LENGTH_LONG).show();
-                */
-
-                StorageManager storage = StorageManager.getInstance();
-
-                if (storage.localSaveGameExists()) {
-                    engine.setGameState(StorageManager.getInstance().loadFromDb());
-                    Toast.makeText(MainActivity.this,
-                            "Loaded game state from storage.",
-                            Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(MainActivity.this,
-                            "No saved game state exists. Did nothing.",
-                            Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-
-        viewTestHook.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                StorageManager.getInstance().saveToDb(engine.getGameState());
-                Toast.makeText(MainActivity.this, "Saved game state to storage.", Toast.LENGTH_LONG).show();
-                return true; // Do not pass on to OnClickListener.
-            }
-        });
     }
 
     @Override

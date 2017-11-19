@@ -85,16 +85,6 @@
         android:layout_gravity="start"
         android:background="@color/primary_dark">
 
-        <TextView
-            android:id="@+id/textViewNavTestHook"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#ffffff"
-            android:fontFamily="monospace"
-            android:textStyle="bold"
-            android:layout_margin="@dimen/navigationDrawerItemMargin"
-            android:text="[ ] TEST HOOK" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
