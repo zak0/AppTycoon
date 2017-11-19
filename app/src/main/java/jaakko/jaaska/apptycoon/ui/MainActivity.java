@@ -296,8 +296,8 @@ public class MainActivity extends FragmentActivity implements UiUpdater {
         Company company = GameEngine.getInstance().getGameState().getCompany();
         TextView companyName = (TextView) findViewById(R.id.textViewCompanyName);
         TextView money = (TextView) findViewById(R.id.textViewMoney);
-        //TextView cps = (TextView) findViewById(R.id.textViewCps);
-        //TextView quality = (TextView) findViewById(R.id.textViewQuality);
+        TextView moneyRate = (TextView) findViewById(R.id.textViewNavMoneyRate);
+        TextView codeRate = (TextView) findViewById(R.id.textViewNavCodeRate);
 
         Resources res = AppTycoonApp.getContext().getResources();
         String strMoney = res.getString(R.string.top_bar_money,
@@ -305,8 +305,9 @@ public class MainActivity extends FragmentActivity implements UiUpdater {
 
         companyName.setText(company.getName());
         money.setText(strMoney);
-        //cps.setText("C/s " + company.getCps());
-        //quality.setText("Q " +  String.format("%.2f", company.getQualityRatio()));
+
+        moneyRate.setText(Utils.largeNumberToNiceString(company.getIncome() - company.getRunningCosts(), 2));
+        codeRate.setText(Utils.largeNumberToNiceString(company.getCps(), 2));
 
     }
 

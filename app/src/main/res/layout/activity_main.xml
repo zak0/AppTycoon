@@ -86,6 +86,62 @@
         android:background="@color/primary_dark">
 
         <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/navigationDrawerItemMargin"
+            android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:fontFamily="monospace"
+            android:textStyle="bold"
+            android:text="$ / s"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#ffffff"
+            android:fontFamily="monospace"
+            android:textStyle="bold"
+            android:text="Code / s"
+            />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_alignParentEnd="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:layout_margin="@dimen/navigationDrawerItemMargin"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewNavMoneyRate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffffff"
+                android:fontFamily="monospace"
+                android:textStyle="bold"
+                android:text="30.00"
+                />
+
+            <TextView
+                android:id="@+id/textViewNavCodeRate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#ffffff"
+                android:fontFamily="monospace"
+                android:textStyle="bold"
+                android:text="123.00"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
